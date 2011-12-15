@@ -1,9 +1,8 @@
-fs = require 'fs'
-path = require 'path'
-jison = require 'jison'
+fs    = require 'fs'
+path  = require 'path'
 exec  = require( 'child_process' ).exec
 
-run = ( command, callback ) ->
+sh = ( command, callback ) ->
 
   exec command, ( error, stdout, stderr ) ->
 
@@ -13,10 +12,14 @@ run = ( command, callback ) ->
 
     callback( ) if callback?
 
+mv = ( from, to ) -> fs.renameSync from, to
+
 task 'compile', 'Compile the walrus parser', ->
 
-  console.log 'WOOO', jison
+  sh 'jison src/walrus.yy src/walrus.l', ->
+
+    mv './walrus.js', './lib/walrus/parser.js'
 
 task 'test', 'Run the test suite', ->
 
-  run 'jasmine-node --coffee spec'
+  sh 'jasmine-node --coffee spec'

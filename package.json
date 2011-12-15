@@ -9,6 +9,7 @@
   "engines": {
     "node": "~v0.4.1"
   },
+  "main": "./lib/walrus",
   "dependencies": {},
   "devDependencies": {
     "jison":"*",

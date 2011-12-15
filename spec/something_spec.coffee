@@ -1,5 +1,9 @@
+Walrus = require( '../lib/walrus' ).Walrus
+
 describe 'a basic test', ->
 
-  it 'should fail like crazy', ->
+  it 'should be defined', ->
 
-    expect( true ).toEqual false
+    expect( Walrus ).toBeDefined( )
+
+    expect( Walrus.tusk ).toBeDefined( )
