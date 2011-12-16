@@ -22,7 +22,10 @@ class AST.MemberNode
 
       path = paths.shift( )
 
-      curr = curr[ path ]
+      curr = if typeof curr[ path ] is 'function'
+        curr[ path ]( )
+      else
+        curr[ path ]
 
     curr
 
