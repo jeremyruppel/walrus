@@ -25,6 +25,7 @@ describe 'Walrus.Parser', ->
 
         console.log tmpl
         console.log JSON.parse( json )
+        console.log tmpl.compile( JSON.parse( json ) )
 
         expect( tmpl.compile JSON.parse json ).toEqual html
 

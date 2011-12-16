@@ -13,8 +13,19 @@ class AST.ContentNode
   compile : ( data ) -> @content
 
 class AST.MemberNode
-  constructor : ( @member ) ->
+  constructor : ( @paths ) ->
 
-  compile : ( data ) -> data[ @member ]
+  compile : ( data ) ->
+
+    curr  = data
+    paths = @paths.concat( )
+
+    while paths.length
+
+      path = paths.shift( )
+
+      curr = curr[ path ]
+
+    curr
 
 module.exports = AST

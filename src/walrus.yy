@@ -25,5 +25,14 @@ mustache
   ;
 
 mustachery
-  : MEMBER { $$ = new yy.MemberNode( $1 ) }
+  : paths { $$ = new yy.MemberNode( $1 ) }
+  ;
+
+paths
+  : paths DELIMETER path { $1.push( $3 ); $$ = $1 }
+  | path { $$ = [ $1 ] }
+  ;
+
+path
+  : MEMBER { $$ = $1 }
   ;
