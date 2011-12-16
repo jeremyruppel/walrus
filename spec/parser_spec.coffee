@@ -16,7 +16,7 @@ describe 'Walrus.Parser', ->
       test = ( basename ) ->
 
         text = fs.readFileSync "#{basename}.wal",  'utf8'
-        json = fs.readFileSync "#{basename}.json", 'utf8'
+        json = fs.readFileSync "#{basename}.js",   'utf8'
         html = fs.readFileSync "#{basename}.html", 'utf8'
 
         Walrus.Parser.parser.yy = Walrus.AST
@@ -24,10 +24,10 @@ describe 'Walrus.Parser', ->
         tmpl = Walrus.Parser.parse text
 
         console.log tmpl
-        console.log JSON.parse( json )
-        console.log tmpl.compile( JSON.parse( json ) )
+        console.log eval( "(#{json})" )
+        console.log tmpl.compile( eval( "(#{json})" ) )
 
-        expect( tmpl.compile JSON.parse json ).toEqual html
+        expect( tmpl.compile eval( "(#{json})" ) ).toEqual html
 
       for file in fs.readdirSync './spec/examples'
 
