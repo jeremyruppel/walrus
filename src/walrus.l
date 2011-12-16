@@ -3,12 +3,12 @@
 
 %%
 
-[^\x00]*?/("{{")                 { this.begin( "mu" ); if( yytext ) return 'CONTENT'; }
-[^\x00]+                         { return 'CONTENT'; }
+[^\x00]*?/("{{")            { this.begin( "mu" ); if( yytext ) return 'CONTENT'; }
+[^\x00]+                    { return 'CONTENT'; }
 
-<mu>"{{"                     { return 'OPEN'; }
+<mu>"{{"                    { return 'OPEN'; }
 <mu>"}}"                    { this.begin( "INITIAL" ); return 'CLOSE'; }
 
 <mu>[a-zA-Z0-9]+            { return 'MEMBER'; }
 
-<INITIAL,mu><<EOF>>       { return 'EOF'; }
+<INITIAL,mu><<EOF>>         { return 'EOF'; }
