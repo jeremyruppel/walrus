@@ -1,0 +1,3 @@
+{
+  "loggedIn" : true
+}
