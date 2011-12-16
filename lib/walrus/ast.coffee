@@ -10,7 +10,7 @@ class AST.ContentNode
 
   compile : ( context ) -> @content
 
-class AST.MemberNode
+class AST.PathNode
   constructor : ( @paths ) ->
 
   compile : ( context ) ->

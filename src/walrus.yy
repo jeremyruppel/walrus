@@ -29,7 +29,7 @@ mustachery
   ;
 
 expression
-  : ATTR paths { $$ = new yy.MemberNode( $2 ) }
+  : ATTR paths { $$ = new yy.PathNode( $2 ) }
   ;
 
 paths
