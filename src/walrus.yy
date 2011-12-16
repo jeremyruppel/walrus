@@ -25,6 +25,10 @@ mustache
   ;
 
 mustachery
+  : expression { $$ = $1 }
+  ;
+
+expression
   : ATTR paths { $$ = new yy.MemberNode( $2 ) }
   ;
 
@@ -34,5 +38,15 @@ paths
   ;
 
 path
+  : method { $$ = $1 }
+  | member { $$ = $1 }
+  ;
+
+method
+  : MEMBER OPEN_PAREN expression CLOSE_PAREN { $$ = $1 }
+  | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = $1 }
+  ;
+
+member
   : MEMBER { $$ = $1 }
   ;
