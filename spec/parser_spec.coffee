@@ -8,27 +8,28 @@ describe 'Walrus.Parser', ->
 
     it 'should be defined', -> expect( Walrus.Parser.parse ).toBeDefined( )
 
-    it 'should parse all examples correctly', ->
+    fs    = require 'fs'
+    path  = require 'path'
+    specs = './spec/examples'
 
-      fs   = require 'fs'
-      path = require 'path'
+    Walrus.Parser.parser.yy = Walrus.AST
 
-      test = ( basename ) ->
+    for file in fs.readdirSync specs when path.extname( file ) is '.wal'
 
-        text = fs.readFileSync "#{basename}.wal",  'utf8'
-        json = fs.readFileSync "#{basename}.js",   'utf8'
-        html = fs.readFileSync "#{basename}.html", 'utf8'
+      do ( file ) ->
 
-        Walrus.Parser.parser.yy = Walrus.AST
+        base = path.basename file, '.wal'
+
+        text = fs.readFileSync "#{specs}/#{base}.wal",  'utf8'
+        json = fs.readFileSync "#{specs}/#{base}.js",   'utf8'
+        html = fs.readFileSync "#{specs}/#{base}.html", 'utf8'
 
         tmpl = Walrus.Parser.parse text
 
+        console.log '*****'
+        console.log file
         console.log tmpl
         console.log eval( "(#{json})" )
         console.log tmpl.compile( eval( "(#{json})" ) )
 
-        expect( tmpl.compile eval( "(#{json})" ) ).toEqual html
-
-      for file in fs.readdirSync './spec/examples'
-
-        test "./spec/examples/#{path.basename file, '.wal'}" if path.extname( file ) is '.wal'
+        it "should pass the #{base} example", -> expect( tmpl.compile eval( "(#{json})" ) ).toEqual html
