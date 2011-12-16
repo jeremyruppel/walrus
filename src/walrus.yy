@@ -3,7 +3,7 @@
 %%
 
 document
-  : text EOF { return $1 }
+  : text EOF { return new yy.Template( $1 ) }
   ;
 
 text
@@ -17,7 +17,7 @@ statements
 
 statement
   : mustache { $$ = $1 }
-  | CONTENT { $$ = $1 }
+  | CONTENT { $$ = new yy.ContentNode( $1 ) }
   ;
 
 mustache
@@ -25,14 +25,5 @@ mustache
   ;
 
 mustachery
-  : paths { $$ = $1 }
-  ;
-
-paths
-  : paths . path { $1.push( $3 ); $$ = $1 }
-  | path { $$ = [ $1 ] }
-  ;
-
-path
-  : MEMBER { $$ = $1 }
+  : MEMBER { $$ = new yy.MemberNode( $1 ) }
   ;

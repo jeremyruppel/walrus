@@ -15,14 +15,19 @@ describe 'Walrus.Parser', ->
 
       test = ( basename ) ->
 
-        tmpl = fs.readFileSync "#{basename}.wal",  'utf8'
+        text = fs.readFileSync "#{basename}.wal",  'utf8'
         json = fs.readFileSync "#{basename}.json", 'utf8'
         html = fs.readFileSync "#{basename}.html", 'utf8'
 
         Walrus.Parser.parser.yy = Walrus.AST
 
-        console.log Walrus.Parser.parse tmpl
+        tmpl = Walrus.Parser.parse text
 
-      fs.readdir './spec/examples', ( err, files ) ->
+        console.log tmpl
+        console.log JSON.parse( json )
 
-        test "./spec/examples/#{path.basename file, '.wal'}" for file in files when path.extname( file ) is '.wal'
+        expect( tmpl.compile JSON.parse json ).toEqual html
+
+      for file in fs.readdirSync './spec/examples'
+
+        test "./spec/examples/#{path.basename file, '.wal'}" if path.extname( file ) is '.wal'

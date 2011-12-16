@@ -1,11 +1,20 @@
 AST = { }
 
+class AST.Template
+  constructor : ( @nodes ) ->
+
+  compile : ( data ) ->
+
+    ( node.compile data for node in @nodes ).join ''
+
 class AST.ContentNode
+  constructor : ( @content ) ->
 
-class AST.ProgramNode
+  compile : ( data ) -> @content
 
-class AST.IdNode
+class AST.MemberNode
+  constructor : ( @member ) ->
 
-class AST.MustacheNode
+  compile : ( data ) -> data[ @member ]
 
 module.exports = AST
