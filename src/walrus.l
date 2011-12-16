@@ -9,6 +9,7 @@
 <mu>"{{"                    { return 'OPEN'; }
 <mu>"}}"                    { this.begin( "INITIAL" ); return 'CLOSE'; }
 
+<mu>\@                       { return 'ATTR'; }
 <mu>\.                      { return 'DELIMETER'; }
 <mu>[a-zA-Z0-9]+            { return 'MEMBER'; }
 

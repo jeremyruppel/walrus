@@ -1,4 +1,4 @@
-<p>{{level}} level deep</p>
-<p>{{child.level}} levels deep</p>
-<p>{{child.child.level}} levels deep</p>
-<p>{{child.child.child.level}} levels deep</p>
+<p>{{@level}} level deep</p>
+<p>{{@child.level}} levels deep</p>
+<p>{{@child.child.level}} levels deep</p>
+<p>{{@child.child.child.level}} levels deep</p>

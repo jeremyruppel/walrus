@@ -1,1 +1,1 @@
-<p>{{one}} is not {{two}}</p>
+<p>{{@one}} is not {{@two}}</p>

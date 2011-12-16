@@ -3,21 +3,19 @@ AST = { }
 class AST.Template
   constructor : ( @nodes ) ->
 
-  compile : ( data ) ->
-
-    ( node.compile data for node in @nodes ).join ''
+  compile : ( context ) -> ( node.compile context for node in @nodes ).join ''
 
 class AST.ContentNode
   constructor : ( @content ) ->
 
-  compile : ( data ) -> @content
+  compile : ( context ) -> @content
 
 class AST.MemberNode
   constructor : ( @paths ) ->
 
-  compile : ( data ) ->
+  compile : ( context ) ->
 
-    curr  = data
+    curr  = context
     paths = @paths.concat( )
 
     while paths.length

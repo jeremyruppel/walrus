@@ -1,1 +1,1 @@
-<p>Logged in: {{loggedIn}}</p>
+<p>Logged in: {{@loggedIn}}</p>

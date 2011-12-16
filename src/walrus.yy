@@ -25,7 +25,7 @@ mustache
   ;
 
 mustachery
-  : paths { $$ = new yy.MemberNode( $1 ) }
+  : ATTR paths { $$ = new yy.MemberNode( $2 ) }
   ;
 
 paths
