@@ -11,6 +11,7 @@
 
 <mu>\@                      { return 'ATTR'; }
 <mu>\.                      { return 'DELIMETER'; }
+<mu>\,                      { return 'COMMA'; }
 <mu>\s+                     { /* ignore whitespace */ }
 <mu>\(                      { return 'OPEN_PAREN'; }
 <mu>\)                      { return 'CLOSE_PAREN'; }

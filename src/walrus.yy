@@ -43,8 +43,13 @@ path
   ;
 
 method
-  : MEMBER OPEN_PAREN expression CLOSE_PAREN { $$ = new yy.MethodNode( $1, [ $3 ] ) }
+  : MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.MethodNode( $1, $3 ) }
   | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = new yy.MethodNode( $1, [ ] ) }
+  ;
+
+arguments
+  : arguments COMMA expression { $1.push( $3 ); $$ = $1 }
+  | expression { $$ = [ $1 ] }
   ;
 
 member
