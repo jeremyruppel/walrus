@@ -13,8 +13,13 @@
 <mu>\.                      { return 'DELIMETER'; }
 <mu>\,                      { return 'COMMA'; }
 <mu>\s+                     { /* ignore whitespace */ }
+<mu>\'[^\']*?\'             { return 'SINGLE_QUOTE_STRING_LITERAL'; }
+<mu>\"[^\"]*?\"             { return 'DOUBLE_QUOTE_STRING_LITERAL'; }
 <mu>\(                      { return 'OPEN_PAREN'; }
 <mu>\)                      { return 'CLOSE_PAREN'; }
+<mu>"true"                  { return 'BOOLEAN_TRUE'; }
+<mu>"false"                 { return 'BOOLEAN_FALSE'; }
+<mu>\d+(\.\d+)?             { return 'NUMBER'; }
 <mu>[a-zA-Z0-9]+            { return 'MEMBER'; }
 
 <INITIAL,mu><<EOF>>         { return 'EOF'; }

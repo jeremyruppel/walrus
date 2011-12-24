@@ -30,4 +30,9 @@ class AST.PathNode
     index = ( paths.shift( ) ).compile index, context while paths.length isnt 0
     index
 
+class AST.PrimitiveNode
+  constructor : ( @value ) ->
+
+  compile : ( context ) -> @value
+
 module.exports = AST

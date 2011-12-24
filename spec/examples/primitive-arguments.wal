@@ -1,0 +1,7 @@
+<p>For arguments, we can also pass:</p>
+<ul>
+  <li>Single-quoted {{@type( 'aaa' )}}s</li>
+  <li>Double-quoted {{@type( "bbb" )}}s</li>
+  <li>{{@type( true )}}s that are true and {{@type( false )}}s that are false</li>
+  <li>Whole {{@type( 12 )}}s and {{@type( 123.345 )}}s that are really floats</li>
+</ul>

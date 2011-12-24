@@ -48,8 +48,17 @@ method
   ;
 
 arguments
-  : arguments COMMA expression { $1.push( $3 ); $$ = $1 }
-  | expression { $$ = [ $1 ] }
+  : arguments COMMA argument { $1.push( $3 ); $$ = $1 }
+  | argument { $$ = [ $1 ] }
+  ;
+
+argument
+  : expression { $$ = $1 }
+  | SINGLE_QUOTE_STRING_LITERAL { $$ = new yy.PrimitiveNode( $1 ) }
+  | DOUBLE_QUOTE_STRING_LITERAL { $$ = new yy.PrimitiveNode( $1 ) }
+  | BOOLEAN_FALSE { $$ = new yy.PrimitiveNode( false ) }
+  | BOOLEAN_TRUE { $$ = new yy.PrimitiveNode( true ) }
+  | NUMBER { $$ = new yy.PrimitiveNode( parseFloat( $1 ) ) }
   ;
 
 member
