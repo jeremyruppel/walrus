@@ -25,15 +25,9 @@ class AST.PathNode
 
   compile : ( context ) ->
 
-    curr = context
+    index = context
     paths = @paths.concat( )
-
-    while paths.length
-
-      path = paths.shift( )
-
-      curr = path.compile curr, context
-
-    curr
+    index = ( paths.shift( ) ).compile index, context while paths.length isnt 0
+    index
 
 module.exports = AST
