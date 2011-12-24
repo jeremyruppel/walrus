@@ -10,22 +10,29 @@ class AST.ContentNode
 
   compile : ( context ) -> @content
 
+class AST.MemberNode
+  constructor : ( @path ) ->
+
+  compile : ( context ) -> context[ @path ]
+
+class AST.MethodNode
+  constructor : ( @path, @arguments ) ->
+
+  compile : ( context, base ) -> context[ @path ] (argument.compile base for argument in @arguments)...
+
 class AST.PathNode
   constructor : ( @paths ) ->
 
   compile : ( context ) ->
 
-    curr  = context
+    curr = context
     paths = @paths.concat( )
 
     while paths.length
 
       path = paths.shift( )
 
-      curr = if typeof curr[ path ] is 'function'
-        curr[ path ]( )
-      else
-        curr[ path ]
+      curr = path.compile curr, context
 
     curr
 

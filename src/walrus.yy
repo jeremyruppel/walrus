@@ -43,10 +43,10 @@ path
   ;
 
 method
-  : MEMBER OPEN_PAREN expression CLOSE_PAREN { $$ = $1 }
-  | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = $1 }
+  : MEMBER OPEN_PAREN expression CLOSE_PAREN { $$ = new yy.MethodNode( $1, [ $3 ] ) }
+  | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = new yy.MethodNode( $1, [ ] ) }
   ;
 
 member
-  : MEMBER { $$ = $1 }
+  : MEMBER { $$ = new yy.MemberNode( $1 ) }
   ;
