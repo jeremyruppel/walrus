@@ -39,18 +39,20 @@ class AST.PrimitiveNode
 
   compile : ( context, root ) -> @value
 
-class AST.BlockNode
-  constructor : ( @mustache, @nodes ) ->
+class AST.MustacheNode
+  constructor : ( @expression, @block ) ->
 
   compile : ( context, root ) ->
 
-    context = @mustache.compile context, root
+    context = @expression.compile context, root
+
+    return context unless @block?
 
     # TODO i feel like there could be a better (faster) check here, but this works for now
     context = [ context ] unless context instanceof Array
 
     result = for item in context
-      AST.trim ( node.compile item, root for node in @nodes ).join ''
+      AST.trim ( node.compile item, root for node in @block ).join ''
 
     AST.trim result.join ''
 

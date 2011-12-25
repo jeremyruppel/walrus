@@ -21,8 +21,8 @@ statement
   ;
 
 mustache
-  : OPEN expression CLOSE { $$ = $2 }
-  | OPEN expression OPEN_BLOCK CLOSE text CLOSE_BLOCK { $$ = new yy.BlockNode( $2, $5 ) }
+  : OPEN expression CLOSE { $$ = new yy.MustacheNode( $2 ) }
+  | OPEN expression OPEN_BLOCK CLOSE text CLOSE_BLOCK { $$ = new yy.MustacheNode( $2, $5 ) }
   ;
 
 expression
