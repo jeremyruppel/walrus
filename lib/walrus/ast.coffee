@@ -1,4 +1,5 @@
-AST = { }
+AST =
+  trim : ( str ) -> str.replace /^\s+|\s+$/g, ''
 
 class AST.Template
   constructor : ( @nodes ) ->
@@ -42,7 +43,12 @@ class AST.BlockNode
 
     context = @mustache.compile context, root
 
-    ( node.compile context, root for node in @nodes ).join ''
+    # TODO i feel like there could be a better (faster) check here, but this works for now
+    context = [ context ] unless context instanceof Array
 
+    result = for item in context
+      AST.trim ( node.compile item, root for node in @nodes ).join ''
+
+    AST.trim result.join ''
 
 module.exports = AST
