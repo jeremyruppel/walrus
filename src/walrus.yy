@@ -16,15 +16,15 @@ statements
   ;
 
 statement
-  : OPEN mustache { $$ = $2 }
+  : OPEN mustache { $$ = new yy.MustacheNode( $2[0], $2[1], $2[2] ) }
   | CONTENT { $$ = new yy.ContentNode( $1 ) }
   ;
 
 mustache
-  : expression CLOSE { $$ = new yy.MustacheNode( null, $1, null ) }
-  | helper expression CLOSE { $$ = new MustacheNode( $1, $2, null )}
-  | expression block { $$ = new yy.MustacheNode( null, $1, $2 ) }
-  | helper expression block { $$ = new yy.MustacheNode(  $1, $2, $3 ) }
+  : expression CLOSE { $$ = [ null, $1, null ] }
+  | helper expression CLOSE { $$ = [ $1, $2, null ] }
+  | expression block { $$ = [ null, $1, $2 ] }
+  | helper expression block { $$ = [ $1, $2, $3 ] }
   ;
 
 helper
