@@ -13,8 +13,8 @@
 <mu>\.                      { return 'DELIMETER'; }
 <mu>\,                      { return 'COMMA'; }
 <mu>\s+                     { /* ignore whitespace */ }
-<mu>\'[^\']*?\'             { return 'SINGLE_QUOTE_STRING_LITERAL'; }
-<mu>\"[^\"]*?\"             { return 'DOUBLE_QUOTE_STRING_LITERAL'; }
+<mu>\'[^\']*?\'             { yytext = yytext.replace( /^'|'$/g, '' ); return 'SINGLE_QUOTE_STRING_LITERAL'; }
+<mu>\"[^\"]*?\"             { yytext = yytext.replace( /^"|"$/g, '' ); return 'DOUBLE_QUOTE_STRING_LITERAL'; }
 <mu>\(                      { return 'OPEN_PAREN'; }
 <mu>\)                      { return 'CLOSE_PAREN'; }
 <mu>"true"                  { return 'BOOLEAN_TRUE'; }
