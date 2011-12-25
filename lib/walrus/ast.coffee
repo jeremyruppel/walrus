@@ -1,10 +1,13 @@
 AST =
   trim : ( str ) -> str.replace /^\s+|\s+$/g, ''
 
-class AST.Template
+class AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context ) -> ( node.compile context, context for node in @nodes ).join ''
+  compile : ( context, root ) -> ( node.compile context, context for node in @nodes ).join ''
+
+class AST.Template extends AST.NodeCollection
+  compile : ( context ) -> super context, context
 
 class AST.ContentNode
   constructor : ( @content ) ->
