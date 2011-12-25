@@ -1,0 +1,7 @@
+<p>For breakfast, I got:</p>
+<ul>
+  {{@foods do}}
+  <li>{{name}}</li>
+  {{end}}
+</ul>
+<p>Out of the three, I like bacon the most.</p>
