@@ -1,0 +1,10 @@
+<p>I am the {{whoami}} and I drive a {{transportation}}</p>
+{{child do}}
+<p>I am the {{whoami}} and I drive a {{transportation}}</p>
+<p>When I am a {{@whoami}} I might drive a {{@transportation}}</p>
+{{child do}}
+<p>I am the {{whoami}} and I drive a {{transportation}}</p>
+<p>When I am a {{@whoami}} I might drive a {{@transportation}}</p>
+{{end}}
+{{end}}
+<p>Well, that was fun.</p>
