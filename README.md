@@ -21,4 +21,4 @@ Ideas
 -----
 
 - `@` means `this`, like in coffeescript. This makes it easy to reference the root object context from anywhere.
--
+- `do`/`end` style blocks make more sense than `#` and `/` to me
