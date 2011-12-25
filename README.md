@@ -1,49 +1,24 @@
 Walrus
 ======
 
-Members/Attributes
-------------------
+Goal
+----
 
-```
-{
-	"mustache" : "walrus!"
-}
+- Write a mustache templating language that fits more with the idea of view-objects as opposed to view-helpers
+- Support method helpers fully. This means:
+	- (Semi)-Automatic invocation.
+	- "Write what you mean" when it comes to functions.
+	- Multiple arguments
+	- Arguments may be primitive types
+	- Ability to add in custom domain methods at the view object level (how do we do this?)
+	- Still support helper methods and block helpers, but put the helper methods where they make the most sense
+- Support object paths like handlebars does
+- Make it easy to traverse back up to root, and to read as such
 
-<p>This is how you {{@mustache}}</p>
-```
+- More to come...
 
-Member Paths
-------------
-
-```
-{
-	"president" :
-	{
-		"name" : "Teddy Roosevelt"
-	}
-}
-
-<p>{{@president.name}} rocked the walrus</p>
-```
-
-Loops
+Ideas
 -----
 
-You can still access the root context while in a loop by using `@`
-
-```
-{
-	"country" : "United States",
-	"presidents" :
-	[
-		{ "name" : "Teddy Roosevelt" },
-		{ "name" : "Franklin Delano Roosevelt" }
-	]
-}
-
-<ul>
-	{{for president in @presidents}}
-	<li>{{president.name}} was president of {{@country}}</li>
-	{{end}}
-</ul>
-```
+- `@` means `this`, like in coffeescript. This makes it easy to reference the root object context from anywhere.
+-
