@@ -35,4 +35,14 @@ class AST.PrimitiveNode
 
   compile : ( context ) -> @value
 
+class AST.BlockNode
+  constructor : ( @mustache, @nodes ) ->
+
+  compile : ( context ) ->
+
+    context = @mustache.compile context
+
+    ( node.compile context for node in @nodes ).join ''
+
+
 module.exports = AST

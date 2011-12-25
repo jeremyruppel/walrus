@@ -16,8 +16,13 @@ statements
   ;
 
 statement
-  : mustache { $$ = $1 }
+  : blockstache { $$ = $1 }
+  | mustache { $$ = $1 }
   | CONTENT { $$ = new yy.ContentNode( $1 ) }
+  ;
+
+blockstache
+  : OPEN mustachery OPEN_BLOCK CLOSE text CLOSE_BLOCK { $$ = new yy.BlockNode( $2, $5 ) }
   ;
 
 mustache

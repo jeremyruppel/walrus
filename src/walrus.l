@@ -6,6 +6,9 @@
 [^\x00]*?/("{{")            { this.begin( 'mu' ); if( yytext ) return 'CONTENT'; }
 [^\x00]+                    { return 'CONTENT'; }
 
+<mu>"do"                    { return 'OPEN_BLOCK'; }
+<mu>\s?"{{end}}"\s?         { this.begin( 'INITIAL' ); return 'CLOSE_BLOCK'; }
+
 <mu>"{{"                    { return 'OPEN'; }
 <mu>"}}"                    { this.begin( 'INITIAL' ); return 'CLOSE'; }
 
