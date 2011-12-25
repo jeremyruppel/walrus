@@ -36,6 +36,7 @@ mustachery
 expression
   : ATTR paths { $$ = new yy.PathNode( $2, false ) }
   | paths { $$ = new yy.PathNode( $1, true ) }
+  | DELIMETER { $$ = new yy.ThisNode( ) }
   ;
 
 paths

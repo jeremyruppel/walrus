@@ -21,6 +21,9 @@ class AST.MethodNode
 
   compile : ( context, root ) -> context[ @path ] (argument.compile context, root for argument in @arguments)...
 
+class AST.ThisNode
+  compile : ( context, root ) -> context
+
 class AST.PathNode
   constructor : ( @paths, @local ) ->
 

@@ -1,0 +1,8 @@
+{
+  foods :
+  [
+    'Eggs',
+    'Bacon',
+    'Toast'
+  ]
+}
