@@ -25,7 +25,7 @@ class AST.PathNode
 
   compile : ( context, root ) ->
 
-    index = if local? then context else root
+    index = if @local then context else root
     paths = @paths.concat( )
     index = ( paths.shift( ) ).compile index, root while paths.length isnt 0
     index
