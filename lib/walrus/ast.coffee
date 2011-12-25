@@ -4,7 +4,7 @@ AST =
 class AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root ) -> ( node.compile context, context for node in @nodes ).join ''
+  compile : ( context, root ) -> ( node.compile context, root for node in @nodes ).join ''
 
 class AST.Template extends AST.NodeCollection
   compile : ( context ) -> super context, context
