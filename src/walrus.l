@@ -3,11 +3,11 @@
 
 %%
 
-[^\x00]*?/("{{")            { this.begin( "mu" ); if( yytext ) return 'CONTENT'; }
+[^\x00]*?/("{{")            { this.begin( 'mu' ); if( yytext ) return 'CONTENT'; }
 [^\x00]+                    { return 'CONTENT'; }
 
 <mu>"{{"                    { return 'OPEN'; }
-<mu>"}}"                    { this.begin( "INITIAL" ); return 'CLOSE'; }
+<mu>"}}"                    { this.begin( 'INITIAL' ); return 'CLOSE'; }
 
 <mu>\@                      { return 'ATTR'; }
 <mu>\.                      { return 'DELIMETER'; }
