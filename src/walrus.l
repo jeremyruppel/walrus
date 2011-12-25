@@ -13,6 +13,7 @@
 <mu>"}}"                    { this.begin( 'INITIAL' ); return 'CLOSE'; }
 
 <mu>\@                      { return 'ATTR'; }
+<mu>\:                      { return 'HELP'; }
 <mu>\.                      { return 'DOT'; }
 <mu>\,                      { return 'COMMA'; }
 <mu>\s+                     { /* ignore whitespace */ }

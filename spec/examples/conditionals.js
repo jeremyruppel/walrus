@@ -1,0 +1,4 @@
+{
+  truthy : true,
+  falsy : false
+}

@@ -1,0 +1,6 @@
+{{:if truthy do}}
+<p>Should see this text</p>
+{{end}}
+{{:if falsy do}}
+<p>Should NOT see this text</p>
+{{end}}

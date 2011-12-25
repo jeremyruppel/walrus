@@ -16,13 +16,23 @@ statements
   ;
 
 statement
-  : mustache { $$ = $1 }
+  : OPEN mustache { $$ = $2 }
   | CONTENT { $$ = new yy.ContentNode( $1 ) }
   ;
 
 mustache
-  : OPEN expression CLOSE { $$ = new yy.MustacheNode( $2 ) }
-  | OPEN expression OPEN_BLOCK CLOSE text CLOSE_BLOCK { $$ = new yy.MustacheNode( $2, $5 ) }
+  : expression CLOSE { $$ = new yy.MustacheNode( null, $1, null ) }
+  | helper expression CLOSE { $$ = new MustacheNode( $1, $2, null )}
+  | expression block { $$ = new yy.MustacheNode( null, $1, $2 ) }
+  | helper expression block { $$ = new yy.MustacheNode(  $1, $2, $3 ) }
+  ;
+
+helper
+  : HELP MEMBER { $$ = $2 }
+  ;
+
+block
+  : OPEN_BLOCK CLOSE text CLOSE_BLOCK { $$ = $3 }
   ;
 
 expression

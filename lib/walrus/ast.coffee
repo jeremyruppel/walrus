@@ -40,7 +40,7 @@ class AST.PrimitiveNode
   compile : ( context, root ) -> @value
 
 class AST.MustacheNode
-  constructor : ( @expression, @block ) ->
+  constructor : ( @helper, @expression, @block ) ->
 
   compile : ( context, root ) ->
 
