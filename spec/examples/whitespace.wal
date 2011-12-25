@@ -1,0 +1,12 @@
+<p>Whitespace should be ignored in all these cases:</p>
+<ul>
+  <li>{{ @member }}</li>
+  <li>{{  @member}}</li>
+  <li>{{@member  }}</li>
+  <li>{{ @method( @one ) }}</li>
+  <li>{{@method(@one  )   }}</li>
+  <li>{{   @method(  @one)}}</li>
+  <li>{{ @method( @one  ,@two ) }}</li>
+  <li>{{@method(@one,@two)   }}</li>
+  <li>{{   @method(  @one,    @two  )}}</li>
+</ul>
