@@ -1,0 +1,1 @@
+<p>We can imply the {{root('object')}} without the {{at}} symbol.</p>
