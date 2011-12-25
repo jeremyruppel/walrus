@@ -34,8 +34,8 @@ mustachery
   ;
 
 expression
-  : ATTR paths { $$ = new yy.PathNode( $2 ) }
-  | paths { $$ = new yy.PathNode( $1 ) }
+  : ATTR paths { $$ = new yy.PathNode( $2, false ) }
+  | paths { $$ = new yy.PathNode( $1, true ) }
   ;
 
 paths

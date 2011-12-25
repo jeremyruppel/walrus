@@ -3,46 +3,46 @@ AST = { }
 class AST.Template
   constructor : ( @nodes ) ->
 
-  compile : ( context ) -> ( node.compile context for node in @nodes ).join ''
+  compile : ( context ) -> ( node.compile context, context for node in @nodes ).join ''
 
 class AST.ContentNode
   constructor : ( @content ) ->
 
-  compile : ( context ) -> @content
+  compile : ( context, root ) -> @content
 
 class AST.MemberNode
   constructor : ( @path ) ->
 
-  compile : ( context ) -> context[ @path ]
+  compile : ( context, root ) -> context[ @path ]
 
 class AST.MethodNode
   constructor : ( @path, @arguments ) ->
 
-  compile : ( context, base ) -> context[ @path ] (argument.compile base for argument in @arguments)...
+  compile : ( context, root ) -> context[ @path ] (argument.compile context, root for argument in @arguments)...
 
 class AST.PathNode
-  constructor : ( @paths ) ->
+  constructor : ( @paths, @local ) ->
 
-  compile : ( context ) ->
+  compile : ( context, root ) ->
 
-    index = context
+    index = if local? then context else root
     paths = @paths.concat( )
-    index = ( paths.shift( ) ).compile index, context while paths.length isnt 0
+    index = ( paths.shift( ) ).compile index, root while paths.length isnt 0
     index
 
 class AST.PrimitiveNode
   constructor : ( @value ) ->
 
-  compile : ( context ) -> @value
+  compile : ( context, root ) -> @value
 
 class AST.BlockNode
   constructor : ( @mustache, @nodes ) ->
 
-  compile : ( context ) ->
+  compile : ( context, root ) ->
 
-    context = @mustache.compile context
+    context = @mustache.compile context, root
 
-    ( node.compile context for node in @nodes ).join ''
+    ( node.compile context, root for node in @nodes ).join ''
 
 
 module.exports = AST
