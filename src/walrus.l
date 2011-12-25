@@ -13,7 +13,7 @@
 <mu>"}}"                    { this.begin( 'INITIAL' ); return 'CLOSE'; }
 
 <mu>\@                      { return 'ATTR'; }
-<mu>\.                      { return 'DELIMETER'; }
+<mu>\.                      { return 'DOT'; }
 <mu>\,                      { return 'COMMA'; }
 <mu>\s+                     { /* ignore whitespace */ }
 <mu>\'[^\']*?\'             { yytext = yytext.substr( 1, yyleng - 2 ); return 'SINGLE_QUOTE_STRING_LITERAL'; }
