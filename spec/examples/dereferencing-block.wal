@@ -1,5 +1,5 @@
 <p>{{greeting}} from the root!</p>
-{{child do}}
+{{:with child do}}
 <p>{{greeting}} from the child!</p>
 <p>{{whoami}} is not the same as {{@whoami}}</p>
 {{end}}

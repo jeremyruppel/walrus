@@ -1,5 +1,5 @@
 <ul>
-  {{wines do}}
+  {{:each wines do}}
   <li>{{@vinyard}} {{name}} {{sommelier.name}}</li>
   {{end}}
 </ul>

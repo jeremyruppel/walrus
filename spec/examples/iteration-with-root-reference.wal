@@ -1,6 +1,6 @@
 <p>You should still be able to get to the root while iterating</p>
 <ul>
-  {{numbers do}}
+  {{:each numbers do}}
   <li>{{.}} {{@hut}}</li>
   {{end}}
 </ul>

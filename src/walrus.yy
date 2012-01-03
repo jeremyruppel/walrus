@@ -16,29 +16,23 @@ statements
   ;
 
 statement
-  : OPEN mustache { $$ = new yy.MustacheNode( $2[0], $2[1], $2[2] ) }
+  : OPEN helper mustache OPEN_BLOCK text CLOSE_BLOCK CLOSE { $$ = new yy.BlockNode( $2, $3, new yy.NodeCollection( $5 ) ) }
+  | OPEN mustache CLOSE { $$ = $2 }
   | CONTENT { $$ = new yy.ContentNode( $1 ) }
   ;
 
 mustache
-  : expression CLOSE { $$ = [ null, $1, null ] }
-  | helper expression CLOSE { $$ = [ $1, $2, null ] }
-  | expression block { $$ = [ null, $1, $2 ] }
-  | helper expression block { $$ = [ $1, $2, $3 ] }
-  ;
-
-helper
-  : HELP MEMBER { $$ = $2 }
-  ;
-
-block
-  : OPEN_BLOCK CLOSE text CLOSE_BLOCK { $$ = $3 }
+  : expression { $$ = new yy.ExpressionNode( $1 ) }
   ;
 
 expression
   : ATTR paths { $$ = new yy.PathNode( $2, false ) }
   | paths { $$ = new yy.PathNode( $1, true ) }
   | DOT { $$ = new yy.ThisNode( ) }
+  ;
+
+helper
+  : HELP MEMBER { $$ = $2 }
   ;
 
 paths

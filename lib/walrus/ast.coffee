@@ -1,13 +1,14 @@
 AST =
-  trim : ( str ) -> str.replace /^\s+|\s+$/g, ''
+  trim    : ( str ) -> str.replace /^\s+|\s+$/g, ''
+  helpers : require './helpers'
 
 class AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root ) -> ( node.compile context, root for node in @nodes ).join ''
+  compile : ( context, root ) -> AST.trim ( node.compile context, root for node in @nodes ).join ''
 
 class AST.Template extends AST.NodeCollection
-  compile : ( context ) -> super context, context
+  compile : ( context ) -> super( context, context ) + "\n"
 
 class AST.ContentNode
   constructor : ( @content ) ->
@@ -42,21 +43,14 @@ class AST.PrimitiveNode
 
   compile : ( context, root ) -> @value
 
-class AST.MustacheNode
+class AST.ExpressionNode
+  constructor : ( @paths ) -> # TODO add in filters here
+
+  compile : ( context, root ) -> @paths.compile context, root
+
+class AST.BlockNode
   constructor : ( @helper, @expression, @block ) ->
 
-  compile : ( context, root ) ->
-
-    context = @expression.compile context, root
-
-    return context unless @block?
-
-    # TODO i feel like there could be a better (faster) check here, but this works for now
-    context = [ context ] unless context instanceof Array
-
-    result = for item in context
-      AST.trim ( node.compile item, root for node in @block ).join ''
-
-    AST.trim result.join ''
+  compile : ( context, root ) -> AST.helpers[ @helper ] @expression, context, root, @block
 
 module.exports = AST

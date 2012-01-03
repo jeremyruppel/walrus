@@ -1,8 +1,8 @@
 <p>You should still be able to get to the root while iterating, even if dereferenced</p>
-{{child do}}
+{{:with child do}}
 <p>{{confirm}}</p>
 <ul>
-  {{numbers do}}
+  {{:each numbers do}}
   <li>{{.}} {{@hut}}</li>
   {{end}}
 </ul>

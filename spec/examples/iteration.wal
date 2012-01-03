@@ -1,6 +1,6 @@
 <p>For breakfast, I got:</p>
 <ul>
-  {{@foods do}}
+  {{:each @foods do}}
   <li>{{name}}</li>
   {{end}}
 </ul>
