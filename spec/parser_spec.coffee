@@ -12,8 +12,6 @@ describe 'Walrus.Parser', ->
     path  = require 'path'
     specs = './spec/examples'
 
-    Walrus.Parser.parser.yy = Walrus.AST
-
     for file in fs.readdirSync specs when path.extname( file ) is '.wal'
 
       do ( file ) ->
