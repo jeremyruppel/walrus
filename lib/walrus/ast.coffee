@@ -1,6 +1,7 @@
 AST =
   trim    : ( str ) -> str.replace /^\s+|\s+$/g, ''
   helpers : require './helpers'
+  filters : require './filters'
 
 class AST.NodeCollection
   constructor : ( @nodes ) ->
@@ -44,13 +45,26 @@ class AST.PrimitiveNode
   compile : ( context, root ) -> @value
 
 class AST.ExpressionNode
-  constructor : ( @paths ) -> # TODO add in filters here
+  constructor : ( @paths, @filters ) -> # TODO add in filters here
 
-  compile : ( context, root ) -> @paths.compile context, root
+  compile : ( context, root ) -> @filters.apply @paths.compile( context, root )
 
 class AST.BlockNode
   constructor : ( @helper, @expression, @block ) ->
 
   compile : ( context, root ) -> AST.helpers[ @helper ] @expression, context, root, @block
+
+class AST.FilterCollection
+  constructor : ( @names ) ->
+
+  apply : ( expression ) ->
+
+    # feels like this might be cleaners with an #inject helper
+    value = expression
+
+    ( value = AST.filters[ name ] value ) for name in @names
+
+    value
+
 
 module.exports = AST

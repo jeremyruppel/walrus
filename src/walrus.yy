@@ -22,7 +22,8 @@ statement
   ;
 
 mustache
-  : expression { $$ = new yy.ExpressionNode( $1 ) }
+  : expression PIPE filters { $$ = new yy.ExpressionNode( $1, new yy.FilterCollection( $3 ) ) }
+  | expression { $$ = new yy.ExpressionNode( $1, new yy.FilterCollection( [ ] ) ) }
   ;
 
 expression
@@ -32,6 +33,15 @@ expression
   ;
 
 helper
+  : HELP MEMBER { $$ = $2 }
+  ;
+
+filters
+  : filters filter { $1.push( $2 ); $$ = $1 }
+  | filter { $$ = [ $1 ] }
+  ;
+  
+filter
   : HELP MEMBER { $$ = $2 }
   ;
 

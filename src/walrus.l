@@ -14,6 +14,7 @@
 
 <mu>\@                      { return 'ATTR'; }
 <mu>\:                      { return 'HELP'; }
+<mu>\|                      { return 'PIPE'; }
 <mu>\.                      { return 'DOT'; }
 <mu>\,                      { return 'COMMA'; }
 <mu>\s+                     { /* ignore whitespace */ }
