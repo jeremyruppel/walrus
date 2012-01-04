@@ -22,3 +22,11 @@ Ideas
 
 - `@` means `this`, like in coffeescript. This makes it easy to reference the root object context from anywhere.
 - `do`/`end` style blocks make more sense than `#` and `/` to me
+
+Filter Packages
+---------------
+
+- walrus.string: capitalization, casing, hyphenization, etc
+- walrus.inflection: pluralization, etc
+- walrus.date: date formatting
+- walrus.domain: bring raw json objects into the client domain (perhaps theres a better name for this)
