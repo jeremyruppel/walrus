@@ -31,4 +31,4 @@ task 'build', 'Build the walrus javascripts', ->
 
   tmp = ejs.render fs.readFileSync( 'lib/walrus.coffee', 'utf8' ), fs : fs
 
-  fs.writeFileSync 'bin/walrus.js', cof.compile(tmp)
+  fs.writeFileSync 'bin/walrus.js', cof.compile tmp

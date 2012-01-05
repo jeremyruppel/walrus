@@ -1,5 +1,5 @@
 (function() {
-  var AST, Filters, Walrus,
+  var AST, Filters, Helpers, Walrus,
     __hasProp = Object.prototype.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
@@ -638,7 +638,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     BlockNode.prototype.compile = function(context, root) {
-      return AST.helpers[this.helper](this.expression, context, root, this.block);
+      return Walrus.Helpers[this.helper](this.expression, context, root, this.block);
     };
 
     return BlockNode;
@@ -657,7 +657,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       _ref = this.names;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         name = _ref[_i];
-        value = AST.filters[name](value);
+        value = Walrus.Filters[name](value);
       }
       return value;
     };
@@ -672,25 +672,40 @@ if (typeof module !== 'undefined' && require.main === module) {
   Core Helpers
   */
 
-  Filters = {
+  Helpers = {
     add: function(name, fn) {
       return this[name] = fn;
     }
   };
 
-  Filters.add('reverse', function(value) {
-    return value.split('').reverse().join('');
+  Helpers.add('if', function(expression, context, root, block) {
+    if (expression.compile(context, root)) {
+      return block.compile(context, root);
+    } else {
+      return '';
+    }
   });
 
-  Filters.add('downcase', function(value) {
-    return value.toLowerCase();
+  Helpers.add('each', function(expression, context, root, block) {
+    var item, items;
+    items = (function() {
+      var _i, _len, _ref, _results;
+      _ref = expression.compile(context, root);
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        item = _ref[_i];
+        _results.push(block.compile(item, root));
+      }
+      return _results;
+    })();
+    return items.join('');
   });
 
-  Filters.add('upcase', function(value) {
-    return value.toUpperCase();
+  Helpers.add('with', function(expression, context, root, block) {
+    return block.compile(expression.compile(context, root), root);
   });
 
-  Walrus.Filters = Filters;
+  Walrus.Helpers = Helpers;
 
   /*
   Core Filters
@@ -717,7 +732,7 @@ if (typeof module !== 'undefined' && require.main === module) {
   Walrus.Filters = Filters;
 
   /*
-  Setup and export
+  Setup
   */
 
   Walrus.Parser = {
@@ -728,5 +743,15 @@ if (typeof module !== 'undefined' && require.main === module) {
   };
 
   Walrus.Parser.parser.yy = Walrus.AST;
+
+  /*
+  Export
+  */
+
+  if ((typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null)) {
+    module.exports = Walrus;
+  } else {
+    window.Walrus = Walrus;
+  }
 
 }).call(this);

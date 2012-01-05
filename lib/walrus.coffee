@@ -10,7 +10,7 @@ AST
 ###
 Core Helpers
 ###
-<%- fs.readFileSync( 'lib/walrus/filters.coffee', 'utf8' ) %>
+<%- fs.readFileSync( 'lib/walrus/helpers.coffee', 'utf8' ) %>
 
 ###
 Core Filters
@@ -18,9 +18,12 @@ Core Filters
 <%- fs.readFileSync( 'lib/walrus/filters.coffee', 'utf8' ) %>
 
 ###
-Setup and export
+Setup
 ###
 Walrus.Parser           = parser : walrus, parse  : -> walrus.parse arguments...
 Walrus.Parser.parser.yy = Walrus.AST
 
-# module.exports = Walrus
+###
+Export
+###
+if require? and exports? then module.exports = Walrus else window.Walrus = Walrus

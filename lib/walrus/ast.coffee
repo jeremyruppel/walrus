@@ -50,7 +50,7 @@ class AST.ExpressionNode
 class AST.BlockNode
   constructor : ( @helper, @expression, @block ) ->
 
-  compile : ( context, root ) -> AST.helpers[ @helper ] @expression, context, root, @block
+  compile : ( context, root ) -> Walrus.Helpers[ @helper ] @expression, context, root, @block
 
 class AST.FilterCollection
   constructor : ( @names ) ->
@@ -60,7 +60,7 @@ class AST.FilterCollection
     # feels like this might be cleaners with an #inject helper
     value = expression
 
-    ( value = AST.filters[ name ] value ) for name in @names
+    ( value = Walrus.Filters[ name ] value ) for name in @names
 
     value
 

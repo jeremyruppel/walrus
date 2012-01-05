@@ -1,4 +1,4 @@
-Walrus = require '../lib/walrus'
+Walrus = require '../bin/walrus'
 
 describe 'Walrus.Parser', ->
 
