@@ -32,3 +32,13 @@ task 'build', 'Build the walrus javascripts', ->
   tmp = ejs.render fs.readFileSync( 'lib/walrus.coffee', 'utf8' ), fs : fs
 
   fs.writeFileSync 'bin/walrus.js', cof.compile tmp
+
+task 'minify', 'Minify the walrus javascripts', ->
+
+  ugl = require 'uglify-js'
+
+  ast = ugl.parser.parse fs.readFileSync 'bin/walrus.js', 'utf8'
+  ast = ugl.uglify.ast_mangle ast
+  ast = ugl.uglify.ast_squeeze ast
+
+  fs.writeFileSync 'bin/walrus.min.js', ugl.uglify.gen_code ast

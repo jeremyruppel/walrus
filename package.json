@@ -15,6 +15,7 @@
     "jison":"*",
     "jasmine-node":"*",
     "ejs":"*",
-    "coffee-script":"*"
+    "coffee-script":"*",
+    "uglify-js":"*"
   }
 }
