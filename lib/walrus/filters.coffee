@@ -8,4 +8,4 @@ Filters.add 'downcase', ( value ) -> value.toLowerCase( )
 
 Filters.add 'upcase', ( value ) -> value.toUpperCase( )
 
-module.exports = Filters
+Walrus.Filters = Filters

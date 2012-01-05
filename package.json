@@ -2,7 +2,7 @@
   "author": "Jeremy Ruppel",
   "name": "walrus",
   "description": "A bolder kind of mustache.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "url": "https://github.com/jeremyruppel/walrus"
   },
@@ -13,6 +13,8 @@
   "dependencies": {},
   "devDependencies": {
     "jison":"*",
-    "jasmine-node":"*"
+    "jasmine-node":"*",
+    "ejs":"*",
+    "coffee-script":"*"
   }
 }

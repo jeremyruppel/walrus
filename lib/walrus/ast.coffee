@@ -1,7 +1,5 @@
 AST =
   trim    : ( str ) -> str.replace /^\s+|\s+$/g, ''
-  helpers : require './helpers'
-  filters : require './filters'
 
 class AST.NodeCollection
   constructor : ( @nodes ) ->
@@ -67,4 +65,4 @@ class AST.FilterCollection
     value
 
 
-module.exports = AST
+Walrus.AST = AST

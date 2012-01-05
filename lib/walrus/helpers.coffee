@@ -16,4 +16,4 @@ Helpers.add 'with', ( expression, context, root, block ) ->
 
   block.compile ( expression.compile context, root ), root
 
-module.exports = Helpers
+Walrus.Helpers = Helpers
