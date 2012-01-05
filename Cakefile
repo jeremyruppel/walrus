@@ -42,3 +42,11 @@ task 'minify', 'Minify the walrus javascripts', ->
   ast = ugl.uglify.ast_squeeze ast
 
   fs.writeFileSync 'bin/walrus.min.js', ugl.uglify.gen_code ast
+
+task 'all', 'Runs all build, compilation, and test tasks in order', ->
+
+  invoke 'compile'
+  invoke 'build'
+  invoke 'minify'
+  invoke 'test'
+
