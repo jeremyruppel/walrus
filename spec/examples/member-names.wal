@@ -1,0 +1,5 @@
+<p>{{@lowercase}}</p>
+<p>{{@UPPERCASE}}</p>
+<p>{{@mIXed}}</p>
+<p>{{@num3ric}}</p>
+<p>{{@under_scored}}</p>
