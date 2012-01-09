@@ -17,12 +17,12 @@ class AST.ContentNode
 class AST.MemberNode
   constructor : ( @path ) ->
 
-  compile : ( context, root ) -> context[ @path ]
+  compile : ( index, context, root ) -> index[ @path ]
 
 class AST.MethodNode
   constructor : ( @path, @arguments ) ->
 
-  compile : ( context, root ) -> context[ @path ] (argument.compile context, root for argument in @arguments)...
+  compile : ( index, context, root ) -> index[ @path ] (argument.compile context, root for argument in @arguments)...
 
 class AST.ThisNode
   compile : ( context, root ) -> context
@@ -34,7 +34,7 @@ class AST.PathNode
 
     index = if @local then context else root
     paths = @paths.concat( )
-    index = ( paths.shift( ) ).compile index, root while paths.length isnt 0
+    index = ( paths.shift( ) ).compile index, context, root while paths.length isnt 0
     index
 
 class AST.PrimitiveNode

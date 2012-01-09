@@ -534,8 +534,8 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.path = path;
     }
 
-    MemberNode.prototype.compile = function(context, root) {
-      return context[this.path];
+    MemberNode.prototype.compile = function(index, context, root) {
+      return index[this.path];
     };
 
     return MemberNode;
@@ -549,9 +549,9 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.arguments = _arguments;
     }
 
-    MethodNode.prototype.compile = function(context, root) {
+    MethodNode.prototype.compile = function(index, context, root) {
       var argument;
-      return context[this.path].apply(context, (function() {
+      return index[this.path].apply(index, (function() {
         var _i, _len, _ref, _results;
         _ref = this.arguments;
         _results = [];
@@ -591,7 +591,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       index = this.local ? context : root;
       paths = this.paths.concat();
       while (paths.length !== 0) {
-        index = (paths.shift()).compile(index, root);
+        index = (paths.shift()).compile(index, context, root);
       }
       return index;
     };
