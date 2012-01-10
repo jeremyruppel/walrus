@@ -19,7 +19,7 @@ performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1: return new yy.Template( $$[$0-1] ) 
+case 1: return new yy.DocumentNode( $$[$0-1] ) 
 break;
 case 2: this.$ = $$[$0] 
 break;
@@ -498,19 +498,19 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })();
 
-  AST.Template = (function(_super) {
+  AST.DocumentNode = (function(_super) {
 
-    __extends(Template, _super);
+    __extends(DocumentNode, _super);
 
-    function Template() {
-      Template.__super__.constructor.apply(this, arguments);
+    function DocumentNode() {
+      DocumentNode.__super__.constructor.apply(this, arguments);
     }
 
-    Template.prototype.compile = function(context) {
-      return Template.__super__.compile.call(this, context, context) + "\n";
+    DocumentNode.prototype.compile = function(context) {
+      return DocumentNode.__super__.compile.call(this, context, context) + "\n";
     };
 
-    return Template;
+    return DocumentNode;
 
   })(AST.NodeCollection);
 

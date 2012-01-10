@@ -6,7 +6,7 @@ class AST.NodeCollection
 
   compile : ( context, root ) -> AST.trim ( node.compile context, root for node in @nodes ).join ''
 
-class AST.Template extends AST.NodeCollection
+class AST.DocumentNode extends AST.NodeCollection
   compile : ( context ) -> super( context, context ) + "\n"
 
 class AST.ContentNode

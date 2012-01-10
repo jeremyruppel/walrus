@@ -3,7 +3,7 @@
 %%
 
 document
-  : text EOF { return new yy.Template( $1 ) }
+  : text EOF { return new yy.DocumentNode( $1 ) }
   ;
 
 text
@@ -40,7 +40,7 @@ filters
   : filters filter { $1.push( $2 ); $$ = $1 }
   | filter { $$ = [ $1 ] }
   ;
-  
+
 filter
   : HELP MEMBER { $$ = $2 }
   ;
