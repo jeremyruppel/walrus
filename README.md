@@ -115,7 +115,9 @@ Several bundles of filters are under development and will appear in this repo fo
 
 - walrus.date: date formatting
 
-- walrus.domain: bring raw json objects into the client domain (theres got to be a better name for this)
+- walrus.domain: bring raw json objects into the client domain (there's got to be a better name for this)
+
+	- This last one is pretty important. This will eventually provide a place for us to create 'view logic', kept completely separate from 'business logic'.
 
 Inspiration
 -----------
@@ -124,3 +126,18 @@ Walrus was directly inspired by templating solutions like handlebars, but seeks 
 
 I also really liked the filter behavior included in ejs and company, but I didn't like how the filters were all built-in when I'd probably never use half of them. That may be fine for the server-side, but not for the client-side, and that's where I make my dough.
 
+If Walrus isn't quite your style...
+-----------------------------------
+
+One of these fine other looks might suit you:
+
+- [handlebars](https://github.com/wycats/handlebars.js)
+- [mustache](https://github.com/janl/mustache.js/)
+- [ejs](https://github.com/visionmedia/ejs)
+
+In any case, Walrus borrows ideas from each of them, so they're all worth checking out!
+
+License
+-------
+
+Walrus is released under the MIT license.
