@@ -1,0 +1,3 @@
+{{:with @amy do}}
+<p>My name is {{@frank.name( )}}</p>
+{{end}}
