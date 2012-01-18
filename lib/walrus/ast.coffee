@@ -55,6 +55,8 @@ class AST.BlockNode
 class AST.FilterNode
   constructor : ( @name, @arguments ) ->
 
+    throw "Cannot find any filter named '#{@name}'." unless Walrus.Filters[ @name ]?
+
   apply : ( value, context, root ) ->
 
     Walrus.Filters[ @name ] value, (argument.compile context, root for argument in @arguments)...

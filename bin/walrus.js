@@ -653,6 +653,9 @@ if (typeof module !== 'undefined' && require.main === module) {
     function FilterNode(name, _arguments) {
       this.name = name;
       this.arguments = _arguments;
+      if (Walrus.Filters[this.name] == null) {
+        throw "Cannot find any filter named '" + this.name + "'.";
+      }
     }
 
     FilterNode.prototype.apply = function(value, context, root) {
