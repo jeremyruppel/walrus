@@ -43,7 +43,7 @@ class AST.PrimitiveNode
   compile : ( context, root ) -> @value
 
 class AST.ExpressionNode
-  constructor : ( @paths, @filters ) -> # TODO add in filters here
+  constructor : ( @paths, @filters ) ->
 
   compile : ( context, root ) -> @filters.apply @paths.compile( context, root ), context, root
 
