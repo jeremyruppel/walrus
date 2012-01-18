@@ -1,0 +1,3 @@
+<p>{{story | :truncate( 27 )}}</p>
+<p>{{story | :truncate( 27, ' ' )}}</p>
+<p>{{story | :truncate( 27, ' ', '... (continued)' )}}</p>
