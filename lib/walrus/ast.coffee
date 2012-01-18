@@ -45,22 +45,29 @@ class AST.PrimitiveNode
 class AST.ExpressionNode
   constructor : ( @paths, @filters ) -> # TODO add in filters here
 
-  compile : ( context, root ) -> @filters.apply @paths.compile( context, root )
+  compile : ( context, root ) -> @filters.apply @paths.compile( context, root ), context, root
 
 class AST.BlockNode
   constructor : ( @helper, @expression, @block ) ->
 
   compile : ( context, root ) -> Walrus.Helpers[ @helper ] @expression, context, root, @block
 
-class AST.FilterCollection
-  constructor : ( @names ) ->
+class AST.FilterNode
+  constructor : ( @name, @arguments ) ->
 
-  apply : ( expression ) ->
+  apply : ( value, context, root ) ->
+
+    Walrus.Filters[ @name ] value, (argument.compile context, root for argument in @arguments)...
+
+class AST.FilterCollection
+  constructor : ( @filters ) ->
+
+  apply : ( expression, context, root ) ->
 
     # feels like this might be cleaners with an #inject helper
     value = expression
 
-    ( value = Walrus.Filters[ name ] value ) for name in @names
+    ( value = filter.apply value, context, root ) for filter in @filters
 
     value
 

@@ -42,7 +42,8 @@ filters
   ;
 
 filter
-  : HELP MEMBER { $$ = $2 }
+  : HELP MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.FilterNode( $2, $4 ) }
+  | HELP MEMBER { $$ = new yy.FilterNode( $2, [ ] ) }
   ;
 
 paths

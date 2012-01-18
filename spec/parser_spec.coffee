@@ -8,6 +8,10 @@ describe 'Walrus.Parser', ->
 
     it 'should be defined', -> expect( Walrus.Parser.parse ).toBeDefined( )
 
+    # TODO there's got to be a better place to put these spec-only filters
+    Walrus.Filters.add 'append',  ( value, something ) -> "#{value}, #{something}"
+    Walrus.Filters.add 'prepend', ( value, something ) -> "#{something}, #{value}"
+
     fs    = require 'fs'
     path  = require 'path'
     specs = './spec/examples'

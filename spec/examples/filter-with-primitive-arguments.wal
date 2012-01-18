@@ -1,0 +1,5 @@
+<p>{{greeting | :append( "strings" )}}</p>
+<p>{{greeting | :append( 123.456 )}}</p>
+<p>{{greeting | :append( true )}}</p>
+<p>{{greeting | :append( false )}}</p>
+<p>{{greeting | :append( 'multiple filters!' ) :prepend( 'Why' )}}</p>

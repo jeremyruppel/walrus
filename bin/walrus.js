@@ -1,7 +1,8 @@
 (function() {
   var AST, Filters, Helpers, Walrus,
     __hasProp = Object.prototype.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; },
+    __slice = Array.prototype.slice;
 
   Walrus = {
     VERSION: '0.0.4'
@@ -12,9 +13,9 @@ var walrus = (function(){
 
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"document":3,"text":4,"EOF":5,"statements":6,"statement":7,"OPEN":8,"helper":9,"mustache":10,"OPEN_BLOCK":11,"CLOSE_BLOCK":12,"CLOSE":13,"CONTENT":14,"expression":15,"PIPE":16,"filters":17,"ATTR":18,"paths":19,"DOT":20,"HELP":21,"MEMBER":22,"filter":23,"path":24,"method":25,"member":26,"OPEN_PAREN":27,"arguments":28,"CLOSE_PAREN":29,"COMMA":30,"argument":31,"SINGLE_QUOTE_STRING_LITERAL":32,"DOUBLE_QUOTE_STRING_LITERAL":33,"BOOLEAN_FALSE":34,"BOOLEAN_TRUE":35,"NUMBER":36,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",8:"OPEN",11:"OPEN_BLOCK",12:"CLOSE_BLOCK",13:"CLOSE",14:"CONTENT",16:"PIPE",18:"ATTR",20:"DOT",21:"HELP",22:"MEMBER",27:"OPEN_PAREN",29:"CLOSE_PAREN",30:"COMMA",32:"SINGLE_QUOTE_STRING_LITERAL",33:"DOUBLE_QUOTE_STRING_LITERAL",34:"BOOLEAN_FALSE",35:"BOOLEAN_TRUE",36:"NUMBER"},
-productions_: [0,[3,2],[4,1],[6,2],[6,1],[7,7],[7,3],[7,1],[10,3],[10,1],[15,2],[15,1],[15,1],[9,2],[17,2],[17,1],[23,2],[19,3],[19,1],[24,1],[24,1],[25,4],[25,3],[28,3],[28,1],[31,1],[31,1],[31,1],[31,1],[31,1],[31,1],[26,1]],
+symbols_: {"error":2,"document":3,"text":4,"EOF":5,"statements":6,"statement":7,"OPEN":8,"helper":9,"mustache":10,"OPEN_BLOCK":11,"CLOSE_BLOCK":12,"CLOSE":13,"CONTENT":14,"expression":15,"PIPE":16,"filters":17,"ATTR":18,"paths":19,"DOT":20,"HELP":21,"MEMBER":22,"filter":23,"OPEN_PAREN":24,"arguments":25,"CLOSE_PAREN":26,"path":27,"method":28,"member":29,"COMMA":30,"argument":31,"SINGLE_QUOTE_STRING_LITERAL":32,"DOUBLE_QUOTE_STRING_LITERAL":33,"BOOLEAN_FALSE":34,"BOOLEAN_TRUE":35,"NUMBER":36,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",8:"OPEN",11:"OPEN_BLOCK",12:"CLOSE_BLOCK",13:"CLOSE",14:"CONTENT",16:"PIPE",18:"ATTR",20:"DOT",21:"HELP",22:"MEMBER",24:"OPEN_PAREN",26:"CLOSE_PAREN",30:"COMMA",32:"SINGLE_QUOTE_STRING_LITERAL",33:"DOUBLE_QUOTE_STRING_LITERAL",34:"BOOLEAN_FALSE",35:"BOOLEAN_TRUE",36:"NUMBER"},
+productions_: [0,[3,2],[4,1],[6,2],[6,1],[7,7],[7,3],[7,1],[10,3],[10,1],[15,2],[15,1],[15,1],[9,2],[17,2],[17,1],[23,5],[23,2],[19,3],[19,1],[27,1],[27,1],[28,4],[28,3],[25,3],[25,1],[31,1],[31,1],[31,1],[31,1],[31,1],[31,1],[29,1]],
 performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
 
 var $0 = $$.length - 1;
@@ -49,41 +50,43 @@ case 14: $$[$0-1].push( $$[$0] ); this.$ = $$[$0-1]
 break;
 case 15: this.$ = [ $$[$0] ] 
 break;
-case 16: this.$ = $$[$0] 
+case 16: this.$ = new yy.FilterNode( $$[$0-3], $$[$0-1] ) 
 break;
-case 17: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
+case 17: this.$ = new yy.FilterNode( $$[$0], [ ] ) 
 break;
-case 18: this.$ = [ $$[$0] ] 
+case 18: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
 break;
-case 19: this.$ = $$[$0] 
+case 19: this.$ = [ $$[$0] ] 
 break;
 case 20: this.$ = $$[$0] 
 break;
-case 21: this.$ = new yy.MethodNode( $$[$0-3], $$[$0-1] ) 
+case 21: this.$ = $$[$0] 
 break;
-case 22: this.$ = new yy.MethodNode( $$[$0-2], [ ] ) 
+case 22: this.$ = new yy.MethodNode( $$[$0-3], $$[$0-1] ) 
 break;
-case 23: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
+case 23: this.$ = new yy.MethodNode( $$[$0-2], [ ] ) 
 break;
-case 24: this.$ = [ $$[$0] ] 
+case 24: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
 break;
-case 25: this.$ = $$[$0] 
+case 25: this.$ = [ $$[$0] ] 
 break;
-case 26: this.$ = new yy.PrimitiveNode( $$[$0] ) 
+case 26: this.$ = $$[$0] 
 break;
 case 27: this.$ = new yy.PrimitiveNode( $$[$0] ) 
 break;
-case 28: this.$ = new yy.PrimitiveNode( false ) 
+case 28: this.$ = new yy.PrimitiveNode( $$[$0] ) 
 break;
-case 29: this.$ = new yy.PrimitiveNode( true ) 
+case 29: this.$ = new yy.PrimitiveNode( false ) 
 break;
-case 30: this.$ = new yy.PrimitiveNode( parseFloat( $$[$0] ) ) 
+case 30: this.$ = new yy.PrimitiveNode( true ) 
 break;
-case 31: this.$ = new yy.MemberNode( $$[$0] ) 
+case 31: this.$ = new yy.PrimitiveNode( parseFloat( $$[$0] ) ) 
+break;
+case 32: this.$ = new yy.MemberNode( $$[$0] ) 
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,8:[1,5],14:[1,6]},{1:[3]},{5:[1,7]},{5:[2,2],7:8,8:[1,5],12:[2,2],14:[1,6]},{5:[2,4],8:[2,4],12:[2,4],14:[2,4]},{9:9,10:10,15:12,18:[1,13],19:14,20:[1,15],21:[1,11],22:[1,19],24:16,25:17,26:18},{5:[2,7],8:[2,7],12:[2,7],14:[2,7]},{1:[2,1]},{5:[2,3],8:[2,3],12:[2,3],14:[2,3]},{10:20,15:12,18:[1,13],19:14,20:[1,15],22:[1,19],24:16,25:17,26:18},{13:[1,21]},{22:[1,22]},{11:[2,9],13:[2,9],16:[1,23]},{19:24,22:[1,19],24:16,25:17,26:18},{11:[2,11],13:[2,11],16:[2,11],20:[1,25],29:[2,11],30:[2,11]},{11:[2,12],13:[2,12],16:[2,12],29:[2,12],30:[2,12]},{11:[2,18],13:[2,18],16:[2,18],20:[2,18],29:[2,18],30:[2,18]},{11:[2,19],13:[2,19],16:[2,19],20:[2,19],29:[2,19],30:[2,19]},{11:[2,20],13:[2,20],16:[2,20],20:[2,20],29:[2,20],30:[2,20]},{11:[2,31],13:[2,31],16:[2,31],20:[2,31],27:[1,26],29:[2,31],30:[2,31]},{11:[1,27]},{5:[2,6],8:[2,6],12:[2,6],14:[2,6]},{18:[2,13],20:[2,13],22:[2,13]},{17:28,21:[1,30],23:29},{11:[2,10],13:[2,10],16:[2,10],20:[1,25],29:[2,10],30:[2,10]},{22:[1,19],24:31,25:17,26:18},{15:35,18:[1,13],19:14,20:[1,15],22:[1,19],24:16,25:17,26:18,28:32,29:[1,33],31:34,32:[1,36],33:[1,37],34:[1,38],35:[1,39],36:[1,40]},{4:41,6:3,7:4,8:[1,5],14:[1,6]},{11:[2,8],13:[2,8],21:[1,30],23:42},{11:[2,15],13:[2,15],21:[2,15]},{22:[1,43]},{11:[2,17],13:[2,17],16:[2,17],20:[2,17],29:[2,17],30:[2,17]},{29:[1,44],30:[1,45]},{11:[2,22],13:[2,22],16:[2,22],20:[2,22],29:[2,22],30:[2,22]},{29:[2,24],30:[2,24]},{29:[2,25],30:[2,25]},{29:[2,26],30:[2,26]},{29:[2,27],30:[2,27]},{29:[2,28],30:[2,28]},{29:[2,29],30:[2,29]},{29:[2,30],30:[2,30]},{12:[1,46]},{11:[2,14],13:[2,14],21:[2,14]},{11:[2,16],13:[2,16],21:[2,16]},{11:[2,21],13:[2,21],16:[2,21],20:[2,21],29:[2,21],30:[2,21]},{15:35,18:[1,13],19:14,20:[1,15],22:[1,19],24:16,25:17,26:18,31:47,32:[1,36],33:[1,37],34:[1,38],35:[1,39],36:[1,40]},{13:[1,48]},{29:[2,23],30:[2,23]},{5:[2,5],8:[2,5],12:[2,5],14:[2,5]}],
+table: [{3:1,4:2,6:3,7:4,8:[1,5],14:[1,6]},{1:[3]},{5:[1,7]},{5:[2,2],7:8,8:[1,5],12:[2,2],14:[1,6]},{5:[2,4],8:[2,4],12:[2,4],14:[2,4]},{9:9,10:10,15:12,18:[1,13],19:14,20:[1,15],21:[1,11],22:[1,19],27:16,28:17,29:18},{5:[2,7],8:[2,7],12:[2,7],14:[2,7]},{1:[2,1]},{5:[2,3],8:[2,3],12:[2,3],14:[2,3]},{10:20,15:12,18:[1,13],19:14,20:[1,15],22:[1,19],27:16,28:17,29:18},{13:[1,21]},{22:[1,22]},{11:[2,9],13:[2,9],16:[1,23]},{19:24,22:[1,19],27:16,28:17,29:18},{11:[2,11],13:[2,11],16:[2,11],20:[1,25],26:[2,11],30:[2,11]},{11:[2,12],13:[2,12],16:[2,12],26:[2,12],30:[2,12]},{11:[2,19],13:[2,19],16:[2,19],20:[2,19],26:[2,19],30:[2,19]},{11:[2,20],13:[2,20],16:[2,20],20:[2,20],26:[2,20],30:[2,20]},{11:[2,21],13:[2,21],16:[2,21],20:[2,21],26:[2,21],30:[2,21]},{11:[2,32],13:[2,32],16:[2,32],20:[2,32],24:[1,26],26:[2,32],30:[2,32]},{11:[1,27]},{5:[2,6],8:[2,6],12:[2,6],14:[2,6]},{18:[2,13],20:[2,13],22:[2,13]},{17:28,21:[1,30],23:29},{11:[2,10],13:[2,10],16:[2,10],20:[1,25],26:[2,10],30:[2,10]},{22:[1,19],27:31,28:17,29:18},{15:35,18:[1,13],19:14,20:[1,15],22:[1,19],25:32,26:[1,33],27:16,28:17,29:18,31:34,32:[1,36],33:[1,37],34:[1,38],35:[1,39],36:[1,40]},{4:41,6:3,7:4,8:[1,5],14:[1,6]},{11:[2,8],13:[2,8],21:[1,30],23:42},{11:[2,15],13:[2,15],21:[2,15]},{22:[1,43]},{11:[2,18],13:[2,18],16:[2,18],20:[2,18],26:[2,18],30:[2,18]},{26:[1,44],30:[1,45]},{11:[2,23],13:[2,23],16:[2,23],20:[2,23],26:[2,23],30:[2,23]},{26:[2,25],30:[2,25]},{26:[2,26],30:[2,26]},{26:[2,27],30:[2,27]},{26:[2,28],30:[2,28]},{26:[2,29],30:[2,29]},{26:[2,30],30:[2,30]},{26:[2,31],30:[2,31]},{12:[1,46]},{11:[2,14],13:[2,14],21:[2,14]},{11:[2,17],13:[2,17],21:[2,17],24:[1,47]},{11:[2,22],13:[2,22],16:[2,22],20:[2,22],26:[2,22],30:[2,22]},{15:35,18:[1,13],19:14,20:[1,15],22:[1,19],27:16,28:17,29:18,31:48,32:[1,36],33:[1,37],34:[1,38],35:[1,39],36:[1,40]},{13:[1,49]},{15:35,18:[1,13],19:14,20:[1,15],22:[1,19],25:50,27:16,28:17,29:18,31:34,32:[1,36],33:[1,37],34:[1,38],35:[1,39],36:[1,40]},{26:[2,24],30:[2,24]},{5:[2,5],8:[2,5],12:[2,5],14:[2,5]},{26:[1,51],30:[1,45]},{11:[2,16],13:[2,16],21:[2,16]}],
 defaultActions: {7:[2,1]},
 parseError: function parseError(str, hash) {
     throw new Error(str);
@@ -424,9 +427,9 @@ case 12: yy_.yytext = yy_.yytext.substr( 1, yy_.yyleng - 2 ); return 32;
 break;
 case 13: yy_.yytext = yy_.yytext.substr( 1, yy_.yyleng - 2 ); return 33; 
 break;
-case 14: return 27; 
+case 14: return 24; 
 break;
-case 15: return 29; 
+case 15: return 26; 
 break;
 case 16: return 35; 
 break;
@@ -622,7 +625,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     ExpressionNode.prototype.compile = function(context, root) {
-      return this.filters.apply(this.paths.compile(context, root));
+      return this.filters.apply(this.paths.compile(context, root), context, root);
     };
 
     return ExpressionNode;
@@ -645,19 +648,44 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })();
 
-  AST.FilterCollection = (function() {
+  AST.FilterNode = (function() {
 
-    function FilterCollection(names) {
-      this.names = names;
+    function FilterNode(name, _arguments) {
+      this.name = name;
+      this.arguments = _arguments;
     }
 
-    FilterCollection.prototype.apply = function(expression) {
-      var name, value, _i, _len, _ref;
+    FilterNode.prototype.apply = function(value, context, root) {
+      var argument, _ref;
+      return (_ref = Walrus.Filters)[this.name].apply(_ref, [value].concat(__slice.call((function() {
+        var _i, _len, _ref, _results;
+        _ref = this.arguments;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          argument = _ref[_i];
+          _results.push(argument.compile(context, root));
+        }
+        return _results;
+      }).call(this))));
+    };
+
+    return FilterNode;
+
+  })();
+
+  AST.FilterCollection = (function() {
+
+    function FilterCollection(filters) {
+      this.filters = filters;
+    }
+
+    FilterCollection.prototype.apply = function(expression, context, root) {
+      var filter, value, _i, _len, _ref;
       value = expression;
-      _ref = this.names;
+      _ref = this.filters;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        name = _ref[_i];
-        value = Walrus.Filters[name](value);
+        filter = _ref[_i];
+        value = filter.apply(value, context, root);
       }
       return value;
     };
