@@ -29,9 +29,11 @@ task 'build', 'Build the walrus javascripts', ->
   ejs = require 'ejs'
   cof = require 'coffee-script'
 
-  tmp = ejs.render fs.readFileSync( 'lib/walrus.coffee', 'utf8' ), fs : fs
+  for file in fs.readdirSync 'lib' when path.extname( file ) is '.coffee'
 
-  fs.writeFileSync 'bin/walrus.js', cof.compile tmp
+    tmp = ejs.render fs.readFileSync( "lib/#{file}", 'utf8' ), fs : fs
+
+    fs.writeFileSync "bin/#{path.basename( file, '.coffee' )}.js", cof.compile tmp
 
 task 'minify', 'Minify the walrus javascripts', ->
 
