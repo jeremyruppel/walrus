@@ -1,0 +1,6 @@
+<h1>{{numbers | :last}}</h1>
+<ul>
+  {{:each numbers | :last( 3 ) do}}
+  <li>{{.}}</li>
+  {{end}}
+</ul>

@@ -11,4 +11,12 @@
     }
   });
 
+  Walrus.Filters.add('last', function(array, count) {
+    if (count != null) {
+      return array.slice(-count);
+    } else {
+      return array[array.length - 1];
+    }
+  });
+
 }).call(this);
