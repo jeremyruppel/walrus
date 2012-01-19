@@ -48,7 +48,7 @@ Walrus.Filters.add 'strftime', ( dateish, format ) ->
 
   date = new Date dateish
 
-  format.replace /%(a|A|b|B|c|d|H|I|m|M|p)/g, ( input ) ->
+  format.replace /%(a|A|b|B|c|d|H|I|m|M|p|S|w|y|Y)/g, ( input ) ->
 
     switch input
       when '%a' then ABBR_DAYNAMES[ date.getDay( ) ]
@@ -63,13 +63,13 @@ Walrus.Filters.add 'strftime', ( dateish, format ) ->
       when '%m' then date.getMonth( ) + 1
       when '%M' then date.getMinutes( )
       when '%p' then "#{if date.getHours( ) < 12 then 'A' else 'P'}M"
-      # TODO %S
+      when '%S' then date.getSeconds( )
       # TODO %U
       # TODO %W
-      # TODO %w
+      when '%w' then date.getDay( )
       # TODO %x
       # TODO %X
-      # TODO %y
-      # TODO %Y
+      when '%y' then date.getFullYear( ).toString( ).slice -2 # TODO this kinda sucks, do math much?
+      when '%Y' then date.getFullYear( )
       # TODO %Z
       # TODO %%

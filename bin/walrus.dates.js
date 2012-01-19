@@ -51,7 +51,7 @@
   Walrus.Filters.add('strftime', function(dateish, format) {
     var date;
     date = new Date(dateish);
-    return format.replace(/%(a|A|b|B|c|d|H|I|m|M|p)/g, function(input) {
+    return format.replace(/%(a|A|b|B|c|d|H|I|m|M|p|S|w|y|Y)/g, function(input) {
       switch (input) {
         case '%a':
           return ABBR_DAYNAMES[date.getDay()];
@@ -75,6 +75,14 @@
           return date.getMinutes();
         case '%p':
           return "" + (date.getHours() < 12 ? 'A' : 'P') + "M";
+        case '%S':
+          return date.getSeconds();
+        case '%w':
+          return date.getDay();
+        case '%y':
+          return date.getFullYear().toString().slice(-2);
+        case '%Y':
+          return date.getFullYear();
       }
     });
   });
