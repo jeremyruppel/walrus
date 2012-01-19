@@ -17,3 +17,5 @@ Walrus.Filters.add 'last', ( array, count ) ->
   if count? then array.slice -count else array[ array.length - 1 ]
 
 Walrus.Filters.add 'count', ( array ) -> array.length
+
+Walrus.Filters.add 'any', ( array ) -> array.length > 0

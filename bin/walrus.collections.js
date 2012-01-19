@@ -6,7 +6,6 @@
   /*
   TODO
   - More enumerable stuff?
-  - Write :count/:size
   - Write :any?/:empty?
   - Write :group_by
   - Write :pluck
@@ -30,6 +29,10 @@
 
   Walrus.Filters.add('count', function(array) {
     return array.length;
+  });
+
+  Walrus.Filters.add('any', function(array) {
+    return array.length > 0;
   });
 
 }).call(this);

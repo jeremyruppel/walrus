@@ -1,0 +1,8 @@
+<p>one has any entries? {{one | :any}}</p>
+{{:if one | :any do}}
+<p>yep, one has some entries</p>
+{{end}}
+<p>two has any entries? {{two | :any}}</p>
+{{:if two | :any do}}
+<p>yep, two has some entries</p>
+{{end}}
