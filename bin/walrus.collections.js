@@ -3,6 +3,15 @@
 
   Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
 
+  /*
+  TODO
+  - More enumerable stuff?
+  - Write :count/:size
+  - Write :any?/:empty?
+  - Write :group_by
+  - Write :pluck
+  */
+
   Walrus.Filters.add('first', function(array, count) {
     if (count != null) {
       return array.slice(0, count);

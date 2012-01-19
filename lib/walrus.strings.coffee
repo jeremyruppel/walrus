@@ -1,5 +1,13 @@
 Walrus = if require? and exports? then require './walrus' else window.Walrus
 
+###
+TODO
+- Write :strip
+- Move :upcase here
+- Move :downcase here
+- Write :blank?
+###
+
 Walrus.Filters.add 'squish', ( string ) ->
 
   string.replace( /\s+/g, ' ' ).replace( /^\s+|\s+$/g, '' )

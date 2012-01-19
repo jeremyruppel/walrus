@@ -1,6 +1,13 @@
 Walrus = if require? and exports? then require './walrus' else window.Walrus
 
 ###
+TODO
+- Finish :strftime
+- Write :relativetime (better name?)
+- Write :ordinal
+###
+
+###
 
 %a - The abbreviated weekday name (``Sun'')
 %A - The  full  weekday  name (``Sunday'')

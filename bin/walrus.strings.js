@@ -3,6 +3,14 @@
 
   Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
 
+  /*
+  TODO
+  - Write :strip
+  - Move :upcase here
+  - Move :downcase here
+  - Write :blank?
+  */
+
   Walrus.Filters.add('squish', function(string) {
     return string.replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, '');
   });
