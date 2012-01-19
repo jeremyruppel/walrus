@@ -28,4 +28,8 @@
     }
   });
 
+  Walrus.Filters.add('count', function(array) {
+    return array.length;
+  });
+
 }).call(this);

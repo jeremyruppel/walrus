@@ -1,0 +1,3 @@
+{
+  foods : [ 'Eggs', 'Ham', 'Toast' ]
+}
