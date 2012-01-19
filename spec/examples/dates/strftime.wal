@@ -1,0 +1,11 @@
+<p>Abbreviated weekday: {{date | :strftime( "%a" )}}</p>
+<p>Full weekday: {{date | :strftime( "%A" )}}</p>
+<p>Abbreviated month: {{date | :strftime( "%b" )}}</p>
+<p>Full month: {{date | :strftime( "%B" )}}</p>
+<p>Local time: {{date | :strftime( "%c" )}}</p>
+<p>Day of the month: {{date | :strftime( "%d" )}}</p>
+<p>Hour of the day, 24-hour clock: {{date | :strftime( "%H" )}}</p>
+<p>Hour of the day, 12-hour clock: {{date | :strftime( "%I" )}}</p>
+<p>Month of the year: {{date | :strftime( "%m" )}}</p>
+<p>Minute of the hour: {{date | :strftime( "%M" )}}</p>
+<p>Meridian indicator: {{date | :strftime( "%p" )}}</p>
