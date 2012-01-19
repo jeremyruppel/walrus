@@ -19,3 +19,5 @@ Walrus.Filters.add 'last', ( array, count ) ->
 Walrus.Filters.add 'count', ( array ) -> array.length
 
 Walrus.Filters.add 'any', ( array ) -> array.length > 0
+
+Walrus.Filters.add 'empty', ( array ) -> array.length is 0

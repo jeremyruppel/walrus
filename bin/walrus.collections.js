@@ -35,4 +35,8 @@
     return array.length > 0;
   });
 
+  Walrus.Filters.add('empty', function(array) {
+    return array.length === 0;
+  });
+
 }).call(this);

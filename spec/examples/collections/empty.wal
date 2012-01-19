@@ -1,0 +1,8 @@
+<p>one is empty? {{one | :empty}}</p>
+{{:if one | :empty do}}
+<p>yep, one is empty</p>
+{{end}}
+<p>two is empty? {{two | :empty}}</p>
+{{:if two | :empty do}}
+<p>yep, two is empty</p>
+{{end}}
