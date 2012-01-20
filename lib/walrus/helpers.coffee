@@ -4,6 +4,10 @@ Helpers.add 'if', ( expression, context, root, block ) ->
 
   if expression.compile context, root then block.compile context, root else ''
 
+Helpers.add 'unless', ( expression, context, root, block ) ->
+
+  if not expression.compile context, root then block.compile context, root else ''
+
 Helpers.add 'each', ( expression, context, root, block ) ->
 
   items = for item in expression.compile context, root

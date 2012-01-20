@@ -4,3 +4,9 @@
 {{:if falsy do}}
 <p>Should NOT see this text</p>
 {{end}}
+{{:unless truthy do}}
+<p>Should NOT see this text</p>
+{{end}}
+{{:unless falsy do}}
+<p>Should see this text</p>
+{{end}}

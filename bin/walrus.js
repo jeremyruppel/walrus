@@ -548,14 +548,17 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   AST.BlockNode = (function() {
 
-    function BlockNode(helper, expression, block) {
-      this.helper = helper;
+    function BlockNode(name, expression, block) {
+      this.name = name;
       this.expression = expression;
       this.block = block;
+      if (Walrus.Helpers[this.name] == null) {
+        throw "Cannot find any helper named '" + this.name + "'.";
+      }
     }
 
     BlockNode.prototype.compile = function(context, root) {
-      return Walrus.Helpers[this.helper](this.expression, context, root, this.block);
+      return Walrus.Helpers[this.name](this.expression, context, root, this.block);
     };
 
     return BlockNode;
@@ -625,6 +628,14 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Helpers.add('if', function(expression, context, root, block) {
     if (expression.compile(context, root)) {
+      return block.compile(context, root);
+    } else {
+      return '';
+    }
+  });
+
+  Helpers.add('unless', function(expression, context, root, block) {
+    if (!expression.compile(context, root)) {
       return block.compile(context, root);
     } else {
       return '';

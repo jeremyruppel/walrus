@@ -48,9 +48,11 @@ class AST.ExpressionNode
   compile : ( context, root ) -> @filters.apply @paths.compile( context, root ), context, root
 
 class AST.BlockNode
-  constructor : ( @helper, @expression, @block ) ->
+  constructor : ( @name, @expression, @block ) ->
 
-  compile : ( context, root ) -> Walrus.Helpers[ @helper ] @expression, context, root, @block
+    throw "Cannot find any helper named '#{@name}'." unless Walrus.Helpers[ @name ]?
+
+  compile : ( context, root ) -> Walrus.Helpers[ @name ] @expression, context, root, @block
 
 class AST.FilterNode
   constructor : ( @name, @arguments ) ->
