@@ -5,7 +5,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.0.6'
+    VERSION: '0.0.7'
   };
 
   /* Jison generated parser */
