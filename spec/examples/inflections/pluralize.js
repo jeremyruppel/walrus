@@ -1,0 +1,4 @@
+{
+  singular : 'post',
+  plural : 'comments'
+}
