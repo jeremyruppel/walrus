@@ -30,6 +30,7 @@ expression
   : ATTR paths { $$ = new yy.PathNode( $2, false ) }
   | paths { $$ = new yy.PathNode( $1, true ) }
   | DOT { $$ = new yy.ThisNode( ) }
+  | primitive { $$ = $1 }
   ;
 
 helper
@@ -68,7 +69,10 @@ arguments
 
 argument
   : expression { $$ = $1 }
-  | SINGLE_QUOTE_STRING_LITERAL { $$ = new yy.PrimitiveNode( $1 ) }
+  ;
+
+primitive
+  : SINGLE_QUOTE_STRING_LITERAL { $$ = new yy.PrimitiveNode( $1 ) }
   | DOUBLE_QUOTE_STRING_LITERAL { $$ = new yy.PrimitiveNode( $1 ) }
   | BOOLEAN_FALSE { $$ = new yy.PrimitiveNode( false ) }
   | BOOLEAN_TRUE { $$ = new yy.PrimitiveNode( true ) }
