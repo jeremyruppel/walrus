@@ -1,0 +1,4 @@
+<p>{{"post" | :pluralize( count )}}</p>
+<p>{{"post" | :pluralize( count, true )}}</p>
+<p>{{'post' | :pluralize( count )}}</p>
+<p>{{'post' | :pluralize( count, true )}}</p>
