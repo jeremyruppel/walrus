@@ -1,0 +1,2 @@
+<p>Singularize a word: {{plural | :singularize}}</p>
+<p>Leave a singular alone: {{singular | :singularize}}</p>
