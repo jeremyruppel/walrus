@@ -1,52 +1,50 @@
-fs    = require 'fs'
-path  = require 'path'
-exec  = require( 'child_process' ).exec
+require 'icing'
 
-sh = ( command, callback ) ->
+path = require 'path'
+fs   = require 'fs'
 
-  exec command, ( error, stdout, stderr ) ->
+task 'jison', 'Compile the walrus parser', [ ],
 
-    console.log error  if error?
-    console.log stdout if stdout?
-    console.log stderr if stderr?
+  outputs : -> [ ]
 
-    callback( ) if callback?
+  recipe : ->
 
-mv = ( from, to ) -> fs.renameSync from, to
+    @exec [
+      'jison src/walrus.yy src/walrus.l',
+      'mv ./walrus.js ./lib/walrus/parser.js'
+    ]
 
-task 'compile', 'Compile the walrus parser', ->
+task 'compile', 'Compile the walrus javascripts', [ 'task(jison)', 'lib/*.coffee' ],
 
-  sh 'jison src/walrus.yy src/walrus.l', ->
+  outputs : -> path.basename file, '.coffee' for file in @filePrereqs
 
-    mv './walrus.js', './lib/walrus/parser.js'
+  recipe : ->
 
-task 'test', 'Run the test suite', ->
+    ejs = require 'ejs'
+    cof = require 'coffee-script'
+    ugl = require 'uglify-js'
 
-  sh 'jasmine-node --coffee spec'
+    for file in @filePrereqs #change to @modifiedPrereqs
 
-task 'build', 'Build the walrus javascripts', ->
+      tmp = ejs.render fs.readFileSync( file, 'utf8' ), fs : fs
 
-  ejs = require 'ejs'
-  cof = require 'coffee-script'
-  ugl = require 'uglify-js'
+      dev = "bin/#{path.basename( file, '.coffee' )}.js"
+      min = "bin/#{path.basename( file, '.coffee' )}.min.js"
 
-  for file in fs.readdirSync 'lib' when path.extname( file ) is '.coffee'
+      fs.writeFileSync dev, cof.compile tmp
 
-    tmp = ejs.render fs.readFileSync( "lib/#{file}", 'utf8' ), fs : fs
+      ast = ugl.parser.parse fs.readFileSync dev, 'utf8'
+      ast = ugl.uglify.ast_mangle ast
+      ast = ugl.uglify.ast_squeeze ast
 
-    dev = "bin/#{path.basename( file, '.coffee' )}.js"
-    min = "bin/#{path.basename( file, '.coffee' )}.min.js"
+      fs.writeFileSync min, ugl.uglify.gen_code ast
 
-    fs.writeFileSync dev, cof.compile tmp
+    @finished( )
 
-    ast = ugl.parser.parse fs.readFileSync dev, 'utf8'
-    ast = ugl.uglify.ast_mangle ast
-    ast = ugl.uglify.ast_squeeze ast
+task 'vows', 'Run the vows suite', [ 'task(compile)' ],
 
-    fs.writeFileSync min, ugl.uglify.gen_code ast
+  outputs : -> [ ]
 
-task 'all', 'Runs all build, compilation, and test tasks in order', ->
+  recipe : ->
 
-  invoke 'compile'
-  invoke 'build'
-  invoke 'test'
+    console.log 'RUN THE VOWS', arguments

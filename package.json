@@ -14,6 +14,7 @@
   "devDependencies": {
     "jison":"*",
     "vows":"0.6.1",
+    "icing":"https://github.com/KrisJordan/icing/tarball/master",
     "ejs":"*",
     "coffee-script":"*",
     "uglify-js":"*"
