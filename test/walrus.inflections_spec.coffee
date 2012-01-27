@@ -1,12 +1,13 @@
 Walrus = require '../bin/walrus'
+should = require 'should'
 
-require '../bin/walrus.strings'
+require '../bin/walrus.inflections'
 
-describe 'walrus.strings', ->
+describe 'walrus.inflections', ->
 
   fs    = require 'fs'
   path  = require 'path'
-  specs = './spec/examples/strings'
+  specs = './test/examples/inflections'
 
   for file in fs.readdirSync specs when path.extname( file ) is '.wal'
 
@@ -20,4 +21,4 @@ describe 'walrus.strings', ->
 
       tmpl = Walrus.Parser.parse text
 
-      it "should pass the #{base} example", -> expect( tmpl.compile eval( "(#{json})" ) ).toEqual html
+      it "should pass the #{base} example", -> tmpl.compile( eval( "(#{json})" ) ).should.equal html

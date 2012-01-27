@@ -1,12 +1,13 @@
 Walrus = require '../bin/walrus'
+should = require 'should'
 
 describe 'Walrus.Parser', ->
 
-  it 'should be defined', -> expect( Walrus.Parser ).toBeDefined( )
+  it 'should be defined', -> should.exist Walrus.Parser
 
   describe '#parse', ->
 
-    it 'should be defined', -> expect( Walrus.Parser.parse ).toBeDefined( )
+    it 'should be defined', -> should.exist Walrus.Parser.parse
 
     # TODO there's got to be a better place to put these spec-only filters
     Walrus.Filters.add 'append',  ( value, something ) -> "#{value}, #{something}"
@@ -14,7 +15,7 @@ describe 'Walrus.Parser', ->
 
     fs    = require 'fs'
     path  = require 'path'
-    specs = './spec/examples'
+    specs = './test/examples'
 
     for file in fs.readdirSync specs when path.extname( file ) is '.wal'
 
@@ -28,4 +29,4 @@ describe 'Walrus.Parser', ->
 
         tmpl = Walrus.Parser.parse text
 
-        it "should pass the #{base} example", -> expect( tmpl.compile eval( "(#{json})" ) ).toEqual html
+        it "should pass the #{base} example", -> tmpl.compile( eval( "(#{json})" ) ).should.equal html
