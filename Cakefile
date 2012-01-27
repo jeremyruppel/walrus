@@ -22,7 +22,7 @@ task 'compile', 'Compile the walrus parser', ->
 
 task 'test', 'Run the test suite', ->
 
-  sh 'jasmine-node --coffee spec'
+  sh 'mocha --reporter spec --colors'
 
 task 'build', 'Build the walrus javascripts', ->
 
