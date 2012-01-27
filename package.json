@@ -13,7 +13,7 @@
   "dependencies": {},
   "devDependencies": {
     "jison":"*",
-    "vows":"0.6.1",
+    "mocha":"*",
     "icing":"https://github.com/KrisJordan/icing/tarball/master",
     "ejs":"*",
     "coffee-script":"*",
