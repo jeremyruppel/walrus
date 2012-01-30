@@ -15,7 +15,6 @@
     "jison":"*",
     "mocha":"*",
     "should":"0.5.1",
-    "icing":"https://github.com/KrisJordan/icing/tarball/master",
     "ejs":"*",
     "coffee-script":"*",
     "uglify-js":"*"
