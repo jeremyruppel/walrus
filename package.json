@@ -12,11 +12,11 @@
   "main": "./lib/walrus",
   "dependencies": {},
   "devDependencies": {
-    "jison":"*",
-    "mocha":"*",
+    "jison":"0.3.2",
+    "mocha":"0.10.2",
     "should":"0.5.1",
-    "ejs":"*",
-    "coffee-script":"*",
-    "uglify-js":"*"
+    "ejs":"0.6.1",
+    "coffee-script":"1.2.0",
+    "uglify-js":"1.2.5"
   }
 }
