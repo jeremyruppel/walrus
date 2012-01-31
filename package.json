@@ -20,6 +20,6 @@
     "uglify-js":"1.2.5"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter spec --colors"
   }
 }
