@@ -1,6 +1,8 @@
 Walrus
 ======
 
+[![Build Status](https://secure.travis-ci.org/jeremyruppel/walrus.png)](http://travis-ci.org/jeremyruppel/walrus)
+
 Goal
 ----
 
