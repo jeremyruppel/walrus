@@ -2,7 +2,7 @@ Walrus = require '../../bin/walrus'
 
 TestHelpers =
 
-  pass : ( specs ) ->
+  pass : ( specs, suffix='' ) ->
 
     fs    = require 'fs'
     path  = require 'path'
@@ -14,13 +14,13 @@ TestHelpers =
 
         base = path.basename file, '.wal'
 
-        text = fs.readFileSync "#{specs}/#{base}.wal",  'utf8'
-        json = fs.readFileSync "#{specs}/#{base}.js",   'utf8'
-        html = fs.readFileSync "#{specs}/#{base}.html", 'utf8'
+        text = fs.readFileSync "#{specs}/#{base}.wal",           'utf8'
+        json = fs.readFileSync "#{specs}/#{base}.js",            'utf8'
+        html = fs.readFileSync "#{specs}/#{base}#{suffix}.html", 'utf8'
 
         tmpl = Walrus.Parser.parse text
 
-        it "should pass the #{base} example", ( done ) ->
+        it "should pass the #{base}#{suffix} example", ( done ) ->
 
           comp = tmpl.compile( eval( "(#{json})" ) )
 
@@ -29,7 +29,7 @@ TestHelpers =
           else
 
             cmd = """
-            printf "#{comp}" | diff --unified #{specs}/#{base}.html -
+            printf "#{comp}" | diff --unified #{specs}/#{base}#{suffix}.html -
             """
 
             exec cmd, ( error, stdout, stderr ) ->
