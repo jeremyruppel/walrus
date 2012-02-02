@@ -10,4 +10,6 @@ Filters.add 'upcase', ( value ) -> value.toUpperCase( )
 
 Filters.add 'equals', ( foo, bar ) -> foo is bar
 
+Filters.add 'or', ( foo, bar ) -> foo || bar
+
 Walrus.Filters = Filters

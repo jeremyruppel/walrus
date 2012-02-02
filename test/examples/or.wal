@@ -1,0 +1,3 @@
+{{:each books do}}
+<p>{{title | :or( "untitled" )}}</p>
+{{end}}

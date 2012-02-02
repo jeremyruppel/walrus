@@ -691,6 +691,10 @@ if (typeof module !== 'undefined' && require.main === module) {
     return foo === bar;
   });
 
+  Filters.add('or', function(foo, bar) {
+    return foo || bar;
+  });
+
   Walrus.Filters = Filters;
 
   /*
