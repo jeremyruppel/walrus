@@ -1,3 +1,3 @@
 {
-  date : new Date( 'Thu Jan 19 2012 03:34:13 GMT+0000 (UTC)' )
+  date : new Date( 'Wed Jan 18 2012 19:34:13 GMT-0800 (PST)' )
 }
