@@ -687,6 +687,10 @@ if (typeof module !== 'undefined' && require.main === module) {
     return value.toUpperCase();
   });
 
+  Filters.add('equals', function(foo, bar) {
+    return foo === bar;
+  });
+
   Walrus.Filters = Filters;
 
   /*

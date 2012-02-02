@@ -1,0 +1,2 @@
+<div class="server {{:if status | :equals( "working" ) do}}active{{end}}"</div>
+<div class="server {{:if status | :equals( "broken" ) do}}inactive{{end}}"</div>
