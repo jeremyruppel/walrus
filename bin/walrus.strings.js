@@ -1,3 +1,10 @@
+/**
+ * Walrus.js 0.1.1
+ * Thu Feb 02 2012 23:21:10 GMT-0800 (PST)
+ * (c) 2012 Jeremy Ruppel
+ * Walrus.js is freely distributable under the terms of the MIT license.
+ * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
+ */
 (function() {
   var Walrus;
 
