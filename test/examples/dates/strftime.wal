@@ -6,15 +6,10 @@
 <p>Day of the month: {{date | :strftime( "%d" )}}</p>
 <p>Hour of the day, 24-hour clock: {{date | :strftime( "%H" )}}</p>
 <p>Hour of the day, 12-hour clock: {{date | :strftime( "%I" )}}</p>
-<!-- Day of the year (001..366) -->
 <p>Month of the year: {{date | :strftime( "%m" )}}</p>
 <p>Minute of the hour: {{date | :strftime( "%M" )}}</p>
 <p>Meridian indicator: {{date | :strftime( "%p" )}}</p>
 <p>Second of the minute: {{date | :strftime( "%S" )}}</p>
-<!-- %U - Week  number  of the current year, starting with the first Sunday as the first day of the first week (00..53) -->
-<!-- %W - Week  number  of the current year, starting with the first Monday as the first day of the first week (00..53) -->
 <p>Day of the week: {{date | :strftime( "%w" )}}</p>
-<!-- %x - Preferred representation for the date alone, no time -->
-<!-- %X - Preferred representation for the time alone, no date -->
 <p>Year without a century (00..99): {{date | :strftime( "%y" )}}</p>
 <p>Year with century: {{date | :strftime( "%Y" )}}</p>
