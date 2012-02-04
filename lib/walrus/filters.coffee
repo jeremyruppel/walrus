@@ -12,4 +12,6 @@ Filters.add 'equals', ( foo, bar ) -> foo is bar
 
 Filters.add 'or', ( foo, bar ) -> foo || bar
 
+Filters.add 'log', -> if console? and console.log? then console.log '[Walrus]', arguments...
+
 Walrus.Filters = Filters
