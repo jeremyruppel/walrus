@@ -17,11 +17,7 @@ class AST.ContentNode
 class AST.MemberNode
   constructor : ( @path ) ->
 
-  compile : ( index, context, root ) ->
-
-    throw "Cannot find any member named '#{@path}' in #{index}." unless index[ @path ]?
-
-    index[ @path ]
+  compile : ( index, context, root ) -> index[ @path ]
 
 class AST.MethodNode
   constructor : ( @path, @arguments ) ->
