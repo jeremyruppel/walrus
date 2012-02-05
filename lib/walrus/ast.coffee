@@ -17,12 +17,20 @@ class AST.ContentNode
 class AST.MemberNode
   constructor : ( @path ) ->
 
-  compile : ( index, context, root ) -> index[ @path ]
+  compile : ( index, context, root ) ->
+
+    throw "Cannot find any member named '#{@path}' in #{index}." unless index[ @path ]?
+
+    index[ @path ]
 
 class AST.MethodNode
   constructor : ( @path, @arguments ) ->
 
-  compile : ( index, context, root ) -> index[ @path ] (argument.compile context, root for argument in @arguments)...
+  compile : ( index, context, root ) ->
+
+    throw "Cannot find any method named '#{@path}' in #{index}." unless index[ @path ]?
+
+    index[ @path ] (argument.compile context, root for argument in @arguments)...
 
 class AST.ThisNode
   compile : ( context, root ) -> context

@@ -461,6 +461,9 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     MemberNode.prototype.compile = function(index, context, root) {
+      if (index[this.path] == null) {
+        throw "Cannot find any member named '" + this.path + "' in " + index + ".";
+      }
       return index[this.path];
     };
 
@@ -477,6 +480,9 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     MethodNode.prototype.compile = function(index, context, root) {
       var argument;
+      if (index[this.path] == null) {
+        throw "Cannot find any method named '" + this.path + "' in " + index + ".";
+      }
       return index[this.path].apply(index, (function() {
         var _i, _len, _ref, _results;
         _ref = this.arguments;
