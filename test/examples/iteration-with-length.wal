@@ -1,0 +1,6 @@
+<p>Use the special property `$length` while iterating to get the total amount of items.</p>
+<ul>
+  {{:each albums do}}
+  <li>{{title}} - one of {{$length}} great tracks.</li>
+  {{end}}
+</ul>

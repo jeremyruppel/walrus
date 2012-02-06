@@ -836,15 +836,16 @@ if (typeof module !== 'undefined' && require.main === module) {
   */
 
   Walrus.addHelper('each', function(expression, context, root, block) {
-    var index, item, items;
+    var array, index, item, items;
+    array = expression.compile(context, root);
     items = (function() {
-      var _len, _ref, _results;
-      _ref = expression.compile(context, root);
+      var _len, _results;
       _results = [];
-      for (index = 0, _len = _ref.length; index < _len; index++) {
-        item = _ref[index];
+      for (index = 0, _len = array.length; index < _len; index++) {
+        item = array[index];
         item['$index'] = index;
         item['$parent'] = context;
+        item['$length'] = array.length;
         _results.push(block.compile(item, root));
       }
       return _results;

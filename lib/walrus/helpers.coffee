@@ -39,10 +39,13 @@ Walrus.addHelper 'unless', ( expression, context, root, block ) ->
 ###
 Walrus.addHelper 'each', ( expression, context, root, block ) ->
 
-  items = for item, index in expression.compile context, root
+  array = expression.compile context, root
+
+  items = for item, index in array
 
     item[ '$index'  ] = index
     item[ '$parent' ] = context
+    item[ '$length' ] = array.length
 
     block.compile item, root
 
