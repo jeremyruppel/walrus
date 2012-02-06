@@ -1,6 +1,6 @@
 /**
  * Walrus.js 0.1.1
- * Sat Feb 04 2012
+ * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
@@ -17,7 +17,6 @@
 
   /* Jison generated parser */
 var walrus = (function(){
-
 var parser = {trace: function trace() { },
 yy: {},
 symbols_: {"error":2,"document":3,"text":4,"EOF":5,"statements":6,"statement":7,"OPEN":8,"helper":9,"mustache":10,"OPEN_BLOCK":11,"CLOSE_BLOCK":12,"CLOSE":13,"CONTENT":14,"expression":15,"PIPE":16,"filters":17,"ATTR":18,"paths":19,"DOT":20,"primitive":21,"HELP":22,"MEMBER":23,"filter":24,"OPEN_PAREN":25,"arguments":26,"CLOSE_PAREN":27,"path":28,"method":29,"member":30,"COMMA":31,"argument":32,"SINGLE_QUOTE_STRING_LITERAL":33,"DOUBLE_QUOTE_STRING_LITERAL":34,"BOOLEAN_FALSE":35,"BOOLEAN_TRUE":36,"NUMBER":37,"$accept":0,"$end":1},
@@ -197,9 +196,9 @@ parse: function parse(input) {
     }
     return true;
 }
-};/* Jison generated lexer */
+};
+/* Jison generated lexer */
 var lexer = (function(){
-
 var lexer = ({EOF:1,
 parseError:function parseError(str, hash) {
         if (this.yy.parseError) {
@@ -260,6 +259,8 @@ next:function () {
 
         var token,
             match,
+            tempMatch,
+            index,
             col,
             lines;
         if (!this._more) {
@@ -268,25 +269,29 @@ next:function () {
         }
         var rules = this._currentRules();
         for (var i=0;i < rules.length; i++) {
-            match = this._input.match(this.rules[rules[i]]);
-            if (match) {
-                lines = match[0].match(/\n.*/g);
-                if (lines) this.yylineno += lines.length;
-                this.yylloc = {first_line: this.yylloc.last_line,
-                               last_line: this.yylineno+1,
-                               first_column: this.yylloc.last_column,
-                               last_column: lines ? lines[lines.length-1].length-1 : this.yylloc.last_column + match[0].length}
-                this.yytext += match[0];
-                this.match += match[0];
-                this.matches = match;
-                this.yyleng = this.yytext.length;
-                this._more = false;
-                this._input = this._input.slice(match[0].length);
-                this.matched += match[0];
-                token = this.performAction.call(this, this.yy, this, rules[i],this.conditionStack[this.conditionStack.length-1]);
-                if (token) return token;
-                else return;
+            tempMatch = this._input.match(this.rules[rules[i]]);
+            if (tempMatch && (!match || tempMatch[0].length > match[0].length)) {
+                match = tempMatch;
+                index = i;
+                if (!this.options.flex) break;
             }
+        }
+        if (match) {
+            lines = match[0].match(/\n.*/g);
+            if (lines) this.yylineno += lines.length;
+            this.yylloc = {first_line: this.yylloc.last_line,
+                           last_line: this.yylineno+1,
+                           first_column: this.yylloc.last_column,
+                           last_column: lines ? lines[lines.length-1].length-1 : this.yylloc.last_column + match[0].length}
+            this.yytext += match[0];
+            this.match += match[0];
+            this.yyleng = this.yytext.length;
+            this._more = false;
+            this._input = this._input.slice(match[0].length);
+            this.matched += match[0];
+            token = this.performAction.call(this, this.yy, this, rules[index],this.conditionStack[this.conditionStack.length-1]);
+            if (token) return token;
+            else return;
         }
         if (this._input === "") {
             return this.EOF;
@@ -318,6 +323,7 @@ topState:function () {
 pushState:function begin(condition) {
         this.begin(condition);
     }});
+lexer.options = {};
 lexer.performAction = function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 
 var YYSTATE=YY_START
@@ -367,7 +373,8 @@ break;
 }
 };
 lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}/,/^\{\{\s*end\b/,/^\{\{/,/^\}\}/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^\d+(\.\d+)?/,/^[a-zA-Z0-9\_]+/,/^$/];
-lexer.conditions = {"mu":{"rules":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"inclusive":false},"INITIAL":{"rules":[0,1,20],"inclusive":true}};return lexer;})()
+lexer.conditions = {"mu":{"rules":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"inclusive":false},"INITIAL":{"rules":[0,1,20],"inclusive":true}};
+return lexer;})()
 parser.lexer = lexer;
 return parser;
 })();
@@ -390,8 +397,8 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 };
 
-  /*
-  AST
+  /**
+   * AST
   */
 
   AST = {
@@ -399,6 +406,12 @@ if (typeof module !== 'undefined' && require.main === module) {
       return str.replace(/^\s+|\s+$/g, '');
     }
   };
+
+  /**
+   * AST.NodeCollection
+   * A collection of nodes with the #compile interface, simply compiles
+   * each of its nodes and joins the results.
+  */
 
   AST.NodeCollection = (function() {
 
@@ -424,6 +437,12 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })();
 
+  /**
+   * AST.DocumentNode
+   * The root node of the document. Basically inherits from `AST.NodeCollection`
+   * and tacks on a CR (for version control style).
+  */
+
   AST.DocumentNode = (function(_super) {
 
     __extends(DocumentNode, _super);
@@ -440,6 +459,11 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })(AST.NodeCollection);
 
+  /**
+   * AST.ContentNode
+   * A node with non-mustache content, probably HTML. We simply pass the content through.
+  */
+
   AST.ContentNode = (function() {
 
     function ContentNode(content) {
@@ -454,6 +478,14 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })();
 
+  /**
+   * AST.MemberNode
+   * A node that refers to a member of the context. We don't explicitly check that this
+   * member exists in case the developer wants to check that in a conditional.
+   *
+   * `{{member}}`, for instance, will compile to `index[ 'member' ]`.
+  */
+
   AST.MemberNode = (function() {
 
     function MemberNode(path) {
@@ -461,15 +493,24 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     MemberNode.prototype.compile = function(index, context, root) {
-      if (index[this.path] == null) {
-        throw "Cannot find any member named '" + this.path + "' in " + index + ".";
-      }
       return index[this.path];
     };
 
     return MemberNode;
 
   })();
+
+  /**
+   * AST.MethodNode
+   * A node that refers to a member of the context, specifically a method, and will
+   * call that method with any given arguments after they compile. We explicitly
+   * check that the method exists to avoid 'foo is not a function' or other cryptic
+   * errors.
+   *
+   * `{{member( )}}`, for instance, will compile to `index[ 'member' ]( )`.
+   *
+   * TODO: arguments could make use of `AST.NodeCollection`
+  */
 
   AST.MethodNode = (function() {
 
@@ -499,6 +540,28 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })();
 
+  /**
+   * AST.ThisNode
+   * A node that simply returns the current context to be evaluated. This is most useful
+   * during implicit iteration and is denoted with a dot, like `{{.}}`.
+   *
+   * One example is when you've got an array of primitive types, like strings:
+   *
+   *  var names = [ 'Antonio', 'Ben', 'Curtis' ];
+   *
+   *  {{:each names do}}
+   *  <li>{{.}}</li>
+   *  {{end}}
+   *
+   * A similar use case is when the root view object is an array:
+   *
+   *  var view = [ { name : 'Antonio' }, { name : 'Ben' }, { name : 'Curtis' } ];
+   *
+   *  {{:each . do}}
+   *  <li>{{name}}</li>
+   *  {{end}}
+  */
+
   AST.ThisNode = (function() {
 
     function ThisNode() {}
@@ -510,6 +573,17 @@ if (typeof module !== 'undefined' && require.main === module) {
     return ThisNode;
 
   })();
+
+  /**
+   * AST.PathNode
+   * A node that represents an object path. The path segments are typically
+   * `AST.MemberNode`s and `AST.MethodNode`s.
+   *
+   * A `PathNode` may be evaluated in two contexts: the current "local" context
+   * and the "root" context. For example, `{{foo.bar.baz}}` will try to evaluate
+   * the object path from the current context, while `{{@foo.bar.baz}}` will
+   * start back up at the root view object.
+  */
 
   AST.PathNode = (function() {
 
@@ -532,6 +606,23 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })();
 
+  /**
+   * AST.PrimitiveNode
+   * A node whose value is a javascript primitive or literal. Supported
+   * primitives are:
+   *
+   * - Strings with "double quotes"
+   * - Strings with 'single quotes'
+   * - Numbers, like 45 or 987.654
+   * - Booleans, true or false
+   *
+   * TODO These primitives are currently parsed in the lexing phase. I'm
+   * kinda feeling like a bit of that logic should be moved to the AST instead.
+   * Perhaps declare the literal type in the lexer and determine the conversion
+   * here, or create distinct classes for each primitive type, like `BooleanNode`
+   * and `NumberNode`.
+  */
+
   AST.PrimitiveNode = (function() {
 
     function PrimitiveNode(value) {
@@ -545,6 +636,23 @@ if (typeof module !== 'undefined' && require.main === module) {
     return PrimitiveNode;
 
   })();
+
+  /**
+   * AST.ExpressionNode
+   * An expression is the main part of a mustache. It typically consists of a path,
+   * which gets compiled, then passed to any filters to be manipulated further.
+   * The subject of an expression may also be a primitive.
+   *
+   * The breakdown of a single-line mustache is:
+   *
+   *  {{ expression | :filter(s) }}
+   *
+   * And a block mustache with a helper, like:
+   *
+   *  {{ :helper expression | :filters(s) do }}
+   *    // block content
+   *  {{ end }}
+  */
 
   AST.ExpressionNode = (function() {
 
@@ -560,6 +668,16 @@ if (typeof module !== 'undefined' && require.main === module) {
     return ExpressionNode;
 
   })();
+
+  /**
+   * AST.BlockNode
+   * A node that contains other statements within a block. `BlockNode`s are denoted
+   * by the use of a _:helper_, and the presence of `do`/`end` to signify the start
+   * and end of the node's block. It is the helper's responsibility to determine
+   * how to compile the block.
+   *
+   * Will throw an error if the named helper is not defined in `Walrus.Helpers`.
+  */
 
   AST.BlockNode = (function() {
 
@@ -579,6 +697,17 @@ if (typeof module !== 'undefined' && require.main === module) {
     return BlockNode;
 
   })();
+
+  /**
+   * AST.FilterNode
+   * A node that specifies a _filter_ used to post-process the result of the expression.
+   * Filters may also accept arguments, just like methods. These arguments are determined
+   * and handled by the filter itself.
+   *
+   * Will throw an error if the named filter is not defined in `Walrus.Filters`.
+   *
+   * TODO: arguments could make use of `AST.NodeCollection`
+  */
 
   AST.FilterNode = (function() {
 
@@ -608,6 +737,12 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   })();
 
+  /**
+   * AST.FilterCollection
+   * A collection of filters. Filters are applied to the expression
+   * in order from left to right.
+  */
+
   AST.FilterCollection = (function() {
 
     function FilterCollection(filters) {
@@ -631,8 +766,8 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Walrus.AST = AST;
 
-  /*
-  Core Helpers
+  /**
+   * Core Helpers
   */
 
   Helpers = {
@@ -678,8 +813,8 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Walrus.Helpers = Helpers;
 
-  /*
-  Core Filters
+  /**
+   * Core Filters
   */
 
   Filters = {
@@ -716,8 +851,8 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Walrus.Filters = Filters;
 
-  /*
-  Setup
+  /**
+   * Setup
   */
 
   Walrus.Parser = {
@@ -729,8 +864,8 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Walrus.Parser.parser.yy = Walrus.AST;
 
-  /*
-  Export
+  /**
+   * Export
   */
 
   if ((typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null)) {
