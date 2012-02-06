@@ -774,6 +774,16 @@ if (typeof module !== 'undefined' && require.main === module) {
     add: function(name, fn) {
       return this[name] = fn;
     }
+    /**
+     * *:if*
+     * Evaluates a block only if the result of `expression` is truthy. Opposite of `:uness`.
+     *
+     * Usage:
+     *
+     *  {{:if expression do}}
+     *    // block content
+     *  {{end}}
+    */
   };
 
   Helpers.add('if', function(expression, context, root, block) {
@@ -784,6 +794,17 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
   });
 
+  /**
+   * *:unless*
+   * Evaluates a block only if the result of `expression` is falsy. Opposite of `:if`.
+   *
+   * Usage:
+   *
+   *  {{:unless expression do}}
+   *    // block content
+   *  {{end}}
+  */
+
   Helpers.add('unless', function(expression, context, root, block) {
     if (!expression.compile(context, root)) {
       return block.compile(context, root);
@@ -791,6 +812,12 @@ if (typeof module !== 'undefined' && require.main === module) {
       return '';
     }
   });
+
+  /**
+   * *:each*
+   * Iterates over the array returned by `expression` and evaluates the block
+   * for each member of the array. The compiled blocks are then joined.
+  */
 
   Helpers.add('each', function(expression, context, root, block) {
     var item, items;
@@ -807,6 +834,17 @@ if (typeof module !== 'undefined' && require.main === module) {
     return items.join('');
   });
 
+  /**
+   * *:with*
+   * Changes the local context of the block to the result of `expression`.
+   *
+   * Usage:
+   *
+   *  {{:with expression do}}
+   *    <p>{{name}}</p>
+   *  {{end}}
+  */
+
   Helpers.add('with', function(expression, context, root, block) {
     return block.compile(expression.compile(context, root), root);
   });
@@ -821,27 +859,107 @@ if (typeof module !== 'undefined' && require.main === module) {
     add: function(name, fn) {
       return this[name] = fn;
     }
+    /**
+     * *:reverse*
+     * Reverses a string.
+     *
+     * Parameters: none
+     *
+     * Usage:
+     *
+     *  {{ "hello" | :reverse }} // => "olleh"
+     *
+     * TODO we have better filters in core now to test the filter mechanism.
+     * Move this to walrus.strings
+    */
   };
 
   Filters.add('reverse', function(value) {
     return value.split('').reverse().join('');
   });
 
+  /**
+   * *:downcase*
+   * Converts a string to lowercase characters. Opposite of `:upcase`.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  {{ "HelLO!" | :downcase }} // => "hello!"
+   *
+   * TODO we have better filters in core now to test the filter mechanism.
+   * Move this to walrus.strings
+  */
+
   Filters.add('downcase', function(value) {
     return value.toLowerCase();
   });
+
+  /**
+   * *:upcase*
+   * Converts a string to uppercase characters. Opposite of `:downcase`.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  {{ "HelLO!" | :upcase }} // => "HELLO!"
+   *
+   * TODO we have better filters in core now to test the filter mechanism.
+   * Move this to walrus.strings
+  */
 
   Filters.add('upcase', function(value) {
     return value.toUpperCase();
   });
 
-  Filters.add('equals', function(foo, bar) {
-    return foo === bar;
+  /**
+   * *:equals*
+   * Returns whether the expression is strictly equal to the given value.
+   *
+   * Parameters:
+   *  foo - the value to compare to the expression
+   *
+   * Usage:
+   *
+   *  {{ :if "foo" | :equals( "bar" ) do }}
+   *    // block will not be evaluated
+   *  {{ end }}
+  */
+
+  Filters.add('equals', function(value, foo) {
+    return value === foo;
   });
 
-  Filters.add('or', function(foo, bar) {
-    return foo || bar;
+  /**
+   * *:or*
+   * Returns the result of the expression if it is truthy, the given value if not.
+   *
+   * Parameters:
+   *  foo - the value to default to if the expression is falsy.
+   *
+   * Usage:
+   *
+   *  {{ false | :or( "Not Specified" ) }} // => "Not Specified"
+  */
+
+  Filters.add('or', function(value, foo) {
+    return value || foo;
   });
+
+  /**
+   * *:log*
+   * Logs whatever you want to the console if `console.log` is available.
+   * Helpful for debugging your view object especially if your console
+   * supports object inspection.
+   *
+   * Parameters: any
+   *
+   * Usage:
+   *
+   *  {{ @root | :log( 'wtf' ) }} // => Console logs: [object Object], 'wtf'
+  */
 
   Filters.add('log', function() {
     if ((typeof console !== "undefined" && console !== null) && (console.log != null)) {
