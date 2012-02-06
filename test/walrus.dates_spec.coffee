@@ -4,7 +4,7 @@ helper = require './support/test_helpers'
 
 require '../bin/walrus.dates'
 
-describe 'walrus.dates', ->
+describe 'Walrus.Dates', ->
 
   ###
     TODO watch this fail when we hit daylight savings time :P
