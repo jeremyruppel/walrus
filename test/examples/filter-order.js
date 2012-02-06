@@ -1,3 +1,3 @@
 {
-  status : 'ACTIVE'
+  "status" : "active"
 }

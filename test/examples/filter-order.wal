@@ -1,7 +1,7 @@
 <p>Filters go in order from left to right</p>
-{{:if status | :equals( "active" ) do}}
-<p>Ah ah ah, you're supposed to be ACTIVE</p>
+{{:if status | :equals( "active!!" ) do}}
+<p>Not supposed to see this block</p>
 {{end}}
-{{:if status | :downcase :equals( "active" ) do}}
-<p>That's totally {{status | :downcase :equals( "active" )}}!</p>
+{{:if status | :exclaim :equals( "active!!" ) do}}
+<p>That's totally {{status | :exclaim :equals( "active!!" )}}!</p>
 {{end}}
