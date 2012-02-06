@@ -56,7 +56,11 @@ Helpers.add 'each', ( expression, context, root, block ) ->
 ###
 Helpers.add 'with', ( expression, context, root, block ) ->
 
-  block.compile ( expression.compile context, root ), root
+  subcontext = ( expression.compile context, root )
+
+  subcontext[ '$parent' ] = context
+
+  block.compile subcontext, root
 
 # Export those helpers, son.
 Walrus.Helpers = Helpers

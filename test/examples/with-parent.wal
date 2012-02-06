@@ -1,0 +1,9 @@
+<p>When you dereference using :with, use $parent to access the parent context</p>
+{{:with data do}}
+{{:with stats do}}
+<p>{{wins}} wins</p>
+<p>{{losses}} losses</p>
+<p>{{ties}} ties</p>
+<p>{{status}}: {{$parent.team}}</p>
+{{end}}
+{{end}}

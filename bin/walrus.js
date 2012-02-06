@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.2.2
+ * Walrus.js 0.2.3
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -12,7 +12,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.2.2'
+    VERSION: '0.2.3'
   };
 
   /* Jison generated parser */
@@ -843,7 +843,10 @@ if (typeof module !== 'undefined' && require.main === module) {
   */
 
   Helpers.add('with', function(expression, context, root, block) {
-    return block.compile(expression.compile(context, root), root);
+    var subcontext;
+    subcontext = expression.compile(context, root);
+    subcontext['$parent'] = context;
+    return block.compile(subcontext, root);
   });
 
   Walrus.Helpers = Helpers;
