@@ -1,51 +1,6 @@
 Filters = add : ( name, fn ) -> @[ name ] = fn
 
 ###*
- * *:reverse*
- * Reverses a string.
- *
- * Parameters: none
- *
- * Usage:
- *
- *  {{ "hello" | :reverse }} // => "olleh"
- *
- * TODO we have better filters in core now to test the filter mechanism.
- * Move this to walrus.strings
-###
-Filters.add 'reverse', ( value ) -> value.split( '' ).reverse( ).join( '' )
-
-###*
- * *:downcase*
- * Converts a string to lowercase characters. Opposite of `:upcase`.
- *
- * Parameters: none
- *
- * Usage:
- *
- *  {{ "HelLO!" | :downcase }} // => "hello!"
- *
- * TODO we have better filters in core now to test the filter mechanism.
- * Move this to walrus.strings
-###
-Filters.add 'downcase', ( value ) -> value.toLowerCase( )
-
-###*
- * *:upcase*
- * Converts a string to uppercase characters. Opposite of `:downcase`.
- *
- * Parameters: none
- *
- * Usage:
- *
- *  {{ "HelLO!" | :upcase }} // => "HELLO!"
- *
- * TODO we have better filters in core now to test the filter mechanism.
- * Move this to walrus.strings
-###
-Filters.add 'upcase', ( value ) -> value.toUpperCase( )
-
-###*
  * *:equals*
  * Returns whether the expression is strictly equal to the given value.
  *

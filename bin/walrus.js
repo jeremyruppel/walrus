@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.1.1
+ * Walrus.js 0.2.0
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -12,7 +12,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.1.1'
+    VERSION: '0.2.0'
   };
 
   /* Jison generated parser */
@@ -855,73 +855,19 @@ if (typeof module !== 'undefined' && require.main === module) {
       return this[name] = fn;
     }
     /**
-     * *:reverse*
-     * Reverses a string.
+     * *:equals*
+     * Returns whether the expression is strictly equal to the given value.
      *
-     * Parameters: none
+     * Parameters:
+     *  foo - the value to compare to the expression
      *
      * Usage:
      *
-     *  {{ "hello" | :reverse }} // => "olleh"
-     *
-     * TODO we have better filters in core now to test the filter mechanism.
-     * Move this to walrus.strings
+     *  {{ :if "foo" | :equals( "bar" ) do }}
+     *    // block will not be evaluated
+     *  {{ end }}
     */
   };
-
-  Filters.add('reverse', function(value) {
-    return value.split('').reverse().join('');
-  });
-
-  /**
-   * *:downcase*
-   * Converts a string to lowercase characters. Opposite of `:upcase`.
-   *
-   * Parameters: none
-   *
-   * Usage:
-   *
-   *  {{ "HelLO!" | :downcase }} // => "hello!"
-   *
-   * TODO we have better filters in core now to test the filter mechanism.
-   * Move this to walrus.strings
-  */
-
-  Filters.add('downcase', function(value) {
-    return value.toLowerCase();
-  });
-
-  /**
-   * *:upcase*
-   * Converts a string to uppercase characters. Opposite of `:downcase`.
-   *
-   * Parameters: none
-   *
-   * Usage:
-   *
-   *  {{ "HelLO!" | :upcase }} // => "HELLO!"
-   *
-   * TODO we have better filters in core now to test the filter mechanism.
-   * Move this to walrus.strings
-  */
-
-  Filters.add('upcase', function(value) {
-    return value.toUpperCase();
-  });
-
-  /**
-   * *:equals*
-   * Returns whether the expression is strictly equal to the given value.
-   *
-   * Parameters:
-   *  foo - the value to compare to the expression
-   *
-   * Usage:
-   *
-   *  {{ :if "foo" | :equals( "bar" ) do }}
-   *    // block will not be evaluated
-   *  {{ end }}
-  */
 
   Filters.add('equals', function(value, foo) {
     return value === foo;

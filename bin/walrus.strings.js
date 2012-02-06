@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.1.1
+ * Walrus.js 0.2.0
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -9,6 +9,51 @@
   var Walrus;
 
   Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
+
+  /**
+   * *:reverse*
+   * Reverses a string.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  {{ "hello" | :reverse }} // => "olleh"
+  */
+
+  Walrus.Filters.add('reverse', function(value) {
+    return value.split('').reverse().join('');
+  });
+
+  /**
+   * *:downcase*
+   * Converts a string to lowercase characters. Opposite of `:upcase`.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  {{ "HelLO!" | :downcase }} // => "hello!"
+  */
+
+  Walrus.Filters.add('downcase', function(value) {
+    return value.toLowerCase();
+  });
+
+  /**
+   * *:upcase*
+   * Converts a string to uppercase characters. Opposite of `:downcase`.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  {{ "HelLO!" | :upcase }} // => "HELLO!"
+  */
+
+  Walrus.Filters.add('upcase', function(value) {
+    return value.toUpperCase();
+  });
 
   /**
    * *:squish*
