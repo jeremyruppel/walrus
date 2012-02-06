@@ -1,0 +1,11 @@
+<p>Use :as to decorate your view objects with your domain methods</p>
+<ul>
+  {{:each players | :as( 'person' ) do}}
+  <li>{{fullName( )}}</li>
+  {{end}}
+</ul>
+<ul>
+  {{:each players | :as( 'person' ) do}}
+  <li>{{telephoneName( )}}</li>
+  {{end}}
+</ul>
