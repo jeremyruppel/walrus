@@ -1,0 +1,8 @@
+<p>Use the special property `$parent` to access the previous view context while iterating.</p>
+{{:with result do}}
+<ul>
+  {{:each albums do}}
+  <li>{{title}} - {{$parent.artist}}</li>
+  {{end}}
+</ul>
+{{end}}

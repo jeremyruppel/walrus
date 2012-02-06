@@ -37,7 +37,8 @@ Helpers.add 'each', ( expression, context, root, block ) ->
 
   items = for item, index in expression.compile context, root
 
-    item[ '$index' ] = index
+    item[ '$index'  ] = index
+    item[ '$parent' ] = context
 
     block.compile item, root
 
