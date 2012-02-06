@@ -6,7 +6,7 @@
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
  */
 (function() {
-  var AST, Filters, Helpers, Walrus,
+  var AST, Filters, Helpers, Utils, Walrus,
     __hasProp = Object.prototype.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; },
     __slice = Array.prototype.slice;
@@ -398,14 +398,25 @@ if (typeof module !== 'undefined' && require.main === module) {
 };
 
   /**
-   * AST
+   * Utils
   */
 
-  AST = {
+  Utils = {
+    /**
+     *
+    */
     trim: function(str) {
       return str.replace(/^\s+|\s+$/g, '');
     }
   };
+
+  Walrus.Utils = Utils;
+
+  /**
+   * AST
+  */
+
+  AST = {};
 
   /**
    * AST.NodeCollection
@@ -448,7 +459,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     JoinedNodeCollection.prototype.compile = function(context, root) {
-      return AST.trim(JoinedNodeCollection.__super__.compile.call(this, context, root).join(''));
+      return Walrus.Utils.trim(JoinedNodeCollection.__super__.compile.call(this, context, root).join(''));
     };
 
     return JoinedNodeCollection;

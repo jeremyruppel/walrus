@@ -3,6 +3,11 @@ Walrus = VERSION : '<%= JSON.parse( fs.readFileSync( "package.json", "utf8" ) )[
 `<%- fs.readFileSync( 'lib/walrus/parser.js', 'utf8' ) %>`
 
 ###*
+ * Utils
+###
+<%- fs.readFileSync( 'lib/walrus/utils.coffee', 'utf8' ) %>
+
+###*
  * AST
 ###
 <%- fs.readFileSync( 'lib/walrus/ast.coffee', 'utf8' ) %>

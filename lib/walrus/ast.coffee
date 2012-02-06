@@ -1,5 +1,4 @@
-AST =
-  trim    : ( str ) -> str.replace /^\s+|\s+$/g, ''
+AST = { }
 
 ###*
  * AST.NodeCollection
@@ -18,7 +17,7 @@ class AST.NodeCollection
 class AST.JoinedNodeCollection extends AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root ) -> AST.trim( super( context, root ).join '' )
+  compile : ( context, root ) -> Walrus.Utils.trim( super( context, root ).join '' )
 
 ###*
  * AST.DocumentNode
