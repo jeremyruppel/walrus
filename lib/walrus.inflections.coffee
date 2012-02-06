@@ -1,7 +1,7 @@
 Walrus = if require? and exports? then require './walrus' else window.Walrus
 
-###
-Inflector code ported from https://github.com/jeremyruppel/underscore.inflection
+###*
+ * Inflector code ported from https://github.com/jeremyruppel/underscore.inflection
 ###
 plurals = [
   [ /$/,                         's'       ],
@@ -107,6 +107,34 @@ pluralize = ( word, count, includeCount=false ) ->
 
     inflect word, plurals
 
-
+###*
+ * *:pluralize*
+ * Pluralizes the given word, optionally based on a _count_, and also optionally
+ * including the count in the result.
+ *
+ * Parameters:
+ *  word - the word to be pluralized
+ *  count - Optional: count to base pluralization on
+ *  includeCount - Optional: whether or not to include the count in the result
+ *
+ * Usage:
+ *
+ *  {{ "book" | :pluralize }} // => "books"
+ *
+ *  {{ "book" | :pluralize( 1 ) }} // => "book"
+ *
+ *  {{ "book" | :pluralize( 5, true ) }} // => "5 books"
+###
 Walrus.Filters.add 'pluralize',   pluralize
+
+###*
+ * *:singularize*
+ * Singularizes the given word. You're probably looking for `pluralize`.
+ *
+ * Parameters: none
+ *
+ * Usage:
+ *
+ *  {{ "books" | :singularize }} // => "book"
+###
 Walrus.Filters.add 'singularize', singularize

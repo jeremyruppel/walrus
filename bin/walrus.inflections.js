@@ -11,8 +11,8 @@
 
   Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
 
-  /*
-  Inflector code ported from https://github.com/jeremyruppel/underscore.inflection
+  /**
+   * Inflector code ported from https://github.com/jeremyruppel/underscore.inflection
   */
 
   plurals = [[/$/, 's'], [/s$/, 's'], [/(ax|test)is$/, '$1es'], [/(octop|vir)us$/, '$1i'], [/(octop|vir)i$/, '$1i'], [/(alias|status)$/, '$1es'], [/(bu)s$/, '$1ses'], [/(buffal|tomat)o$/, '$1oes'], [/([ti])um$/, '$1a'], [/([ti])a$/, '$1a'], [/sis$/, 'ses'], [/(?:([^f])fe|([lr])f)$/, '$1$2ves'], [/(hive)$/, '$1s'], [/([^aeiouy]|qu)y$/, '$1ies'], [/(x|ch|ss|sh)$/, '$1es'], [/(matr|vert|ind)(?:ix|ex)$/, '$1ices'], [/([m|l])ouse$/, '$1ice'], [/([m|l])ice$/, '$1ice'], [/^(ox)$/, '$1en'], [/^(oxen)$/, '$1'], [/(quiz)$/, '$1zes'], ['person', 'people'], ['man', 'men'], ['child', 'children'], ['sex', 'sexes'], ['move', 'moves'], ['cow', 'kine']].reverse();
@@ -56,7 +56,37 @@
     }
   };
 
+  /**
+   * *:pluralize*
+   * Pluralizes the given word, optionally based on a _count_, and also optionally
+   * including the count in the result.
+   *
+   * Parameters:
+   *  word - the word to be pluralized
+   *  count - Optional: count to base pluralization on
+   *  includeCount - Optional: whether or not to include the count in the result
+   *
+   * Usage:
+   *
+   *  {{ "book" | :pluralize }} // => "books"
+   *
+   *  {{ "book" | :pluralize( 1 ) }} // => "book"
+   *
+   *  {{ "book" | :pluralize( 5, true ) }} // => "5 books"
+  */
+
   Walrus.Filters.add('pluralize', pluralize);
+
+  /**
+   * *:singularize*
+   * Singularizes the given word. You're probably looking for `pluralize`.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  {{ "books" | :singularize }} // => "book"
+  */
 
   Walrus.Filters.add('singularize', singularize);
 
