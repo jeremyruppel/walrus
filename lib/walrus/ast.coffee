@@ -105,13 +105,10 @@ class AST.PathNode
 
   compile : ( context, root ) ->
 
-    # TODO this would be the better place to do the check that
-    # a given member or method exists. Perhaps place a sugar method
-    # on both of those nodes to check here.
-    index = if @local then context else root
     paths = @paths.concat( )
-    index = ( paths.shift( ) ).compile index, context, root while paths.length isnt 0
-    index
+    scope = if @local then context else root
+
+    Walrus.Utils.reduce paths, scope, ( scope, path ) -> path.compile scope, context, root
 
 ###*
  * AST.PrimitiveNode
