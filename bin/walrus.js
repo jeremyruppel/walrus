@@ -34,7 +34,7 @@ case 3: $$[$0-1].push( $$[$0] ); this.$ = $$[$0-1]
 break;
 case 4: this.$ = [ $$[$0] ] 
 break;
-case 5: this.$ = new yy.BlockNode( $$[$0-5], $$[$0-4], new yy.NodeCollection( $$[$0-2] ) ) 
+case 5: this.$ = new yy.BlockNode( $$[$0-5], $$[$0-4], new yy.JoinedNodeCollection( $$[$0-2] ) ) 
 break;
 case 6: this.$ = $$[$0-1] 
 break;
@@ -58,9 +58,9 @@ case 15: $$[$0-1].push( $$[$0] ); this.$ = $$[$0-1]
 break;
 case 16: this.$ = [ $$[$0] ] 
 break;
-case 17: this.$ = new yy.FilterNode( $$[$0-3], $$[$0-1] ) 
+case 17: this.$ = new yy.FilterNode( $$[$0-3], new yy.NodeCollection( $$[$0-1] ) ) 
 break;
-case 18: this.$ = new yy.FilterNode( $$[$0], [ ] ) 
+case 18: this.$ = new yy.FilterNode( $$[$0], new yy.NodeCollection( [ ] ) ) 
 break;
 case 19: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
 break;
@@ -70,9 +70,9 @@ case 21: this.$ = $$[$0]
 break;
 case 22: this.$ = $$[$0] 
 break;
-case 23: this.$ = new yy.MethodNode( $$[$0-3], $$[$0-1] ) 
+case 23: this.$ = new yy.MethodNode( $$[$0-3], new yy.NodeCollection( $$[$0-1] ) ) 
 break;
-case 24: this.$ = new yy.MethodNode( $$[$0-2], [ ] ) 
+case 24: this.$ = new yy.MethodNode( $$[$0-2], new yy.NodeCollection( [ ] ) ) 
 break;
 case 25: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
 break;
@@ -410,7 +410,7 @@ if (typeof module !== 'undefined' && require.main === module) {
   /**
    * AST.NodeCollection
    * A collection of nodes with the #compile interface, simply compiles
-   * each of its nodes and joins the results.
+   * each of its nodes and returns the resulting array.
   */
 
   AST.NodeCollection = (function() {
@@ -420,17 +420,14 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     NodeCollection.prototype.compile = function(context, root) {
-      var node;
-      return AST.trim(((function() {
-        var _i, _len, _ref, _results;
-        _ref = this.nodes;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          node = _ref[_i];
-          _results.push(node.compile(context, root));
-        }
-        return _results;
-      }).call(this)).join(''));
+      var node, _i, _len, _ref, _results;
+      _ref = this.nodes;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        node = _ref[_i];
+        _results.push(node.compile(context, root));
+      }
+      return _results;
     };
 
     return NodeCollection;
@@ -438,8 +435,29 @@ if (typeof module !== 'undefined' && require.main === module) {
   })();
 
   /**
+   * AST.JoinedNodeCollection
+   * Compiles all of its nodes, then joins and trims them.
+  */
+
+  AST.JoinedNodeCollection = (function(_super) {
+
+    __extends(JoinedNodeCollection, _super);
+
+    function JoinedNodeCollection(nodes) {
+      this.nodes = nodes;
+    }
+
+    JoinedNodeCollection.prototype.compile = function(context, root) {
+      return AST.trim(JoinedNodeCollection.__super__.compile.call(this, context, root).join(''));
+    };
+
+    return JoinedNodeCollection;
+
+  })(AST.NodeCollection);
+
+  /**
    * AST.DocumentNode
-   * The root node of the document. Basically inherits from `AST.NodeCollection`
+   * The root node of the document. Basically inherits from `AST.JoinedNodeCollection`
    * and tacks on a CR (for version control style).
   */
 
@@ -457,7 +475,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     return DocumentNode;
 
-  })(AST.NodeCollection);
+  })(AST.JoinedNodeCollection);
 
   /**
    * AST.ContentNode
@@ -508,8 +526,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * errors.
    *
    * `{{member( )}}`, for instance, will compile to `index[ 'member' ]( )`.
-   *
-   * TODO: arguments could make use of `AST.NodeCollection`
   */
 
   AST.MethodNode = (function() {
@@ -520,20 +536,10 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     MethodNode.prototype.compile = function(index, context, root) {
-      var argument;
       if (index[this.path] == null) {
         throw "Cannot find any method named '" + this.path + "' in " + index + ".";
       }
-      return index[this.path].apply(index, (function() {
-        var _i, _len, _ref, _results;
-        _ref = this.arguments;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          argument = _ref[_i];
-          _results.push(argument.compile(context, root));
-        }
-        return _results;
-      }).call(this));
+      return index[this.path].apply(index, this.arguments.compile(context, root));
     };
 
     return MethodNode;
@@ -705,8 +711,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * and handled by the filter itself.
    *
    * Will throw an error if the named filter is not defined in `Walrus.Filters`.
-   *
-   * TODO: arguments could make use of `AST.NodeCollection`
   */
 
   AST.FilterNode = (function() {
@@ -720,17 +724,8 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     FilterNode.prototype.apply = function(value, context, root) {
-      var argument, _ref;
-      return (_ref = Walrus.Filters)[this.name].apply(_ref, [value].concat(__slice.call((function() {
-        var _i, _len, _ref, _results;
-        _ref = this.arguments;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          argument = _ref[_i];
-          _results.push(argument.compile(context, root));
-        }
-        return _results;
-      }).call(this))));
+      var _ref;
+      return (_ref = Walrus.Filters)[this.name].apply(_ref, [value].concat(__slice.call(this.arguments.compile(context, root))));
     };
 
     return FilterNode;

@@ -16,7 +16,7 @@ statements
   ;
 
 statement
-  : OPEN helper mustache OPEN_BLOCK text CLOSE_BLOCK CLOSE { $$ = new yy.BlockNode( $2, $3, new yy.NodeCollection( $5 ) ) }
+  : OPEN helper mustache OPEN_BLOCK text CLOSE_BLOCK CLOSE { $$ = new yy.BlockNode( $2, $3, new yy.JoinedNodeCollection( $5 ) ) }
   | OPEN mustache CLOSE { $$ = $2 }
   | CONTENT { $$ = new yy.ContentNode( $1 ) }
   ;
@@ -43,8 +43,8 @@ filters
   ;
 
 filter
-  : HELP MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.FilterNode( $2, $4 ) }
-  | HELP MEMBER { $$ = new yy.FilterNode( $2, [ ] ) }
+  : HELP MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.FilterNode( $2, new yy.NodeCollection( $4 ) ) }
+  | HELP MEMBER { $$ = new yy.FilterNode( $2, new yy.NodeCollection( [ ] ) ) }
   ;
 
 paths
@@ -58,8 +58,8 @@ path
   ;
 
 method
-  : MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.MethodNode( $1, $3 ) }
-  | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = new yy.MethodNode( $1, [ ] ) }
+  : MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.MethodNode( $1, new yy.NodeCollection( $3 ) ) }
+  | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = new yy.MethodNode( $1, new yy.NodeCollection( [ ] ) ) }
   ;
 
 arguments

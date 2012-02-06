@@ -4,19 +4,28 @@ AST =
 ###*
  * AST.NodeCollection
  * A collection of nodes with the #compile interface, simply compiles
- * each of its nodes and joins the results.
+ * each of its nodes and returns the resulting array.
 ###
 class AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root ) -> AST.trim ( node.compile context, root for node in @nodes ).join ''
+  compile : ( context, root ) -> node.compile context, root for node in @nodes
+
+###*
+ * AST.JoinedNodeCollection
+ * Compiles all of its nodes, then joins and trims them.
+###
+class AST.JoinedNodeCollection extends AST.NodeCollection
+  constructor : ( @nodes ) ->
+
+  compile : ( context, root ) -> AST.trim( super( context, root ).join '' )
 
 ###*
  * AST.DocumentNode
- * The root node of the document. Basically inherits from `AST.NodeCollection`
+ * The root node of the document. Basically inherits from `AST.JoinedNodeCollection`
  * and tacks on a CR (for version control style).
 ###
-class AST.DocumentNode extends AST.NodeCollection
+class AST.DocumentNode extends AST.JoinedNodeCollection
   compile : ( context ) -> super( context, context ) + "\n"
 
 ###*
@@ -48,8 +57,6 @@ class AST.MemberNode
  * errors.
  *
  * `{{member( )}}`, for instance, will compile to `index[ 'member' ]( )`.
- *
- * TODO: arguments could make use of `AST.NodeCollection`
 ###
 class AST.MethodNode
   constructor : ( @path, @arguments ) ->
@@ -58,7 +65,7 @@ class AST.MethodNode
 
     throw "Cannot find any method named '#{@path}' in #{index}." unless index[ @path ]?
 
-    index[ @path ] (argument.compile context, root for argument in @arguments)...
+    index[ @path ] @arguments.compile( context, root )...
 
 ###*
  * AST.ThisNode
@@ -172,8 +179,6 @@ class AST.BlockNode
  * and handled by the filter itself.
  *
  * Will throw an error if the named filter is not defined in `Walrus.Filters`.
- *
- * TODO: arguments could make use of `AST.NodeCollection`
 ###
 class AST.FilterNode
   constructor : ( @name, @arguments ) ->
@@ -182,7 +187,7 @@ class AST.FilterNode
 
   apply : ( value, context, root ) ->
 
-    Walrus.Filters[ @name ] value, (argument.compile context, root for argument in @arguments)...
+    Walrus.Filters[ @name ] value, @arguments.compile( context, root )...
 
 ###*
  * AST.FilterCollection
