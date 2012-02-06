@@ -35,7 +35,9 @@ Helpers.add 'unless', ( expression, context, root, block ) ->
 ###
 Helpers.add 'each', ( expression, context, root, block ) ->
 
-  items = for item in expression.compile context, root
+  items = for item, index in expression.compile context, root
+
+    item[ '$index' ] = index
 
     block.compile item, root
 

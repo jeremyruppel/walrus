@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.2.0
+ * Walrus.js 0.2.1
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -12,7 +12,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.2.0'
+    VERSION: '0.2.1'
   };
 
   /* Jison generated parser */
@@ -372,7 +372,7 @@ case 20: return 5;
 break;
 }
 };
-lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}/,/^\{\{\s*end\b/,/^\{\{/,/^\}\}/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^\d+(\.\d+)?/,/^[a-zA-Z0-9\_]+/,/^$/];
+lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}/,/^\{\{\s*end\b/,/^\{\{/,/^\}\}/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^\d+(\.\d+)?/,/^[a-zA-Z0-9\_\$]+/,/^$/];
 lexer.conditions = {"mu":{"rules":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"inclusive":false},"INITIAL":{"rules":[0,1,20],"inclusive":true}};
 return lexer;})()
 parser.lexer = lexer;
@@ -815,13 +815,14 @@ if (typeof module !== 'undefined' && require.main === module) {
   */
 
   Helpers.add('each', function(expression, context, root, block) {
-    var item, items;
+    var index, item, items;
     items = (function() {
-      var _i, _len, _ref, _results;
+      var _len, _ref, _results;
       _ref = expression.compile(context, root);
       _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        item = _ref[_i];
+      for (index = 0, _len = _ref.length; index < _len; index++) {
+        item = _ref[index];
+        item['$index'] = index;
         _results.push(block.compile(item, root));
       }
       return _results;

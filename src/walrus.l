@@ -25,6 +25,6 @@
 <mu>"true"                  { return 'BOOLEAN_TRUE'; }
 <mu>"false"                 { return 'BOOLEAN_FALSE'; }
 <mu>\d+(\.\d+)?             { return 'NUMBER'; }
-<mu>[a-zA-Z0-9\_]+          { return 'MEMBER'; }
+<mu>[a-zA-Z0-9\_\$]+        { return 'MEMBER'; }
 
 <INITIAL,mu><<EOF>>         { return 'EOF'; }
