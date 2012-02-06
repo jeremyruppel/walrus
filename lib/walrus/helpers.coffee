@@ -1,4 +1,8 @@
-Helpers = add : ( name, fn ) -> @[ name ] = fn
+Walrus.Helpers = { }
+
+Walrus.addHelper = ( name, fn ) ->
+  throw "Cannot override existing helper named '#{name}'." if @Helpers[ name ]?
+  @Helpers[ name ] = fn
 
 ###*
  * *:if*
@@ -10,7 +14,7 @@ Helpers = add : ( name, fn ) -> @[ name ] = fn
  *    // block content
  *  {{end}}
 ###
-Helpers.add 'if', ( expression, context, root, block ) ->
+Walrus.addHelper 'if', ( expression, context, root, block ) ->
 
   if expression.compile context, root then block.compile context, root else ''
 
@@ -24,7 +28,7 @@ Helpers.add 'if', ( expression, context, root, block ) ->
  *    // block content
  *  {{end}}
 ###
-Helpers.add 'unless', ( expression, context, root, block ) ->
+Walrus.addHelper 'unless', ( expression, context, root, block ) ->
 
   if not expression.compile context, root then block.compile context, root else ''
 
@@ -33,7 +37,7 @@ Helpers.add 'unless', ( expression, context, root, block ) ->
  * Iterates over the array returned by `expression` and evaluates the block
  * for each member of the array. The compiled blocks are then joined.
 ###
-Helpers.add 'each', ( expression, context, root, block ) ->
+Walrus.addHelper 'each', ( expression, context, root, block ) ->
 
   items = for item, index in expression.compile context, root
 
@@ -54,13 +58,10 @@ Helpers.add 'each', ( expression, context, root, block ) ->
  *    <p>{{name}}</p>
  *  {{end}}
 ###
-Helpers.add 'with', ( expression, context, root, block ) ->
+Walrus.addHelper 'with', ( expression, context, root, block ) ->
 
   subcontext = ( expression.compile context, root )
 
   subcontext[ '$parent' ] = context
 
   block.compile subcontext, root
-
-# Export those helpers, son.
-Walrus.Helpers = Helpers

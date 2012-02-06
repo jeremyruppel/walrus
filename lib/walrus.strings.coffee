@@ -10,7 +10,7 @@ Walrus = if require? and exports? then require './walrus' else window.Walrus
  *
  *  {{ "hello" | :reverse }} // => "olleh"
 ###
-Walrus.Filters.add 'reverse', ( value ) -> value.split( '' ).reverse( ).join( '' )
+Walrus.addFilter 'reverse', ( value ) -> value.split( '' ).reverse( ).join( '' )
 
 ###*
  * *:downcase*
@@ -22,7 +22,7 @@ Walrus.Filters.add 'reverse', ( value ) -> value.split( '' ).reverse( ).join( ''
  *
  *  {{ "HelLO!" | :downcase }} // => "hello!"
 ###
-Walrus.Filters.add 'downcase', ( value ) -> value.toLowerCase( )
+Walrus.addFilter 'downcase', ( value ) -> value.toLowerCase( )
 
 ###*
  * *:upcase*
@@ -34,7 +34,7 @@ Walrus.Filters.add 'downcase', ( value ) -> value.toLowerCase( )
  *
  *  {{ "HelLO!" | :upcase }} // => "HELLO!"
 ###
-Walrus.Filters.add 'upcase', ( value ) -> value.toUpperCase( )
+Walrus.addFilter 'upcase', ( value ) -> value.toUpperCase( )
 
 ###*
  * *:squish*
@@ -47,7 +47,7 @@ Walrus.Filters.add 'upcase', ( value ) -> value.toUpperCase( )
  *
  *  {{ " foo    bar \n baz"  | :squish }} // => "foo bar baz"
 ###
-Walrus.Filters.add 'squish', ( string ) ->
+Walrus.addFilter 'squish', ( string ) ->
 
   Walrus.Utils.trim( string ).replace( /\s+/g, ' ' )
 
@@ -65,7 +65,7 @@ Walrus.Filters.add 'squish', ( string ) ->
  *
  *  {{ "Once upon a time in a world far far away" | :truncate( 27, ' ' ) }} // => "Once upon a time in a..."
 ###
-Walrus.Filters.add 'truncate', ( string, length, separator=false, omission='...' ) ->
+Walrus.addFilter 'truncate', ( string, length, separator=false, omission='...' ) ->
 
   chars = length - omission.length
 

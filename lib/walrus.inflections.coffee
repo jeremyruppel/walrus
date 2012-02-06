@@ -125,7 +125,7 @@ pluralize = ( word, count, includeCount=false ) ->
  *
  *  {{ "book" | :pluralize( 5, true ) }} // => "5 books"
 ###
-Walrus.Filters.add 'pluralize',   pluralize
+Walrus.addFilter 'pluralize',   pluralize
 
 ###*
  * *:singularize*
@@ -137,4 +137,4 @@ Walrus.Filters.add 'pluralize',   pluralize
  *
  *  {{ "books" | :singularize }} // => "book"
 ###
-Walrus.Filters.add 'singularize', singularize
+Walrus.addFilter 'singularize', singularize

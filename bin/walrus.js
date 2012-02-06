@@ -1,18 +1,18 @@
 /**
- * Walrus.js 0.2.4
+ * Walrus.js 0.3.0
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
  */
 (function() {
-  var AST, Filters, Helpers, Utils, Walrus,
+  var AST, Utils, Walrus,
     __hasProp = Object.prototype.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; },
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.2.4'
+    VERSION: '0.3.0'
   };
 
   /* Jison generated parser */
@@ -782,23 +782,27 @@ if (typeof module !== 'undefined' && require.main === module) {
    * Core Helpers
   */
 
-  Helpers = {
-    add: function(name, fn) {
-      return this[name] = fn;
+  Walrus.Helpers = {};
+
+  Walrus.addHelper = function(name, fn) {
+    if (this.Helpers[name] != null) {
+      throw "Cannot override existing helper named '" + name + "'.";
     }
-    /**
-     * *:if*
-     * Evaluates a block only if the result of `expression` is truthy. Opposite of `:uness`.
-     *
-     * Usage:
-     *
-     *  {{:if expression do}}
-     *    // block content
-     *  {{end}}
-    */
+    return this.Helpers[name] = fn;
   };
 
-  Helpers.add('if', function(expression, context, root, block) {
+  /**
+   * *:if*
+   * Evaluates a block only if the result of `expression` is truthy. Opposite of `:uness`.
+   *
+   * Usage:
+   *
+   *  {{:if expression do}}
+   *    // block content
+   *  {{end}}
+  */
+
+  Walrus.addHelper('if', function(expression, context, root, block) {
     if (expression.compile(context, root)) {
       return block.compile(context, root);
     } else {
@@ -817,7 +821,7 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-  Helpers.add('unless', function(expression, context, root, block) {
+  Walrus.addHelper('unless', function(expression, context, root, block) {
     if (!expression.compile(context, root)) {
       return block.compile(context, root);
     } else {
@@ -831,7 +835,7 @@ if (typeof module !== 'undefined' && require.main === module) {
    * for each member of the array. The compiled blocks are then joined.
   */
 
-  Helpers.add('each', function(expression, context, root, block) {
+  Walrus.addHelper('each', function(expression, context, root, block) {
     var index, item, items;
     items = (function() {
       var _len, _ref, _results;
@@ -859,39 +863,41 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-  Helpers.add('with', function(expression, context, root, block) {
+  Walrus.addHelper('with', function(expression, context, root, block) {
     var subcontext;
     subcontext = expression.compile(context, root);
     subcontext['$parent'] = context;
     return block.compile(subcontext, root);
   });
 
-  Walrus.Helpers = Helpers;
-
   /**
    * Core Filters
   */
 
-  Filters = {
-    add: function(name, fn) {
-      return this[name] = fn;
+  Walrus.Filters = {};
+
+  Walrus.addFilter = function(name, fn) {
+    if (this.Filters[name] != null) {
+      throw "Cannot override existing filter named '" + name + "'.";
     }
-    /**
-     * *:equals*
-     * Returns whether the expression is strictly equal to the given value.
-     *
-     * Parameters:
-     *  foo - the value to compare to the expression
-     *
-     * Usage:
-     *
-     *  {{ :if "foo" | :equals( "bar" ) do }}
-     *    // block will not be evaluated
-     *  {{ end }}
-    */
+    return this.Filters[name] = fn;
   };
 
-  Filters.add('equals', function(value, foo) {
+  /**
+   * *:equals*
+   * Returns whether the expression is strictly equal to the given value.
+   *
+   * Parameters:
+   *  foo - the value to compare to the expression
+   *
+   * Usage:
+   *
+   *  {{ :if "foo" | :equals( "bar" ) do }}
+   *    // block will not be evaluated
+   *  {{ end }}
+  */
+
+  Walrus.addFilter('equals', function(value, foo) {
     return value === foo;
   });
 
@@ -907,7 +913,7 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{ false | :or( "Not Specified" ) }} // => "Not Specified"
   */
 
-  Filters.add('or', function(value, foo) {
+  Walrus.addFilter('or', function(value, foo) {
     return value || foo;
   });
 
@@ -924,13 +930,11 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{ @root | :log( 'wtf' ) }} // => Console logs: [object Object], 'wtf'
   */
 
-  Filters.add('log', function() {
+  Walrus.addFilter('log', function() {
     if ((typeof console !== "undefined" && console !== null) && (console.log != null)) {
       return console.log.apply(console, ['[Walrus]'].concat(__slice.call(arguments)));
     }
   });
-
-  Walrus.Filters = Filters;
 
   /**
    * Setup

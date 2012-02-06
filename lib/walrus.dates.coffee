@@ -44,7 +44,7 @@ ABBR_DAYNAMES = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
 FULL_MONTHNAMES = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 ABBR_MONTHNAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
 
-Walrus.Filters.add 'strftime', ( dateish, format ) ->
+Walrus.addFilter 'strftime', ( dateish, format ) ->
 
   date = new Date dateish
 

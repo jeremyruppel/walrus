@@ -1,4 +1,8 @@
-Filters = add : ( name, fn ) -> @[ name ] = fn
+Walrus.Filters = { }
+
+Walrus.addFilter = ( name, fn ) ->
+  throw "Cannot override existing filter named '#{name}'." if @Filters[ name ]?
+  @Filters[ name ] = fn
 
 ###*
  * *:equals*
@@ -13,7 +17,7 @@ Filters = add : ( name, fn ) -> @[ name ] = fn
  *    // block will not be evaluated
  *  {{ end }}
 ###
-Filters.add 'equals', ( value, foo ) -> value is foo
+Walrus.addFilter 'equals', ( value, foo ) -> value is foo
 
 ###*
  * *:or*
@@ -26,7 +30,7 @@ Filters.add 'equals', ( value, foo ) -> value is foo
  *
  *  {{ false | :or( "Not Specified" ) }} // => "Not Specified"
 ###
-Filters.add 'or', ( value, foo ) -> value || foo
+Walrus.addFilter 'or', ( value, foo ) -> value || foo
 
 ###*
  * *:log*
@@ -40,7 +44,4 @@ Filters.add 'or', ( value, foo ) -> value || foo
  *
  *  {{ @root | :log( 'wtf' ) }} // => Console logs: [object Object], 'wtf'
 ###
-Filters.add 'log', -> if console? and console.log? then console.log '[Walrus]', arguments...
-
-# Export those filters, son.
-Walrus.Filters = Filters
+Walrus.addFilter 'log', -> if console? and console.log? then console.log '[Walrus]', arguments...

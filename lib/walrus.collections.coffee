@@ -17,7 +17,7 @@ Walrus = if require? and exports? then require './walrus' else window.Walrus
  *    // 1 2 3 4 5
  *  {{ end }}
 ###
-Walrus.Filters.add 'first', ( array, count ) ->
+Walrus.addFilter 'first', ( array, count ) ->
 
   if count? then array.slice 0, count else array[ 0 ]
 
@@ -38,7 +38,7 @@ Walrus.Filters.add 'first', ( array, count ) ->
  *    // 6 7 8 9 10
  *  {{ end }}
 ###
-Walrus.Filters.add 'last', ( array, count ) ->
+Walrus.addFilter 'last', ( array, count ) ->
 
   if count? then array.slice -count else array[ array.length - 1 ]
 
@@ -54,7 +54,7 @@ Walrus.Filters.add 'last', ( array, count ) ->
  *
  *  {{ numbers | :count }} // => 5
 ###
-Walrus.Filters.add 'count', ( array ) -> array.length
+Walrus.addFilter 'count', ( array ) -> array.length
 
 ###*
  * *:any*
@@ -68,7 +68,7 @@ Walrus.Filters.add 'count', ( array ) -> array.length
  *
  *  {{ numbers | :any }} // => true
 ###
-Walrus.Filters.add 'any', ( array ) -> array.length > 0
+Walrus.addFilter 'any', ( array ) -> array.length > 0
 
 ###*
  * *:empty*
@@ -82,4 +82,4 @@ Walrus.Filters.add 'any', ( array ) -> array.length > 0
  *
  *  {{ numbers | :empty }} // => false
 ###
-Walrus.Filters.add 'empty', ( array ) -> array.length is 0
+Walrus.addFilter 'empty', ( array ) -> array.length is 0

@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.2.4
+ * Walrus.js 0.3.0
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -55,7 +55,7 @@
 
   ABBR_MONTHNAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-  Walrus.Filters.add('strftime', function(dateish, format) {
+  Walrus.addFilter('strftime', function(dateish, format) {
     var date;
     date = new Date(dateish);
     return format.replace(/%(a|A|b|B|c|d|H|I|m|M|p|S|w|y|Y)/g, function(input) {

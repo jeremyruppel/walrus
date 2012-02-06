@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.2.4
+ * Walrus.js 0.3.0
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -28,7 +28,7 @@
    *  {{ end }}
   */
 
-  Walrus.Filters.add('first', function(array, count) {
+  Walrus.addFilter('first', function(array, count) {
     if (count != null) {
       return array.slice(0, count);
     } else {
@@ -54,7 +54,7 @@
    *  {{ end }}
   */
 
-  Walrus.Filters.add('last', function(array, count) {
+  Walrus.addFilter('last', function(array, count) {
     if (count != null) {
       return array.slice(-count);
     } else {
@@ -75,7 +75,7 @@
    *  {{ numbers | :count }} // => 5
   */
 
-  Walrus.Filters.add('count', function(array) {
+  Walrus.addFilter('count', function(array) {
     return array.length;
   });
 
@@ -92,7 +92,7 @@
    *  {{ numbers | :any }} // => true
   */
 
-  Walrus.Filters.add('any', function(array) {
+  Walrus.addFilter('any', function(array) {
     return array.length > 0;
   });
 
@@ -109,7 +109,7 @@
    *  {{ numbers | :empty }} // => false
   */
 
-  Walrus.Filters.add('empty', function(array) {
+  Walrus.addFilter('empty', function(array) {
     return array.length === 0;
   });
 

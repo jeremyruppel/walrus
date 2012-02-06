@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.2.4
+ * Walrus.js 0.3.0
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -21,7 +21,7 @@
    *  {{ "hello" | :reverse }} // => "olleh"
   */
 
-  Walrus.Filters.add('reverse', function(value) {
+  Walrus.addFilter('reverse', function(value) {
     return value.split('').reverse().join('');
   });
 
@@ -36,7 +36,7 @@
    *  {{ "HelLO!" | :downcase }} // => "hello!"
   */
 
-  Walrus.Filters.add('downcase', function(value) {
+  Walrus.addFilter('downcase', function(value) {
     return value.toLowerCase();
   });
 
@@ -51,7 +51,7 @@
    *  {{ "HelLO!" | :upcase }} // => "HELLO!"
   */
 
-  Walrus.Filters.add('upcase', function(value) {
+  Walrus.addFilter('upcase', function(value) {
     return value.toUpperCase();
   });
 
@@ -67,7 +67,7 @@
    *  {{ " foo    bar \n baz"  | :squish }} // => "foo bar baz"
   */
 
-  Walrus.Filters.add('squish', function(string) {
+  Walrus.addFilter('squish', function(string) {
     return Walrus.Utils.trim(string).replace(/\s+/g, ' ');
   });
 
@@ -86,7 +86,7 @@
    *  {{ "Once upon a time in a world far far away" | :truncate( 27, ' ' ) }} // => "Once upon a time in a..."
   */
 
-  Walrus.Filters.add('truncate', function(string, length, separator, omission) {
+  Walrus.addFilter('truncate', function(string, length, separator, omission) {
     var chars, stop;
     if (separator == null) separator = false;
     if (omission == null) omission = '...';
