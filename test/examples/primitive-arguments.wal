@@ -3,5 +3,5 @@
   <li>Single-quoted {{@type( 'aaa' )}}s {{@like( 'this' )}}</li>
   <li>Double-quoted {{@type( "bbb" )}}s {{@like( "this" )}}</li>
   <li>{{@type( true )}}s that are true and {{@type( false )}}s that are false</li>
-  <li>Whole {{@type( 12 )}}s and {{@type( 123.345 )}}s that are really floats</li>
+  <li>Whole {{@type( -12 )}}s and {{@type( 123.345 )}}s that are really floats</li>
 </ul>
