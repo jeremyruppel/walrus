@@ -33,7 +33,7 @@ task 'build', 'Build the walrus javascripts', ->
   cof = require 'coffee-script'
   ugl = require 'uglify-js'
 
-  hdr = ejs.render fs.readFileSync( 'lib/walrus.header', 'utf8' ), fs : fs
+  hdr = ejs.render fs.readFileSync( 'lib/header.js', 'utf8' ), fs : fs
 
   for file in fs.readdirSync 'lib' when path.extname( file ) is '.coffee'
 
