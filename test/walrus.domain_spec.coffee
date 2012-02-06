@@ -14,4 +14,10 @@ describe 'Walrus.Domain', ->
     fullName      : -> "#{@firstName} #{@lastName}"
     telephoneName : -> "#{@lastName}, #{@firstName}"
 
+  Walrus.Domain.hockeyPlayer =
+    positionName : ->
+      switch @position
+        when 'F' then 'Forward'
+        when 'G' then 'Goaltender'
+
   helper.pass './test/examples/domain'

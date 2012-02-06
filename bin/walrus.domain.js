@@ -41,7 +41,6 @@
       return _results;
     };
     if (isArray(value)) {
-      console.log('WE GOT AN ARRAY', value, name);
       for (_i = 0, _len = value.length; _i < _len; _i++) {
         item = value[_i];
         extend(item, Walrus.Domain[name]);
