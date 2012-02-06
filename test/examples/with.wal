@@ -1,0 +1,4 @@
+<p>Use :with to change the context of the view object</p>
+{{:with data do}}
+<h1>{{stats.status}}: {{team}}</h1>
+{{end}}
