@@ -2,6 +2,9 @@ fs    = require 'fs'
 path  = require 'path'
 exec  = require( 'child_process' ).exec
 
+# Prepend path to package.json dependencies' binaries
+process.env.PATH = "node_modules/.bin:#{process.env.PATH}"
+
 sh = ( command, callback ) ->
 
   exec command, ( error, stdout, stderr ) ->
