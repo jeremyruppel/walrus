@@ -49,7 +49,7 @@ Walrus.Filters.add 'upcase', ( value ) -> value.toUpperCase( )
 ###
 Walrus.Filters.add 'squish', ( string ) ->
 
-  string.replace( /^\s+|\s+$/g, '' ).replace( /\s+/g, ' ' )
+  Walrus.Utils.trim( string ).replace( /\s+/g, ' ' )
 
 ###*
  * *:truncate*

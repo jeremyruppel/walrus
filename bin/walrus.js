@@ -403,7 +403,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Utils = {
     /**
-     *
+     * trims leading and trailing whitespace
     */
     trim: function(str) {
       return str.replace(/^\s+|\s+$/g, '');

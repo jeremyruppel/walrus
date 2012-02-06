@@ -68,7 +68,7 @@
   */
 
   Walrus.Filters.add('squish', function(string) {
-    return string.replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' ');
+    return Walrus.Utils.trim(string).replace(/\s+/g, ' ');
   });
 
   /**
