@@ -27,3 +27,15 @@ describe 'Walrus.Utils', ->
       foo
 
       """ ).should.equal 'foo'
+
+  describe '#reduce', ->
+
+    it 'should be defined', -> should.exist Walrus.Utils.reduce
+
+    it 'should reduce the list into a single value', ->
+
+      array  = [ 1, 2, 3 ]
+      memo   = 1
+      method = ( memo, item ) -> memo + item
+
+      Walrus.Utils.reduce( array, memo, method ).should.equal 7

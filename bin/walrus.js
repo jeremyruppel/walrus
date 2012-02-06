@@ -407,6 +407,18 @@ if (typeof module !== 'undefined' && require.main === module) {
     */
     trim: function(str) {
       return str.replace(/^\s+|\s+$/g, '');
+    },
+    /**
+     * reduces a list into a single result
+    */
+    reduce: function(array, initial, method) {
+      var item, memo, _i, _len;
+      memo = initial;
+      for (_i = 0, _len = array.length; _i < _len; _i++) {
+        item = array[_i];
+        memo = method(memo, item);
+      }
+      return memo;
     }
   };
 
@@ -756,14 +768,9 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     FilterCollection.prototype.apply = function(expression, context, root) {
-      var filter, value, _i, _len, _ref;
-      value = expression;
-      _ref = this.filters;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        filter = _ref[_i];
-        value = filter.apply(value, context, root);
-      }
-      return value;
+      return Walrus.Utils.reduce(this.filters, expression, function(memo, filter) {
+        return filter.apply(memo, context, root);
+      });
     };
 
     return FilterCollection;

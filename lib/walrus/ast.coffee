@@ -198,12 +198,7 @@ class AST.FilterCollection
 
   apply : ( expression, context, root ) ->
 
-    # TODO feels like this might be cleaners with an #inject helper
-    value = expression
-
-    ( value = filter.apply value, context, root ) for filter in @filters
-
-    value
+    Walrus.Utils.reduce @filters, expression, ( memo, filter ) -> filter.apply memo, context, root
 
 # Export that AST, son.
 Walrus.AST = AST
