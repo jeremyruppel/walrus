@@ -1,6 +1,11 @@
 Walrus = require '../../bin/walrus'
 
+fs   = require 'fs'
+path = require 'path'
+
 TestHelpers =
+
+  read : ( filename ) -> fs.readFileSync filename, 'utf8' if path.existsSync filename
 
   pass : ( specs, suffix='' ) ->
 
@@ -10,13 +15,20 @@ TestHelpers =
 
     for file in fs.readdirSync specs when path.extname( file ) is '.wal'
 
-      do ( file ) ->
+      do ( file ) =>
 
         base = path.basename file, '.wal'
 
-        text = fs.readFileSync "#{specs}/#{base}.wal",           'utf8'
-        json = fs.readFileSync "#{specs}/#{base}.js",            'utf8'
-        html = fs.readFileSync "#{specs}/#{base}#{suffix}.html", 'utf8'
+        text = @read "#{specs}/#{base}.wal"
+        json = @read "#{specs}/#{base}.js"
+        html = @read "#{specs}/#{base}#{suffix}.html"
+
+        # if we can't find the suffixed version, try and find
+        # one without the suffix and use that instead.
+        html = @read "#{specs}/#{base}.html" if not html
+
+        # if _that_ one doesn't exist, throw a helpful error.
+        throw "Can't find example html at #{specs}/#{base}#{suffix}.html or #{specs}/#{base}.html" if not html
 
         tmpl = Walrus.Parser.parse text
 
