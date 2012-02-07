@@ -42,4 +42,20 @@
     return value >= number;
   });
 
+  /**
+   *
+  */
+
+  Walrus.addFilter('lt', function(value, number) {
+    return value < number;
+  });
+
+  /**
+   *
+  */
+
+  Walrus.addFilter('lte', function(value, number) {
+    return value <= number;
+  });
+
 }).call(this);

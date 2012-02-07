@@ -1,0 +1,9 @@
+{{:if value | :lte( 4 ) do}}
+<p>{{value}} is less than or equal to 4</p>
+{{end}}
+{{:if value | :lte( 5 ) do}}
+<p>{{value}} is less than or equal to 5</p>
+{{end}}
+{{:if value | :lte( 6 ) do}}
+<p>{{value}} is less than or equal to 6</p>
+{{end}}

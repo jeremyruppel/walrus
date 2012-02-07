@@ -22,3 +22,13 @@ Walrus.addFilter 'gt', ( value, number ) -> value > number
  *
 ###
 Walrus.addFilter 'gte', ( value, number ) -> value >= number
+
+###*
+ *
+###
+Walrus.addFilter 'lt', ( value, number ) -> value < number
+
+###*
+ *
+###
+Walrus.addFilter 'lte', ( value, number ) -> value <= number
