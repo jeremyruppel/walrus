@@ -1,15 +1,110 @@
-<p>Abbreviated weekday: {{date | :strftime( "%a" )}}</p>
-<p>Full weekday: {{date | :strftime( "%A" )}}</p>
-<p>Abbreviated month: {{date | :strftime( "%b" )}}</p>
-<p>Full month: {{date | :strftime( "%B" )}}</p>
-<p>Local time: {{date | :strftime( "%c" )}}</p>
-<p>Day of the month: {{date | :strftime( "%d" )}}</p>
-<p>Hour of the day, 24-hour clock: {{date | :strftime( "%H" )}}</p>
-<p>Hour of the day, 12-hour clock: {{date | :strftime( "%I" )}}</p>
-<p>Month of the year: {{date | :strftime( "%m" )}}</p>
-<p>Minute of the hour: {{date | :strftime( "%M" )}}</p>
-<p>Meridian indicator: {{date | :strftime( "%p" )}}</p>
-<p>Second of the minute: {{date | :strftime( "%S" )}}</p>
-<p>Day of the week: {{date | :strftime( "%w" )}}</p>
-<p>Year without a century (00..99): {{date | :strftime( "%y" )}}</p>
-<p>Year with century: {{date | :strftime( "%Y" )}}</p>
+<p><em>A</em>is replaced by national representation of the full weekday name.</p>
+<p>{{date | :strftime( '%A' )}}</p>
+
+<p><em>a</em>is replaced by national representation of the abbreviated weekday name.</p>
+<p>{{date | :strftime( '%a' )}}</p>
+
+<p><em>B</em>is replaced by national representation of the full month name.</p>
+<p>{{date | :strftime( '%B' )}}</p>
+
+<p><em>b</em>is replaced by national representation of the abbreviated month name.</p>
+<p>{{date | :strftime( '%b' )}}</p>
+
+<p><em>D</em>is equivalent to 'm/d/y'.</p>
+<p>{{date | :strftime( '%D' )}}</p>
+
+<p><em>d</em>is replaced by the day of the month as a decimal number (01-31).</p>
+<p>{{date | :strftime( '%d' )}}</p>
+
+<p><em>e</em>is replaced by the day of month as a decimal number (1-31); single digits are preceded by a blank.</p>
+<p>{{date | :strftime( '%e' )}}</p>
+
+<p><em>F</em>is equivalent to 'Y-m-d'.</p>
+<p>{{date | :strftime( '%F' )}}</p>
+
+<p><em>H</em>is replaced by the hour (24-hour clock) as a decimal number (00-23).</p>
+<p>{{date | :strftime( '%H' )}}</p>
+
+<p><em>I</em>is replaced by the hour (12-hour clock) as a decimal number (01-12).</p>
+<p>{{date | :strftime( '%I' )}}</p>
+
+<p><em>k</em>is replaced by the hour (24-hour clock) as a decimal number (0-23); single digits are preceded by a blank.</p>
+<p>{{date | :strftime( '%k' )}}</p>
+
+<p><em>l</em>is replaced by the hour (12-hour clock) as a decimal number (1-12); single digits are preceded by a blank.</p>
+<p>{{date | :strftime( '%l' )}}</p>
+
+<p><em>M</em>is replaced by the minute as a decimal number (00-59).</p>
+<p>{{date | :strftime( '%M' )}}</p>
+
+<p><em>m</em>is replaced by the month as a decimal number (01-12).</p>
+<p>{{date | :strftime( '%m' )}}</p>
+
+<p><em>n</em>is replaced by a newline.</p>
+<p>{{date | :strftime( '%n' )}}</p>
+
+<p><em>O*</em>the same as %E*.</p>
+<p>{{date | :strftime( '%O*' )}}</p>
+
+<p><em>p</em>is replaced by national representation of either 'ante meridiem' or 'post meridiem' as appropriate.</p>
+<p>{{date | :strftime( '%p' )}}</p>
+
+<p><em>R</em>is equivalent to '%H:%M'.</p>
+<p>{{date | :strftime( '%R' )}}</p>
+
+<p><em>r</em>is equivalent to '%I:%M:%S %p'.</p>
+<p>{{date | :strftime( '%r' )}}</p>
+
+<p><em>S</em>is replaced by the second as a decimal number (00-60).</p>
+<p>{{date | :strftime( '%S' )}}</p>
+
+<p><em>s</em>is replaced by the number of seconds since the Epoch, UTC (see mktime(3)).</p>
+<p>{{date | :strftime( '%s' )}}</p>
+
+<p><em>T</em>is equivalent to '%H:%M:%S'.</p>
+<p>{{date | :strftime( '%T' )}}</p>
+
+<p><em>t</em>is replaced by a tab.</p>
+<p>{{date | :strftime( '%t' )}}</p>
+
+<p><em>U</em>is replaced by the week number of the year (Sunday as the first day of the week) as a decimal number (00-53).</p>
+<p>{{date | :strftime( '%U' )}}</p>
+
+<p><em>u</em>is replaced by the weekday (Monday as the first day of the week) as a decimal number (1-7).</p>
+<p>{{date | :strftime( '%u' )}}</p>
+
+<p><em>V</em>is replaced by the week number of the year (Monday as the first day of the week) as a decimal number (01-53).  If the week containing January 1 has four or more days in the new year, then it is week 1; otherwise it is the last week of the previous year, and the next week is week 1.</p>
+<p>{{date | :strftime( '%V' )}}</p>
+
+<p><em>v</em>is equivalent to '%e-%b-%Y'.</p>
+<p>{{date | :strftime( '%v' )}}</p>
+
+<p><em>W</em>is replaced by the week number of the year (Monday as the first day of the week) as a decimal number (00-53).</p>
+<p>{{date | :strftime( '%W' )}}</p>
+
+<p><em>w</em>is replaced by the weekday (Sunday as the first day of the week) as a decimal</p>
+<p>{{date | :strftime( '%w' )}}</p>
+
+<p><em>X</em>is replaced by national representation of the time.</p>
+<p>{{date | :strftime( '%X' )}}</p>
+
+<p><em>x</em>is replaced by national representation of the date.</p>
+<p>{{date | :strftime( '%x' )}}</p>
+
+<p><em>Y</em>is replaced by the year with century as a decimal number.</p>
+<p>{{date | :strftime( '%Y' )}}</p>
+
+<p><em>y</em>is replaced by the year without century as a decimal number (00-99).</p>
+<p>{{date | :strftime( '%y' )}}</p>
+
+<p><em>Z</em>is replaced by the time zone name.</p>
+<p>{{date | :strftime( '%Z' )}}</p>
+
+<p><em>z</em>is replaced by the time zone offset from UTC; a leading plus sign stands for east of UTC, a minus sign for west of UTC, hours and minutes follow with two digits each and no delimiter between them (common form for RFC 822 date headers).</p>
+<p>{{date | :strftime( '%z' )}}</p>
+
+<p><em>+</em>is replaced by national representation of the date and time (the format is similar to that produced by date(1)).</p>
+<p>{{date | :strftime( '%+' )}}</p>
+
+<p><em>%</em>is replaced by '%'.</p>
+<p>{{date | :strftime( '%%' )}}</p>
