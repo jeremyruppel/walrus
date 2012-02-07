@@ -99,3 +99,14 @@ Walrus.addFilter 'floor', ( value ) -> Math.floor value
  *  {{ 5.6 | :ceil }} // => 6
 ###
 Walrus.addFilter 'ceil', ( value ) -> Math.ceil value
+
+###*
+ * *:round*
+ * Returns the given number rounded to the nearest integer.
+ *
+ * Parameters: none
+ *
+ * Usage:
+ *  {{ 5.6 | :round }} // => 6
+###
+Walrus.addFilter 'round', ( value ) -> Math.round value

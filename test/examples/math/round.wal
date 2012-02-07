@@ -1,0 +1,2 @@
+<p>More: {{more | :round}}</p>
+<p>Less: {{less | :round}}</p>

@@ -133,4 +133,18 @@
     return Math.ceil(value);
   });
 
+  /**
+   * *:round*
+   * Returns the given number rounded to the nearest integer.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *  {{ 5.6 | :round }} // => 6
+  */
+
+  Walrus.addFilter('round', function(value) {
+    return Math.round(value);
+  });
+
 }).call(this);
