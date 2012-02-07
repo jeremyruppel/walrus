@@ -99,7 +99,7 @@ pluralize = ( word, count, includeCount=false ) ->
   if count?
 
     result = if count is 1 then singularize word else pluralize word
-    result = if includeCount then [ count, result ].join ' ' else result
+    result = if includeCount then "#{count} #{result}" else result
 
   else
 

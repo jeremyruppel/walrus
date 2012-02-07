@@ -49,7 +49,7 @@
     if (includeCount == null) includeCount = false;
     if (count != null) {
       result = count === 1 ? singularize(word) : pluralize(word);
-      return result = includeCount ? [count, result].join(' ') : result;
+      return result = includeCount ? "" + count + " " + result : result;
     } else {
       if (__indexOf.call(uncountables, word) >= 0) return word;
       return inflect(word, plurals);
