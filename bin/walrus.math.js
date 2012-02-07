@@ -27,7 +27,15 @@
   });
 
   /**
+   * *:gt*
+   * Returns whether `value` is greater than the given number
    *
+   * Parameters:
+   *  number - the number to compare against
+   *
+   * Usage:
+   *
+   *  {{ 15 | :gt( 5 ) }} // => true
   */
 
   Walrus.addFilter('gt', function(value, number) {
@@ -35,7 +43,15 @@
   });
 
   /**
+   * *:gte*
+   * Returns whether `value` is greater than or equal to the given number
    *
+   * Parameters:
+   *  number - the number to compare against
+   *
+   * Usage:
+   *
+   *  {{ 15 | :gte( 5 ) }} // => true
   */
 
   Walrus.addFilter('gte', function(value, number) {
@@ -43,7 +59,15 @@
   });
 
   /**
+   * *:lt*
+   * Returns whether `value` is less than the given number
    *
+   * Parameters:
+   *  number - the number to compare against
+   *
+   * Usage:
+   *
+   *  {{ 15 | :lt( 5 ) }} // => false
   */
 
   Walrus.addFilter('lt', function(value, number) {
@@ -51,7 +75,15 @@
   });
 
   /**
+   * *:lte*
+   * Returns whether `value` is less than or equal to the given number
    *
+   * Parameters:
+   *  number - the number to compare against
+   *
+   * Usage:
+   *
+   *  {{ 15 | :lte( 5 ) }} // => false
   */
 
   Walrus.addFilter('lte', function(value, number) {
