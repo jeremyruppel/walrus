@@ -11,7 +11,11 @@
   Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
 
   /**
-   * Inflector code ported from https://github.com/jeremyruppel/underscore.inflection
+   * Plenty of the methods in `walrus.inflections` are borrowed from or inspired by ActiveSupport:
+   * https://github.com/rails/rails/tree/master/activesupport
+   * JavaScript inflector implementation ported from underscore.inflection:
+   * https://github.com/jeremyruppel/underscore.inflection
+   * (Which was also inspired by and borrows from ActiveSupport)
   */
 
   plurals = [[/$/, 's'], [/s$/, 's'], [/(ax|test)is$/, '$1es'], [/(octop|vir)us$/, '$1i'], [/(octop|vir)i$/, '$1i'], [/(alias|status)$/, '$1es'], [/(bu)s$/, '$1ses'], [/(buffal|tomat)o$/, '$1oes'], [/([ti])um$/, '$1a'], [/([ti])a$/, '$1a'], [/sis$/, 'ses'], [/(?:([^f])fe|([lr])f)$/, '$1$2ves'], [/(hive)$/, '$1s'], [/([^aeiouy]|qu)y$/, '$1ies'], [/(x|ch|ss|sh)$/, '$1es'], [/(matr|vert|ind)(?:ix|ex)$/, '$1ices'], [/([m|l])ouse$/, '$1ice'], [/([m|l])ice$/, '$1ice'], [/^(ox)$/, '$1en'], [/^(oxen)$/, '$1'], [/(quiz)$/, '$1zes'], ['person', 'people'], ['man', 'men'], ['child', 'children'], ['sex', 'sexes'], ['move', 'moves'], ['cow', 'kine']].reverse();
@@ -88,5 +92,35 @@
   */
 
   Walrus.addFilter('singularize', singularize);
+
+  /**
+   * *:ordinalize*
+   * Turns a number into an ordinal string, like 1st, 2nd, 3rd, etc...
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  {{ 5 | :ordinalize }} // => "5th"
+  */
+
+  Walrus.addFilter('ordinalize', function(value) {
+    var normal, _ref;
+    normal = Math.abs(Math.round(value));
+    if (_ref = normal % 100, __indexOf.call([11, 12, 13], _ref) >= 0) {
+      return "" + value + "th";
+    } else {
+      switch (normal % 10) {
+        case 1:
+          return "" + value + "st";
+        case 2:
+          return "" + value + "nd";
+        case 3:
+          return "" + value + "rd";
+        default:
+          return "" + value + "th";
+      }
+    }
+  });
 
 }).call(this);

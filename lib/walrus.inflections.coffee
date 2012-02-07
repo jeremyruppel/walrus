@@ -1,7 +1,11 @@
 Walrus = if require? and exports? then require './walrus' else window.Walrus
 
 ###*
- * Inflector code ported from https://github.com/jeremyruppel/underscore.inflection
+ * Plenty of the methods in `walrus.inflections` are borrowed from or inspired by ActiveSupport:
+ * https://github.com/rails/rails/tree/master/activesupport
+ * JavaScript inflector implementation ported from underscore.inflection:
+ * https://github.com/jeremyruppel/underscore.inflection
+ * (Which was also inspired by and borrows from ActiveSupport)
 ###
 plurals = [
   [ /$/,                         's'       ],
@@ -138,3 +142,26 @@ Walrus.addFilter 'pluralize',   pluralize
  *  {{ "books" | :singularize }} // => "book"
 ###
 Walrus.addFilter 'singularize', singularize
+
+###*
+ * *:ordinalize*
+ * Turns a number into an ordinal string, like 1st, 2nd, 3rd, etc...
+ *
+ * Parameters: none
+ *
+ * Usage:
+ *
+ *  {{ 5 | :ordinalize }} // => "5th"
+###
+Walrus.addFilter 'ordinalize', ( value ) ->
+
+  normal = Math.abs Math.round value
+
+  if ( normal % 100 ) in [11..13]
+    "#{value}th"
+  else
+    switch normal % 10
+      when 1 then "#{value}st"
+      when 2 then "#{value}nd"
+      when 3 then "#{value}rd"
+      else "#{value}th"
