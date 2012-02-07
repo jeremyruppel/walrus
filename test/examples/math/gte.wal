@@ -1,0 +1,9 @@
+{{:if value | :gte( 4 ) do}}
+<p>{{value}} is greater than or equal to 4</p>
+{{end}}
+{{:if value | :gte( 5 ) do}}
+<p>{{value}} is greater than or equal to 5</p>
+{{end}}
+{{:if value | :gte( 6 ) do}}
+<p>{{value}} is greater than or equal to 6</p>
+{{end}}

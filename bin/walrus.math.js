@@ -26,4 +26,20 @@
     return value + number;
   });
 
+  /**
+   *
+  */
+
+  Walrus.addFilter('gt', function(value, number) {
+    return value > number;
+  });
+
+  /**
+   *
+  */
+
+  Walrus.addFilter('gte', function(value, number) {
+    return value >= number;
+  });
+
 }).call(this);

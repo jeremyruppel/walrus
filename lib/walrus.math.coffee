@@ -12,3 +12,13 @@ Walrus = if require? and exports? then require './walrus' else window.Walrus
  *  {{ 15 | :plus( 6 ) }} // => 21
 ###
 Walrus.addFilter 'plus', ( value, number ) -> value + number
+
+###*
+ *
+###
+Walrus.addFilter 'gt', ( value, number ) -> value > number
+
+###*
+ *
+###
+Walrus.addFilter 'gte', ( value, number ) -> value >= number
