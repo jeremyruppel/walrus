@@ -15,12 +15,11 @@ Walrus.Domain = { }
 ###
 Walrus.addFilter 'as', ( value, name ) ->
 
-  extend = ( foo, bar ) -> foo[ key ] = value for key, value of bar
-
   if Walrus.Utils.isArray value
 
     for item in value
-      extend item, Walrus.Domain[ name ]
+
+      Walrus.Utils.extend item, Walrus.Domain[ name ]
   else
     console.log 'WE GOT AN OBJECT'
 

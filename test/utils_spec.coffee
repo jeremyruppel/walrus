@@ -63,3 +63,18 @@ describe 'Walrus.Utils', ->
     it 'should return false for an object', ->
 
       Walrus.Utils.isArray( { } ).should.be.false
+
+  describe '#extend', ->
+
+    it 'should be defined', -> should.exist Walrus.Utils.extend
+
+    it 'should apply all properties from one object to another', ->
+
+      foo = a : 123, b : 'asdf'
+      bar = a : 456, c : 'qwer'
+
+      Walrus.Utils.extend foo, bar
+
+      foo.a.should.equal 456
+      foo.b.should.equal 'asdf'
+      foo.c.should.equal 'qwer'

@@ -431,6 +431,18 @@ if (typeof module !== 'undefined' && require.main === module) {
     */
     isArray: function(foo) {
       return this.toString(foo) === '[object Array]';
+    },
+    /**
+     * applies all properties from `bar` onto `foo`
+    */
+    extend: function(foo, bar) {
+      var key, value, _results;
+      _results = [];
+      for (key in bar) {
+        value = bar[key];
+        _results.push(foo[key] = value);
+      }
+      return _results;
     }
   };
 

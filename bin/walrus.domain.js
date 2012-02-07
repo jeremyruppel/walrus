@@ -26,20 +26,11 @@
   */
 
   Walrus.addFilter('as', function(value, name) {
-    var extend, item, _i, _len;
-    extend = function(foo, bar) {
-      var key, value, _results;
-      _results = [];
-      for (key in bar) {
-        value = bar[key];
-        _results.push(foo[key] = value);
-      }
-      return _results;
-    };
+    var item, _i, _len;
     if (Walrus.Utils.isArray(value)) {
       for (_i = 0, _len = value.length; _i < _len; _i++) {
         item = value[_i];
-        extend(item, Walrus.Domain[name]);
+        Walrus.Utils.extend(item, Walrus.Domain[name]);
       }
     } else {
       console.log('WE GOT AN OBJECT');

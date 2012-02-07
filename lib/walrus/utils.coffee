@@ -23,5 +23,10 @@ Utils =
   ###
   isArray : ( foo ) -> @toString( foo ) is '[object Array]'
 
+  ###*
+   * applies all properties from `bar` onto `foo`
+  ###
+  extend : ( foo, bar ) -> foo[ key ] = value for key, value of bar
+
 # Export those utils, son.
 Walrus.Utils = Utils
