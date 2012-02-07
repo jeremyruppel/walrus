@@ -77,3 +77,14 @@ Walrus.addFilter 'lt', ( value, number ) -> value < number
  *  {{ 15 | :lte( 5 ) }} // => false
 ###
 Walrus.addFilter 'lte', ( value, number ) -> value <= number
+
+###*
+ * *:floor*
+ * Returns the given number rounded down to the nearest integer.
+ *
+ * Parameters: none
+ *
+ * Usage:
+ *  {{ 5.6 | :floor }} // => 5
+###
+Walrus.addFilter 'floor', ( value ) -> Math.floor value

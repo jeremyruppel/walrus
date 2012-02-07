@@ -105,4 +105,18 @@
     return value <= number;
   });
 
+  /**
+   * *:floor*
+   * Returns the given number rounded down to the nearest integer.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *  {{ 5.6 | :floor }} // => 5
+  */
+
+  Walrus.addFilter('floor', function(value) {
+    return Math.floor(value);
+  });
+
 }).call(this);

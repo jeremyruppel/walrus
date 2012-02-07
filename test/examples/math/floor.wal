@@ -1,0 +1,2 @@
+<p>More: {{more | :floor}}</p>
+<p>Less: {{less | :floor}}</p>
