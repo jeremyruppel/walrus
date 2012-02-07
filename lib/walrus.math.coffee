@@ -88,3 +88,14 @@ Walrus.addFilter 'lte', ( value, number ) -> value <= number
  *  {{ 5.6 | :floor }} // => 5
 ###
 Walrus.addFilter 'floor', ( value ) -> Math.floor value
+
+###*
+ * *:ceil*
+ * Returns the given number rounded up to the nearest integer.
+ *
+ * Parameters: none
+ *
+ * Usage:
+ *  {{ 5.6 | :ceil }} // => 6
+###
+Walrus.addFilter 'ceil', ( value ) -> Math.ceil value

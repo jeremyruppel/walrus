@@ -119,4 +119,18 @@
     return Math.floor(value);
   });
 
+  /**
+   * *:ceil*
+   * Returns the given number rounded up to the nearest integer.
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *  {{ 5.6 | :ceil }} // => 6
+  */
+
+  Walrus.addFilter('ceil', function(value) {
+    return Math.ceil(value);
+  });
+
 }).call(this);
