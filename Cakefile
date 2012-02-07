@@ -1,6 +1,7 @@
-fs    = require 'fs'
-path  = require 'path'
-exec  = require( 'child_process' ).exec
+fs       = require 'fs'
+path     = require 'path'
+exec     = require( 'child_process' ).exec
+readline = require 'readline'
 
 # Prepend path to package.json dependencies' binaries
 process.env.PATH = "node_modules/.bin:#{process.env.PATH}"
@@ -55,3 +56,24 @@ task 'all', 'Runs all build, compilation, and test tasks in order', ->
   invoke 'compile'
   invoke 'build'
   invoke 'test'
+
+task 'example', 'Create a new example', ->
+
+  io = readline.createInterface process.stdin, process.stdout, null
+
+  io.question 'What is the name of the new example? ', ( example ) ->
+
+    fs.writeFileSync "test/examples/#{example}.js", """
+    // TODO: #{example}.js
+    """
+
+    fs.writeFileSync "test/examples/#{example}.wal", """
+    <!-- TODO: #{example}.wal -->
+    """
+
+    fs.writeFileSync "test/examples/#{example}.html", """
+    <!-- TODO: #{example}.html -->
+    """
+
+    io.close( )
+    process.stdin.destroy( )
