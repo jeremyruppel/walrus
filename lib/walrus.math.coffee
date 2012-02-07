@@ -14,6 +14,19 @@ Walrus = if require? and exports? then require './walrus' else window.Walrus
 Walrus.addFilter 'plus', ( value, number ) -> value + number
 
 ###*
+ * *:minus*
+ * Returns the difference of two numbers
+ *
+ * Parameters:
+ *  number - the number to subtract from the expression
+ *
+ * Usage:
+ *
+ *  {{ 15 | :minus( 6 ) }} // => 9
+###
+Walrus.addFilter 'minus', ( value, number ) -> value - number
+
+###*
  * *:gt*
  * Returns whether `value` is greater than the given number
  *

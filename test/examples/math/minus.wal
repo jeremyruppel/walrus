@@ -1,0 +1,2 @@
+<p>Score: {{score | :minus( 5 )}}</p>
+<p>Time: {{time | :minus( 11.11 )}}</p>

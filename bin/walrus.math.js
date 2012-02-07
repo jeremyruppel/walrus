@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.3.1
+ * Walrus.js 0.3.2
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -24,6 +24,22 @@
 
   Walrus.addFilter('plus', function(value, number) {
     return value + number;
+  });
+
+  /**
+   * *:minus*
+   * Returns the difference of two numbers
+   *
+   * Parameters:
+   *  number - the number to subtract from the expression
+   *
+   * Usage:
+   *
+   *  {{ 15 | :minus( 6 ) }} // => 9
+  */
+
+  Walrus.addFilter('minus', function(value, number) {
+    return value - number;
   });
 
   /**
