@@ -16,13 +16,17 @@ TestHelpers =
 
         base = path.basename file, '.wal'
 
+        spec = "#{specs}/#{base}#{suffix}.html"
+
         text = @read "#{specs}/#{base}.wal"
         json = @read "#{specs}/#{base}.js"
-        html = @read "#{specs}/#{base}#{suffix}.html"
+        html = @read spec
 
         # if we can't find the suffixed version, try and find
         # one without the suffix and use that instead.
-        html = @read "#{specs}/#{base}.html" if not html
+        if not html
+          spec = "#{specs}/#{base}.html"
+          html = @read spec
 
         # if _that_ one doesn't exist, throw a helpful error.
         throw "Can't find example html at #{specs}/#{base}#{suffix}.html or #{specs}/#{base}.html" if not html
@@ -38,7 +42,7 @@ TestHelpers =
           else
 
             cmd = """
-            printf "#{comp}" | diff --unified #{specs}/#{base}#{suffix}.html -
+            printf "#{comp}" | diff --unified #{spec} -
             """
 
             exec cmd, ( error, stdout, stderr ) ->
