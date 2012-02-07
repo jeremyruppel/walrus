@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.3.2
+ * Walrus.js 0.3.3
  * Mon Feb 06 2012
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
@@ -33,7 +33,7 @@
         Walrus.Utils.extend(item, Walrus.Domain[name]);
       }
     } else {
-      console.log('WE GOT AN OBJECT');
+      Walrus.Utils.extend(value, Walrus.Domain[name]);
     }
     return value;
   });
