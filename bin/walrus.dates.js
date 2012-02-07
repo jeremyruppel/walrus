@@ -23,8 +23,8 @@
    * that can be passed to `new Date( )`.
    *
    * Parameters:
-   *  format - The format string, according to these tokens, taken almost directly
-   *           from `man 3 strftime`:
+   *  format - The format string, according to these tokens, taken directly
+   *           from `man 3 strftime` (with some omissions):
    *
    *           %A    is replaced by national representation of the full weekday name.
    *
@@ -34,42 +34,18 @@
    *
    *           %b    is replaced by national representation of the abbreviated month name.
    *
-   *           %C    is replaced by (year / 100) as decimal number; single digits are preceded by a
-   *                 zero.
-   *
-   *           %c    is replaced by national representation of time and date.
-   *
    *           %D    is equivalent to ``%m/%d/%y''.
    *
    *           %d    is replaced by the day of the month as a decimal number (01-31).
-   *
-   *           %E* %O*
-   *                 POSIX locale extensions.  The sequences %Ec %EC %Ex %EX %Ey %EY %Od %Oe %OH %OI
-   *                 %Om %OM %OS %Ou %OU %OV %Ow %OW %Oy are supposed to provide alternate represen-
-   *                 tations.
-   *
-   *                 Additionly %OB implemented to represent alternative months names (used stand-
-   *                 alone, without day mentioned).
    *
    *           %e    is replaced by the day of month as a decimal number (1-31); single digits are
    *                      preceded by a blank.
    *
    *           %F    is equivalent to ``%Y-%m-%d''.
    *
-   *           %G    is replaced by a year as a decimal number with century.  This year is the one
-   *                 that contains the greater part of the week (Monday as the first day of the
-   *                 week).
-   *
-   *           %g    is replaced by the same year as in ``%G'', but as a decimal number without cen-
-   *                 tury (00-99).
-   *
    *           %H    is replaced by the hour (24-hour clock) as a decimal number (00-23).
    *
-   *           %h    the same as %b.
-   *
    *           %I    is replaced by the hour (12-hour clock) as a decimal number (01-12).
-   *
-   *           %j    is replaced by the day of the year as a decimal number (001-366).
    *
    *           %k    is replaced by the hour (24-hour clock) as a decimal number (0-23); single dig-
    *                 its are preceded by a blank.
@@ -83,8 +59,6 @@
    *
    *           %n    is replaced by a newline.
    *
-   *           %O*   the same as %E*.
-   *
    *           %p    is replaced by national representation of either "ante meridiem" or "post meri-
    *                 diem" as appropriate.
    *
@@ -93,8 +67,6 @@
    *           %r    is equivalent to ``%I:%M:%S %p''.
    *
    *           %S    is replaced by the second as a decimal number (00-60).
-   *
-   *           %s    is replaced by the number of seconds since the Epoch, UTC (see mktime(3)).
    *
    *           %T    is equivalent to ``%H:%M:%S''.
    *
@@ -106,15 +78,7 @@
    *           %u    is replaced by the weekday (Monday as the first day of the week) as a decimal
    *                 number (1-7).
    *
-   *           %V    is replaced by the week number of the year (Monday as the first day of the
-   *                 week) as a decimal number (01-53).  If the week containing January 1 has four
-   *                 or more days in the new year, then it is week 1; otherwise it is the last week
-   *                 of the previous year, and the next week is week 1.
-   *
    *           %v    is equivalent to ``%e-%b-%Y''.
-   *
-   *           %W    is replaced by the week number of the year (Monday as the first day of the
-   *                 week) as a decimal number (00-53).
    *
    *           %w    is replaced by the weekday (Sunday as the first day of the week) as a decimal
    *
@@ -127,16 +91,6 @@
    *           %y    is replaced by the year without century as a decimal number (00-99).
    *
    *           %Z    is replaced by the time zone name.
-   *
-   *           %z    is replaced by the time zone offset from UTC; a leading plus sign stands for
-   *                 east of UTC, a minus sign for west of UTC, hours and minutes follow with two
-   *                 digits each and no delimiter between them (common form for RFC 822 date head-
-   *                 ers).
-   *
-   *           %+    is replaced by national representation of the date and time (the format is sim-
-   *                 ilar to that produced by date(1)).
-   *
-   *           %%    is replaced by `%'.
   */
 
   Walrus.addFilter('strftime', function(dateish, format) {
@@ -193,51 +147,40 @@
         case '%m':
           return pad(date.getMonth() + 1);
         case '%n':
-          return 'TODO';
-        case '%O':
-          return 'TODO';
+          return "\n";
         case '%p':
-          return 'TODO';
+          if (date.getHours() > 12) {
+            return 'PM';
+          } else {
+            return 'AM';
+          }
+          break;
         case '%R':
-          return 'TODO';
+          return _this.strftime(date, '%H:%M');
         case '%r':
-          return 'TODO';
+          return _this.strftime(date, '%I:%M:%S %p');
         case '%S':
-          return 'TODO';
-        case '%s':
-          return 'TODO';
+          return pad(date.getSeconds());
         case '%T':
-          return 'TODO';
-        case '%T':
-          return 'TODO';
-        case '%U':
-          return 'TODO';
+          return _this.strftime(date, '%H:%M:%S');
+        case '%t':
+          return "\t";
         case '%u':
-          return 'TODO';
-        case '%V':
-          return 'TODO';
+          return date.getDay() || 7;
         case '%v':
-          return 'TODO';
-        case '%W':
-          return 'TODO';
+          return _this.strftime(date, '%e-%b-%Y');
         case '%w':
-          return 'TODO';
+          return date.getDay();
         case '%X':
-          return 'TODO';
+          return date.toTimeString();
         case '%x':
-          return 'TODO';
+          return date.toDateString();
         case '%Y':
           return date.getFullYear();
         case '%y':
           return date.getFullYear().toString().slice(-2);
         case '%Z':
-          return 'TODO';
-        case '%z':
-          return 'TODO';
-        case '%+':
-          return 'TODO';
-        case '%%':
-          return 'TODO';
+          return date.toString().match(/\((\w+)\)/)[1] || '';
       }
     });
   });
