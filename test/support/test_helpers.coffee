@@ -2,16 +2,13 @@ Walrus = require '../../bin/walrus'
 
 fs   = require 'fs'
 path = require 'path'
+exec = require( 'child_process' ).exec
 
 TestHelpers =
 
   read : ( filename ) -> fs.readFileSync filename, 'utf8' if path.existsSync filename
 
   pass : ( specs, suffix='' ) ->
-
-    fs    = require 'fs'
-    path  = require 'path'
-    exec  = require( 'child_process' ).exec
 
     for file in fs.readdirSync specs when path.extname( file ) is '.wal'
 
