@@ -15,13 +15,9 @@ Walrus.Domain = { }
 ###
 Walrus.addFilter 'as', ( value, name ) ->
 
-  toString = Object.prototype.toString
-
-  isArray = ( obj ) -> toString.call( obj ) is '[object Array]'
-
   extend = ( foo, bar ) -> foo[ key ] = value for key, value of bar
 
-  if isArray value
+  if Walrus.Utils.isArray value
 
     for item in value
       extend item, Walrus.Domain[ name ]

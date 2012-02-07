@@ -39,3 +39,27 @@ describe 'Walrus.Utils', ->
       method = ( memo, item ) -> memo + item
 
       Walrus.Utils.reduce( array, memo, method ).should.equal 7
+
+  describe '#toString', ->
+
+    it 'should be defined', -> should.exist Walrus.Utils.toString
+
+    it 'should correctly identify an array', ->
+
+      Walrus.Utils.toString( [ ] ).should.equal '[object Array]'
+
+    it 'should correctly identify an object', ->
+
+      Walrus.Utils.toString( { } ).should.equal '[object Object]'
+
+  describe '#isArray', ->
+
+    it 'should be defined', -> should.exist Walrus.Utils.isArray
+
+    it 'should return true for an array', ->
+
+      Walrus.Utils.isArray( [ ] ).should.be.true
+
+    it 'should return false for an object', ->
+
+      Walrus.Utils.isArray( { } ).should.be.false

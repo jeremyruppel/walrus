@@ -26,11 +26,7 @@
   */
 
   Walrus.addFilter('as', function(value, name) {
-    var extend, isArray, item, toString, _i, _len;
-    toString = Object.prototype.toString;
-    isArray = function(obj) {
-      return toString.call(obj) === '[object Array]';
-    };
+    var extend, item, _i, _len;
     extend = function(foo, bar) {
       var key, value, _results;
       _results = [];
@@ -40,7 +36,7 @@
       }
       return _results;
     };
-    if (isArray(value)) {
+    if (Walrus.Utils.isArray(value)) {
       for (_i = 0, _len = value.length; _i < _len; _i++) {
         item = value[_i];
         extend(item, Walrus.Domain[name]);

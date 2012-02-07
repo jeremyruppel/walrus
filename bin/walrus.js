@@ -419,6 +419,18 @@ if (typeof module !== 'undefined' && require.main === module) {
         memo = method(memo, item);
       }
       return memo;
+    },
+    /**
+     * returns the string representation of `foo`
+    */
+    toString: function(foo) {
+      return Object.prototype.toString.call(foo);
+    },
+    /**
+     * returns whether or not `foo` is an array
+    */
+    isArray: function(foo) {
+      return this.toString(foo) === '[object Array]';
     }
   };
 
