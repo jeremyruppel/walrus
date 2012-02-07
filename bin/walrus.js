@@ -817,7 +817,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   /**
    * *:if*
-   * Evaluates a block only if the result of `expression` is truthy. Opposite of `:uness`.
+   * Evaluates a block only if the result of `expression` is truthy. Opposite of `:unless`.
    *
    * Usage:
    *
