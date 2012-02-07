@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.3.3
+ * Walrus.js 0.4.0
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
@@ -11,7 +11,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.3.3'
+    VERSION: '0.4.0'
   };
 
   /* Jison generated parser */
