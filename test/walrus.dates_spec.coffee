@@ -17,23 +17,23 @@ describe 'Walrus.Dates', ->
 
 describe 'Walrus.Utils date additions', ->
 
+  years = [
+    [ 2002, false ],
+    [ 2003, false ],
+    [ 2004, true  ],
+    [ 2005, false ],
+    [ 2006, false ],
+    [ 2007, false ],
+    [ 2008, true  ],
+    [ 2009, false ],
+    [ 2010, false ],
+    [ 2011, false ],
+    [ 2012, true  ]
+  ]
+
   describe '#isLeapYear', ->
 
     it 'should be defined', -> should.exist Walrus.Utils.isLeapYear
-
-    years = [
-      [ 2002, false ],
-      [ 2003, false ],
-      [ 2004, true  ],
-      [ 2005, false ],
-      [ 2006, false ],
-      [ 2007, false ],
-      [ 2008, true  ],
-      [ 2009, false ],
-      [ 2010, false ],
-      [ 2011, false ],
-      [ 2012, true  ]
-    ]
 
     for tuple in years
       do ->
@@ -43,17 +43,14 @@ describe 'Walrus.Utils date additions', ->
 
           Walrus.Utils.isLeapYear( year ).should.equal actual
 
+  describe '#leapYearsBetween', ->
 
+    it 'should be defined', -> should.exist Walrus.Utils.leapYearsBetween
 
-    # ree-1.8.7-2010.02 :031 > (2002..2012).each { |year| puts Date.leap?( year ) }
-    # false
-    # false
-    # true
-    # false
-    # false
-    # false
-    # true
-    # false
-    # false
-    # false
-    # true
+    it 'should identify the correct number of leap years between 2002 and 2012', ->
+
+      Walrus.Utils.leapYearsBetween( 2002, 2012 ).should.equal 3
+
+    it 'should return zero if the first year is greater than the second', ->
+
+      Walrus.Utils.leapYearsBetween( 2012, 2002 ).should.equal 0

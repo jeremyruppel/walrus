@@ -194,11 +194,25 @@
   };
 
   /**
+   * returns the number of leap years between the two given years
+  */
+
+  Walrus.Utils.leapYearsBetween = function(from, to) {
+    var count, year;
+    if (from > to) return 0;
+    count = 0;
+    for (year = from; from <= to ? year <= to : year >= to; from <= to ? year++ : year--) {
+      if (this.isLeapYear(year)) count++;
+    }
+    return count;
+  };
+
+  /**
    *
   */
 
   Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
-    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, ftime, fyear, leapYears, leapYearsBetween, minuteOffsetForLeapYear, minutesWithOffset, remainder, ttime, tyear;
+    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, ftime, fyear, leapYears, minuteOffsetForLeapYear, minutesWithOffset, remainder, ttime, tyear;
     ftime = new Date(dateish);
     ttime = new Date();
     diff = (ttime - ftime) / 1000;
@@ -248,15 +262,7 @@
         if (ftime.getMonth() >= 2) fyear += 1;
         tyear = ttime.getFullYear();
         if (ttime.getMonth() < 2) tyear -= 1;
-        leapYearsBetween = function(from, to) {
-          var count, year;
-          count = 0;
-          for (year = from; from <= to ? year <= to : year >= to; from <= to ? year++ : year--) {
-            if (Walrus.Utils.isLeapYear(year)) count++;
-          }
-          return count;
-        };
-        leapYears = fyear > tyear ? 0 : leapYearsBetween(fyear, tyear);
+        leapYears = Walrus.Utils.leapYearsBetween(fyear, tyear);
         minuteOffsetForLeapYear = leapYears * 1440;
         minutesWithOffset = distanceInMinutes - minuteOffsetForLeapYear;
         remainder = minutesWithOffset % 525600;

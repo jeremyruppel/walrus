@@ -131,6 +131,17 @@ Walrus.addFilter 'strftime', ( dateish, format ) ->
 Walrus.Utils.isLeapYear = ( year ) -> new Date( year, 1, 29 ).getDate( ) is 29
 
 ###*
+ * returns the number of leap years between the two given years
+###
+Walrus.Utils.leapYearsBetween = ( from, to ) ->
+
+  return 0 if from > to
+
+  count = 0
+  count++ for year in [from..to] when @isLeapYear( year )
+  count
+
+###*
  *
 ###
 Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
@@ -170,12 +181,7 @@ Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
       tyear  = ttime.getFullYear( )
       tyear -= 1 if ttime.getMonth( ) < 2
 
-      leapYearsBetween = ( from, to ) ->
-        count = 0
-        count++ for year in [from..to] when Walrus.Utils.isLeapYear( year )
-        count
-
-      leapYears = if fyear > tyear then 0 else leapYearsBetween( fyear, tyear )
+      leapYears = Walrus.Utils.leapYearsBetween fyear, tyear
 
       minuteOffsetForLeapYear = leapYears * 1440
 
