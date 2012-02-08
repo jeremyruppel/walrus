@@ -185,4 +185,59 @@
     });
   });
 
+  /**
+   *
+  */
+
+  Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
+    var date, diff, distanceInMinutes, distanceInSeconds, naow;
+    date = Math.round(new Date(dateish).getTime() / 1000);
+    naow = Math.round(new Date().getTime() / 1000);
+    diff = naow - date;
+    distanceInMinutes = Math.round(Math.abs(diff) / 60);
+    distanceInSeconds = Math.round(Math.abs(diff));
+    switch (false) {
+      case !((0 <= distanceInMinutes && distanceInMinutes <= 1)):
+        if (!includeSeconds) {
+          if (distanceInMinutes === 0) {
+            return "less than a minute";
+          } else {
+            return "1 minute";
+          }
+        } else {
+          switch (false) {
+            case !((0 <= distanceInSeconds && distanceInSeconds <= 4)):
+              return "less than 5 seconds";
+            case !((5 <= distanceInSeconds && distanceInSeconds <= 9)):
+              return "less than 10 seconds";
+            case !((10 <= distanceInSeconds && distanceInSeconds <= 19)):
+              return "less than 20 seconds";
+            case !((20 <= distanceInSeconds && distanceInSeconds <= 39)):
+              return "half a minute";
+            case !((40 <= distanceInSeconds && distanceInSeconds <= 59)):
+              return "less than a minute";
+            default:
+              return "1 minute";
+          }
+        }
+        break;
+      case !((2 <= distanceInMinutes && distanceInMinutes <= 44)):
+        return "" + distanceInMinutes + " minutes";
+      case !((45 <= distanceInMinutes && distanceInMinutes <= 89)):
+        return "about 1 hour";
+      case !((90 <= distanceInMinutes && distanceInMinutes <= 1439)):
+        return "about " + (Math.round(distanceInMinutes / 60)) + " hours";
+      case !((1440 <= distanceInMinutes && distanceInMinutes <= 2519)):
+        return "1 day";
+      case !((2520 <= distanceInMinutes && distanceInMinutes <= 43199)):
+        return "" + (Math.round(distanceInMinutes / 1440)) + " days";
+      case !((43200 <= distanceInMinutes && distanceInMinutes <= 86399)):
+        return "about 1 month";
+      case !((86400 <= distanceInMinutes && distanceInMinutes <= 525599)):
+        return "" + (Math.round(distanceInMinutes / 43200)) + " months";
+      default:
+        return "WHOOOOPS";
+    }
+  });
+
 }).call(this);

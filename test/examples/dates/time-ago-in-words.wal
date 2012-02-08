@@ -1,0 +1,48 @@
+<h1>0..1 with includeSeconds</h1>
+<p>{{now.minus( seconds( 0 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 4 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 5 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 9 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 10 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 19 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 20 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 39 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 40 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 59 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 60 ) ) | :time_ago_in_words( true )}}</p>
+<p>{{now.minus( seconds( 89 ) ) | :time_ago_in_words( true )}}</p>
+
+<h1>First case 0..1</h1>
+<p>{{now.minus( seconds( 0 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( seconds( 29 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( minutes( 1 ), seconds( 29 ) ) | :time_ago_in_words}}</p>
+
+<h1>2..44</h1>
+<p>{{now.minus( minutes( 1 ), seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( minutes( 44 ), seconds( 29 ) ) | :time_ago_in_words}}</p>
+
+<h1>45..89</h1>
+<p>{{now.minus( minutes( 44 ), seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( minutes( 89 ), seconds( 29 ) ) | :time_ago_in_words}}</p>
+
+<h1>90..1439</h1>
+<p>{{now.minus( minutes( 89 ), seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( hours( 23 ), minutes( 59 ), seconds( 29 ) ) | :time_ago_in_words}}</p>
+
+<h1>1440..2519</h1>
+<p>{{now.minus( hours( 23 ), minutes( 59 ), seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( hours( 41 ), minutes( 59 ), seconds( 29 ) ) | :time_ago_in_words}}</p>
+
+<h1>2520..43199</h1>
+<p>{{now.minus( hours( 41 ), minutes( 59 ), seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( days( 2 ), hours( 12 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( days( 29 ), hours( 23 ), minutes( 59 ), seconds( 29 ) ) | :time_ago_in_words}}</p>
+
+<h1>43200..86399</h1>
+<p>{{now.minus( days( 29 ), hours( 23 ), minutes( 59 ), seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( days( 59 ), hours( 23 ), minutes( 59 ), seconds( 29 ) ) | :time_ago_in_words}}</p>
+
+<h1>86400..525599</h1>
+<p>{{now.minus( days( 59 ), hours( 23 ), minutes( 59 ), seconds( 30 ) ) | :time_ago_in_words}}</p>
+<p>{{now.minus( years( 1 ), seconds( -31 ) ) | :time_ago_in_words}}</p>
