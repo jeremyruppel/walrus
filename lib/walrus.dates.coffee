@@ -126,6 +126,11 @@ Walrus.addFilter 'strftime', ( dateish, format ) ->
       when '%Z' then date.toString( ).match( /\((\w+)\)/ )[ 1 ] || ''
 
 ###*
+ * returns whether or not the given year is a leap year
+###
+Walrus.Utils.isLeapYear = ( year ) -> new Date( year, 1, 29 ).getDate( ) is 29
+
+###*
  *
 ###
 Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
@@ -165,11 +170,9 @@ Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
       tyear  = ttime.getFullYear( )
       tyear -= 1 if ttime.getMonth( ) < 2
 
-      isLeapYear = ( year ) -> new Date( year, 1, 29 ).getDate( ) is 29
-
       leapYearsBetween = ( from, to ) ->
         count = 0
-        count++ for year in [from..to] when isLeapYear( year )
+        count++ for year in [from..to] when Walrus.Utils.isLeapYear( year )
         count
 
       leapYears = if fyear > tyear then 0 else leapYearsBetween( fyear, tyear )

@@ -186,11 +186,19 @@
   });
 
   /**
+   * returns whether or not the given year is a leap year
+  */
+
+  Walrus.Utils.isLeapYear = function(year) {
+    return new Date(year, 1, 29).getDate() === 29;
+  };
+
+  /**
    *
   */
 
   Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
-    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, ftime, fyear, isLeapYear, leapYears, leapYearsBetween, minuteOffsetForLeapYear, minutesWithOffset, remainder, ttime, tyear;
+    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, ftime, fyear, leapYears, leapYearsBetween, minuteOffsetForLeapYear, minutesWithOffset, remainder, ttime, tyear;
     ftime = new Date(dateish);
     ttime = new Date();
     diff = (ttime - ftime) / 1000;
@@ -240,14 +248,11 @@
         if (ftime.getMonth() >= 2) fyear += 1;
         tyear = ttime.getFullYear();
         if (ttime.getMonth() < 2) tyear -= 1;
-        isLeapYear = function(year) {
-          return new Date(year, 1, 29).getDate() === 29;
-        };
         leapYearsBetween = function(from, to) {
           var count, year;
           count = 0;
           for (year = from; from <= to ? year <= to : year >= to; from <= to ? year++ : year--) {
-            if (isLeapYear(year)) count++;
+            if (Walrus.Utils.isLeapYear(year)) count++;
           }
           return count;
         };
