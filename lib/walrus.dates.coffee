@@ -130,33 +130,66 @@ Walrus.addFilter 'strftime', ( dateish, format ) ->
 ###
 Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
 
-  date = Math.round( new Date( dateish ).getTime( ) / 1000 )
-  naow = Math.round( new Date( ).getTime( ) / 1000 )
-  diff = naow - date
+  ftime = new Date( dateish )     # coerce the date passed
+  ttime = new Date( )             # now
+  diff = ( ttime - ftime ) / 1000 # javascript Date returns milliseconds, ruby Time returns seconds
 
   distanceInMinutes = Math.round( Math.abs( diff ) / 60 )
   distanceInSeconds = Math.round( Math.abs( diff ) )
 
   switch
-    when 0 <= distanceInMinutes <= 1
+    when 0        <= distanceInMinutes <= 1
 
       unless includeSeconds
         if distanceInMinutes is 0 then "less than a minute" else "1 minute"
 
       else
         switch
-          when 0  <= distanceInSeconds <= 4  then "less than 5 seconds"
-          when 5  <= distanceInSeconds <= 9  then "less than 10 seconds"
-          when 10 <= distanceInSeconds <= 19 then "less than 20 seconds"
-          when 20 <= distanceInSeconds <= 39 then "half a minute"
-          when 40 <= distanceInSeconds <= 59 then "less than a minute"
+          when 0  <= distanceInSeconds <= 4      then "less than 5 seconds"
+          when 5  <= distanceInSeconds <= 9      then "less than 10 seconds"
+          when 10 <= distanceInSeconds <= 19     then "less than 20 seconds"
+          when 20 <= distanceInSeconds <= 39     then "half a minute"
+          when 40 <= distanceInSeconds <= 59     then "less than a minute"
           else "1 minute"
 
-    when 2  <= distanceInMinutes <= 44   then "#{distanceInMinutes} minutes"
-    when 45 <= distanceInMinutes <= 89   then "about 1 hour"
-    when 90 <= distanceInMinutes <= 1439 then "about #{Math.round( distanceInMinutes / 60 )} hours"
-    when 1440 <= distanceInMinutes <= 2519 then "1 day"
-    when 2520 <= distanceInMinutes <= 43199 then "#{Math.round( distanceInMinutes / 1440 )} days"
-    when 43200 <= distanceInMinutes <= 86399 then "about 1 month"
-    when 86400 <= distanceInMinutes <= 525599 then "#{Math.round( distanceInMinutes / 43200 )} months"
-    else "WHOOOOPS"
+    when 2        <= distanceInMinutes <= 44     then "#{distanceInMinutes} minutes"
+    when 45       <= distanceInMinutes <= 89     then "about 1 hour"
+    when 90       <= distanceInMinutes <= 1439   then "about #{Math.round( distanceInMinutes / 60 )} hours"
+    when 1440     <= distanceInMinutes <= 2519   then "1 day"
+    when 2520     <= distanceInMinutes <= 43199  then "#{Math.round( distanceInMinutes / 1440 )} days"
+    when 43200    <= distanceInMinutes <= 86399  then "about 1 month"
+    when 86400    <= distanceInMinutes <= 525599 then "#{Math.round( distanceInMinutes / 43200 )} months"
+    else
+      fyear  = ftime.getFullYear( )
+      fyear += 1 if ftime.getMonth( ) >= 2
+      tyear  = ttime.getFullYear( )
+      tyear -= 1 if ttime.getMonth( ) < 2
+
+      isLeapYear = ( year ) -> new Date( year, 1, 29 ).getDate( ) is 29
+
+      leapYearsBetween = ( from, to ) ->
+        count = 0
+        count++ for year in [from..to] when isLeapYear( year )
+        count
+
+      leapYears = if fyear > tyear then 0 else leapYearsBetween( fyear, tyear )
+
+      minuteOffsetForLeapYear = leapYears * 1440
+
+      minutesWithOffset = distanceInMinutes - minuteOffsetForLeapYear
+      remainder         = minutesWithOffset % 525600
+      distanceInYears   = Math.floor( minutesWithOffset / 525600 )
+
+      if remainder < 131400
+        "about #{distanceInYears} #{if distanceInYears is 1 then 'year' else 'years'}"
+      else if remainder < 394200
+        "over #{distanceInYears} #{if distanceInYears is 1 then 'year' else 'years'}"
+      else
+        console.log '****', remainder
+
+        "almost #{distanceInYears + 1} years"
+
+
+
+
+

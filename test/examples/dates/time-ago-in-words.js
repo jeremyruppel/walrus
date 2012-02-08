@@ -19,5 +19,6 @@
   "minutes" : function( n ){ return this.seconds( n * 60 ); },
   "hours"   : function( n ){ return this.minutes( n * 60 ); },
   "days"    : function( n ){ return this.hours( n * 24 ); },
+  "months"  : function( n ){ return this.days( n * 30 ); },
   "years"   : function( n ){ return this.days( n * 365 ); }
 }

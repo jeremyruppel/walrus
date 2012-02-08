@@ -190,10 +190,10 @@
   */
 
   Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
-    var date, diff, distanceInMinutes, distanceInSeconds, naow;
-    date = Math.round(new Date(dateish).getTime() / 1000);
-    naow = Math.round(new Date().getTime() / 1000);
-    diff = naow - date;
+    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, ftime, fyear, isLeapYear, leapYears, leapYearsBetween, minuteOffsetForLeapYear, minutesWithOffset, remainder, ttime, tyear;
+    ftime = new Date(dateish);
+    ttime = new Date();
+    diff = (ttime - ftime) / 1000;
     distanceInMinutes = Math.round(Math.abs(diff) / 60);
     distanceInSeconds = Math.round(Math.abs(diff));
     switch (false) {
@@ -236,7 +236,34 @@
       case !((86400 <= distanceInMinutes && distanceInMinutes <= 525599)):
         return "" + (Math.round(distanceInMinutes / 43200)) + " months";
       default:
-        return "WHOOOOPS";
+        fyear = ftime.getFullYear();
+        if (ftime.getMonth() >= 2) fyear += 1;
+        tyear = ttime.getFullYear();
+        if (ttime.getMonth() < 2) tyear -= 1;
+        isLeapYear = function(year) {
+          return new Date(year, 1, 29).getDate() === 29;
+        };
+        leapYearsBetween = function(from, to) {
+          var count, year;
+          count = 0;
+          for (year = from; from <= to ? year <= to : year >= to; from <= to ? year++ : year--) {
+            if (isLeapYear(year)) count++;
+          }
+          return count;
+        };
+        leapYears = fyear > tyear ? 0 : leapYearsBetween(fyear, tyear);
+        minuteOffsetForLeapYear = leapYears * 1440;
+        minutesWithOffset = distanceInMinutes - minuteOffsetForLeapYear;
+        remainder = minutesWithOffset % 525600;
+        distanceInYears = Math.floor(minutesWithOffset / 525600);
+        if (remainder < 131400) {
+          return "about " + distanceInYears + " " + (distanceInYears === 1 ? 'year' : 'years');
+        } else if (remainder < 394200) {
+          return "over " + distanceInYears + " " + (distanceInYears === 1 ? 'year' : 'years');
+        } else {
+          console.log('****', remainder);
+          return "almost " + (distanceInYears + 1) + " years";
+        }
     }
   });
 
