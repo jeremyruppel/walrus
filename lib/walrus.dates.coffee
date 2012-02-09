@@ -28,7 +28,7 @@ ABBR_MONTHNAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
  *           %d    is replaced by the day of the month as a decimal number (01-31).
  *
  *           %e    is replaced by the day of month as a decimal number (1-31); single digits are
- *                      preceded by a blank.
+ *                 preceded by a blank.
  *
  *           %F    is equivalent to ``%Y-%m-%d''.
  *
@@ -80,6 +80,8 @@ ABBR_MONTHNAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
  *           %y    is replaced by the year without century as a decimal number (00-99).
  *
  *           %Z    is replaced by the time zone name.
+ *
+ * TODO: i18n
 ###
 Walrus.addFilter 'strftime', ( dateish, format ) ->
 
@@ -142,13 +144,16 @@ Walrus.Utils.leapYearsBetween = ( from, to ) ->
   count
 
 ###*
+ * returns the distance between two times in words
  *
+ * TODO i18n
 ###
-Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
+Walrus.Utils.distanceOfTimeInWords = ( ftime, ttime=0, includeSeconds=false ) ->
 
-  ftime = new Date( dateish )     # coerce the date passed
-  ttime = new Date( )             # now
-  diff = ( ttime - ftime ) / 1000 # javascript Date returns milliseconds, ruby Time returns seconds
+  fdate = new Date ftime
+  tdate = new Date ttime
+
+  diff  = ( tdate - fdate ) / 1000 # javascript Date returns milliseconds, ruby Time returns seconds
 
   distanceInMinutes = Math.round( Math.abs( diff ) / 60 )
   distanceInSeconds = Math.round( Math.abs( diff ) )
@@ -176,10 +181,10 @@ Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
     when 43200    <= distanceInMinutes <= 86399  then "about 1 month"
     when 86400    <= distanceInMinutes <= 525599 then "#{Math.round( distanceInMinutes / 43200 )} months"
     else
-      fyear  = ftime.getFullYear( )
-      fyear += 1 if ftime.getMonth( ) >= 2
-      tyear  = ttime.getFullYear( )
-      tyear -= 1 if ttime.getMonth( ) < 2
+      fyear  = fdate.getFullYear( )
+      fyear += 1 if fdate.getMonth( ) >= 2
+      tyear  = tdate.getFullYear( )
+      tyear -= 1 if tdate.getMonth( ) < 2
 
       leapYears = Walrus.Utils.leapYearsBetween fyear, tyear
 
@@ -194,9 +199,14 @@ Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
       else if remainder < 394200
         "over #{distanceInYears} #{if distanceInYears is 1 then 'year' else 'years'}"
       else
-        console.log '****', remainder
-
         "almost #{distanceInYears + 1} years"
+
+
+
+###*
+ *
+###
+Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) -> 'TODO'
 
 
 

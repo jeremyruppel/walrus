@@ -39,7 +39,7 @@
    *           %d    is replaced by the day of the month as a decimal number (01-31).
    *
    *           %e    is replaced by the day of month as a decimal number (1-31); single digits are
-   *                      preceded by a blank.
+   *                 preceded by a blank.
    *
    *           %F    is equivalent to ``%Y-%m-%d''.
    *
@@ -91,6 +91,8 @@
    *           %y    is replaced by the year without century as a decimal number (00-99).
    *
    *           %Z    is replaced by the time zone name.
+   *
+   * TODO: i18n
   */
 
   Walrus.addFilter('strftime', function(dateish, format) {
@@ -208,14 +210,18 @@
   };
 
   /**
+   * returns the distance between two times in words
    *
+   * TODO i18n
   */
 
-  Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
-    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, ftime, fyear, leapYears, minuteOffsetForLeapYear, minutesWithOffset, remainder, ttime, tyear;
-    ftime = new Date(dateish);
-    ttime = new Date();
-    diff = (ttime - ftime) / 1000;
+  Walrus.Utils.distanceOfTimeInWords = function(ftime, ttime, includeSeconds) {
+    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, fdate, fyear, leapYears, minuteOffsetForLeapYear, minutesWithOffset, remainder, tdate, tyear;
+    if (ttime == null) ttime = 0;
+    if (includeSeconds == null) includeSeconds = false;
+    fdate = new Date(ftime);
+    tdate = new Date(ttime);
+    diff = (tdate - fdate) / 1000;
     distanceInMinutes = Math.round(Math.abs(diff) / 60);
     distanceInSeconds = Math.round(Math.abs(diff));
     switch (false) {
@@ -258,10 +264,10 @@
       case !((86400 <= distanceInMinutes && distanceInMinutes <= 525599)):
         return "" + (Math.round(distanceInMinutes / 43200)) + " months";
       default:
-        fyear = ftime.getFullYear();
-        if (ftime.getMonth() >= 2) fyear += 1;
-        tyear = ttime.getFullYear();
-        if (ttime.getMonth() < 2) tyear -= 1;
+        fyear = fdate.getFullYear();
+        if (fdate.getMonth() >= 2) fyear += 1;
+        tyear = tdate.getFullYear();
+        if (tdate.getMonth() < 2) tyear -= 1;
         leapYears = Walrus.Utils.leapYearsBetween(fyear, tyear);
         minuteOffsetForLeapYear = leapYears * 1440;
         minutesWithOffset = distanceInMinutes - minuteOffsetForLeapYear;
@@ -272,10 +278,17 @@
         } else if (remainder < 394200) {
           return "over " + distanceInYears + " " + (distanceInYears === 1 ? 'year' : 'years');
         } else {
-          console.log('****', remainder);
           return "almost " + (distanceInYears + 1) + " years";
         }
     }
+  };
+
+  /**
+   *
+  */
+
+  Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
+    return 'TODO';
   });
 
 }).call(this);
