@@ -206,7 +206,9 @@ Walrus.Utils.distanceOfTimeInWords = ( ftime, ttime=0, includeSeconds=false ) ->
 ###*
  *
 ###
-Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) -> 'TODO'
+Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
+
+  Walrus.Utils.distanceOfTimeInWords dateish, new Date( ), includeSeconds
 
 
 

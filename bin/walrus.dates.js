@@ -288,7 +288,7 @@
   */
 
   Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
-    return 'TODO';
+    return Walrus.Utils.distanceOfTimeInWords(dateish, new Date(), includeSeconds);
   });
 
 }).call(this);
