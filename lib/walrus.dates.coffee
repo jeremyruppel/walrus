@@ -204,13 +204,16 @@ Walrus.Utils.distanceOfTimeInWords = ( ftime, ttime=0, includeSeconds=false ) ->
 
 
 ###*
+ * *:time_ago_in_words*
+ * Returns a human-readable relative time phrase from the given date.
  *
+ * Parameters:
+ *  includeSeconds - (Optional) whether or not to include results for less than one minute
+ *
+ * Usage:
+ *
+ *  {{ created_at | :time_ago_in_words( true ) }} // => "less than a minute"
 ###
 Walrus.addFilter 'time_ago_in_words', ( dateish, includeSeconds ) ->
 
   Walrus.Utils.distanceOfTimeInWords dateish, new Date( ), includeSeconds
-
-
-
-
-
