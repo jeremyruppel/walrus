@@ -145,7 +145,7 @@
           }
           break;
         case '%M':
-          return date.getMinutes();
+          return pad(date.getMinutes());
         case '%m':
           return pad(date.getMonth() + 1);
         case '%n':

@@ -108,7 +108,7 @@ Walrus.addFilter 'strftime', ( dateish, format ) ->
       when '%k' then date.getHours( )
       when '%l'
         if date.getHours( ) > 12 then date.getHours( ) - 12 else date.getHours( )
-      when '%M' then date.getMinutes( )
+      when '%M' then pad( date.getMinutes( ) )
       when '%m' then pad( ( date.getMonth( ) + 1 ) )
       when '%n' then "\n"
       when '%p'
