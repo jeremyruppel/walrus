@@ -2,7 +2,7 @@
   "author": "Jeremy Ruppel",
   "name": "walrus",
   "description": "A bolder kind of mustache.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "repository": {
     "url": "https://github.com/jeremyruppel/walrus"
   },
