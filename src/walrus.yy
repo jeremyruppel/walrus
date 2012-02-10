@@ -3,72 +3,72 @@
 %%
 
 document
-  : text EOF { return new yy.DocumentNode( $1 ) }
+  : text EOF { return new yy.DocumentNode( $text ) }
   ;
 
 text
-  : statements { $$ = $1 }
+  : statements { $$ = $statements }
   ;
 
 statements
-  : statements statement { $1.push( $2 ); $$ = $1 }
-  | statement { $$ = [ $1 ] }
+  : statements statement { $statements.push( $statement ); $$ = $statements }
+  | statement { $$ = [ $statement ] }
   ;
 
 statement
-  : OPEN helper mustache OPEN_BLOCK text CLOSE_BLOCK CLOSE { $$ = new yy.BlockNode( $2, $3, new yy.JoinedNodeCollection( $5 ) ) }
-  | OPEN mustache CLOSE { $$ = $2 }
-  | CONTENT { $$ = new yy.ContentNode( $1 ) }
+  : OPEN helper mustache OPEN_BLOCK text CLOSE_BLOCK CLOSE { $$ = new yy.BlockNode( $helper, $mustache, new yy.JoinedNodeCollection( $text ) ) }
+  | OPEN mustache CLOSE { $$ = $mustache }
+  | CONTENT { $$ = new yy.ContentNode( $CONTENT ) }
   ;
 
 mustache
-  : expression PIPE filters { $$ = new yy.ExpressionNode( $1, new yy.FilterCollection( $3 ) ) }
-  | expression { $$ = new yy.ExpressionNode( $1, new yy.FilterCollection( [ ] ) ) }
+  : expression PIPE filters { $$ = new yy.ExpressionNode( $expression, new yy.FilterCollection( $filters ) ) }
+  | expression { $$ = new yy.ExpressionNode( $expression, new yy.FilterCollection( [ ] ) ) }
   ;
 
 expression
-  : ATTR paths { $$ = new yy.PathNode( $2, false ) }
-  | paths { $$ = new yy.PathNode( $1, true ) }
+  : ATTR paths { $$ = new yy.PathNode( $paths, false ) }
+  | paths { $$ = new yy.PathNode( $paths, true ) }
   | DOT { $$ = new yy.ThisNode( ) }
-  | primitive { $$ = $1 }
+  | primitive { $$ = $primitive }
   ;
 
 helper
-  : HELP MEMBER { $$ = $2 }
+  : HELP MEMBER { $$ = $MEMBER }
   ;
 
 filters
-  : filters filter { $1.push( $2 ); $$ = $1 }
-  | filter { $$ = [ $1 ] }
+  : filters filter { $filters.push( $filter ); $$ = $filters }
+  | filter { $$ = [ $filter ] }
   ;
 
 filter
-  : HELP MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.FilterNode( $2, new yy.NodeCollection( $4 ) ) }
-  | HELP MEMBER { $$ = new yy.FilterNode( $2, new yy.NodeCollection( [ ] ) ) }
+  : HELP MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.FilterNode( $MEMBER, new yy.NodeCollection( $arguments ) ) }
+  | HELP MEMBER { $$ = new yy.FilterNode( $MEMBER, new yy.NodeCollection( [ ] ) ) }
   ;
 
 paths
-  : paths DOT path { $1.push( $3 ); $$ = $1 }
-  | path { $$ = [ $1 ] }
+  : paths DOT path { $paths.push( $path ); $$ = $paths }
+  | path { $$ = [ $path ] }
   ;
 
 path
-  : method { $$ = $1 }
-  | member { $$ = $1 }
+  : method { $$ = $method }
+  | member { $$ = $member }
   ;
 
 method
-  : MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.MethodNode( $1, new yy.NodeCollection( $3 ) ) }
-  | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = new yy.MethodNode( $1, new yy.NodeCollection( [ ] ) ) }
+  : MEMBER OPEN_PAREN arguments CLOSE_PAREN { $$ = new yy.MethodNode( $MEMBER, new yy.NodeCollection( $arguments ) ) }
+  | MEMBER OPEN_PAREN CLOSE_PAREN { $$ = new yy.MethodNode( $MEMBER, new yy.NodeCollection( [ ] ) ) }
   ;
 
 arguments
-  : arguments COMMA argument { $1.push( $3 ); $$ = $1 }
-  | argument { $$ = [ $1 ] }
+  : arguments COMMA argument { $arguments.push( $argument ); $$ = $arguments }
+  | argument { $$ = [ $argument ] }
   ;
 
 argument
-  : expression { $$ = $1 }
+  : expression { $$ = $expression }
   ;
 
 primitive
@@ -80,6 +80,6 @@ primitive
   ;
 
 member
-  : SAFE MEMBER { $$ = new yy.MemberNode( $2, true ) }
-  | MEMBER { $$ = new yy.MemberNode( $1, false ) }
+  : SAFE MEMBER { $$ = new yy.MemberNode( $MEMBER, true ) }
+  | MEMBER { $$ = new yy.MemberNode( $MEMBER, false ) }
   ;
