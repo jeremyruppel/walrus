@@ -377,7 +377,7 @@ Parameters:
 Usage:
 
 	{{created_at | :strftime( '%F' )}} <!-- 2012-02-10 -->
-	
+
 ### :time_ago_in_words
 
 Returns a human-readable relative time phrase from the given date.
@@ -389,10 +389,36 @@ Parameters:
 Usage:
 
 	{{ created_at | :time_ago_in_words( true ) }} <!-- less than a minute -->
-	
+
 ## Walrus.Domain
 
-TODO
+`walrus.domain` contains helpers and filters that help create your presentation-level domain.
+
+### :as
+
+Decorates a view object or collection of view objects with custom domain methods.
+
+Parameters:
+
+	name - The key for the object on `Walrus.Domain` to decorate with
+
+Usage:
+
+First, define some custom domain methods:
+
+``` js
+Walrus.Domain.person = { fullName : function( ){ return this.firstName + ' ' + this.lastName; } };
+```
+
+Then, selectively apply those to your view object at template-time:
+
+``` html
+<ul>
+	{{:each employee | :as( 'person' ) do}}
+	<li>{{fullName}}</li>
+	{{do}}
+</ul>
+```
 
 ## Walrus.Inflections
 
