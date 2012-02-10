@@ -200,6 +200,30 @@ Filters can be chained together, separated by whitespace. Filters can be used wi
 {{end}}
 ```
 
+### :if
+
+Returns the expression if _condition_ is truthy, or nothing if _condition_ is falsy.
+
+Parameters:
+
+	condition - the condition to test against
+
+Usage:
+
+	{{ 'active' | :if( true ) }} <!-- "active" -->
+
+### :unless
+
+Returns the expression if _condition_ is falsy, or nothing if _condition_ is truthy.
+
+Parameters:
+
+	condition - the condition to test against
+
+Usage:
+
+	{{ 'active' | :unless( true ) }} <!-- "" -->
+
 ### :or
 
 `:or` can be used to provide a default or fallback value if a member doesn't exist on your view object.
