@@ -1,0 +1,2 @@
+<p>Nasty characters are escaped by default: {{html}}</p>
+<p>Use an equals to not escape them: {{=html}}</p>

@@ -44,9 +44,14 @@ class AST.ContentNode
  * `{{member}}`, for instance, will compile to `index[ 'member' ]`.
 ###
 class AST.MemberNode
-  constructor : ( @path ) ->
+  constructor : ( @path, @safe=false ) ->
 
-  compile : ( index, context, root ) -> index[ @path ]
+  compile : ( index, context, root ) ->
+
+    if @safe or typeof index[ @path ] isnt 'string'
+      index[ @path ]
+    else
+      Walrus.Utils.escape( index[ @path ] )
 
 ###*
  * AST.MethodNode

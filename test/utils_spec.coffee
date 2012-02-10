@@ -87,5 +87,5 @@ describe 'Walrus.Utils', ->
     it 'should escape single quotes',        -> Walrus.Utils.escape( "'" ).should.equal '&#x27;'
     it 'should escape double quotes',        -> Walrus.Utils.escape( '"' ).should.equal '&quot;'
     it 'should escape left angle brackets',  -> Walrus.Utils.escape( '<' ).should.equal '&lt;'
-    it 'should escape right angle brackets', -> Walrus.Utils.escape( '>' ).should.equal '&rt;'
+    it 'should escape right angle brackets', -> Walrus.Utils.escape( '>' ).should.equal '&gt;'
 

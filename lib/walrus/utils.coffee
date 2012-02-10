@@ -37,7 +37,7 @@ Utils =
     "'" : '&#x27;'
     '"' : '&quot;'
     '<' : '&lt;'
-    '>' : '&rt;'
+    '>' : '&gt;'
 
   ###*
    * escapes nasty html characters

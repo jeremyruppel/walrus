@@ -80,5 +80,6 @@ primitive
   ;
 
 member
-  : MEMBER { $$ = new yy.MemberNode( $1 ) }
+  : SAFE MEMBER { $$ = new yy.MemberNode( $2, true ) }
+  | MEMBER { $$ = new yy.MemberNode( $1, false ) }
   ;

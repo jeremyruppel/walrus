@@ -12,6 +12,7 @@
 <mu>"{{"                    { return 'OPEN'; }
 <mu>"}}"                    { this.begin( 'INITIAL' ); return 'CLOSE'; }
 
+<mu>\=                      { return 'SAFE'; }
 <mu>\@                      { return 'ATTR'; }
 <mu>\:                      { return 'HELP'; }
 <mu>\|                      { return 'PIPE'; }
