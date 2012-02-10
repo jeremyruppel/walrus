@@ -48,13 +48,13 @@ Like other [jison][jison]-based parsers, templating with **walrus** is a two-ste
 First, grab your template and compile it:
 
 ``` js
-	var compiledTemplate = Walrus.Parser.parse( $( '#my-template' ).html( ) );
+var compiledTemplate = Walrus.Parser.parse( $( '#my-template' ).html( ) );
 ```
 
 `compiledTemplate` is a JavaScript object ready to accept a view object and kick out some text.
 
 ``` js
-	var htmlGoodness = compiledTemplate.compile( { data : 'foo bar baz' } );
+var htmlGoodness = compiledTemplate.compile( { data : 'foo bar baz' } );
 ```
 
 ### Paths
@@ -64,12 +64,12 @@ Like some of the other templating solutions out there, Walrus will let you refer
 If your view object is:
 
 ``` json
+{
+	"hello" :
 	{
-		"hello" :
-		{
-			"walrus" : "sweeet."
-		}
+		"walrus" : "sweeet."
 	}
+}
 ```
 
 Then `{{hello.walrus}}` will resolve to `sweeet.`.
@@ -82,31 +82,31 @@ Use this even if you're dereferenced, iterating, or even within the arguments to
 So if you've got a view object like:
 
 ``` json
-	{
-		"team" : "Detroit Red Wings",
-		"players" :
-		[
-			{
-				"name" : "Pavel Datsyuk"
-			},
-			{
-				"name" : "Nicklas Lidström"
-			},
-			{
-				"name" : "Darren Helm"
-			}
-		]
-	}
+{
+	"team" : "Detroit Red Wings",
+	"players" :
+	[
+		{
+			"name" : "Pavel Datsyuk"
+		},
+		{
+			"name" : "Nicklas Lidström"
+		},
+		{
+			"name" : "Darren Helm"
+		}
+	]
+}
 ```
 
 You can create your badass hockey roster like:
 
 ``` html
-	<ul>
-		{{:each players do}}
-		<li>{{name}} plays for the {{@team}}</li>
-		{{end}}
-	</ul>
+<ul>
+	{{:each players do}}
+	<li>{{name}} plays for the {{@team}}</li>
+	{{end}}
+</ul>
 ```
 
 ### Methods
@@ -117,10 +117,10 @@ call your methods with any number of arguments from the view object or (most) ja
 With a view object like:
 
 ``` js
-	{
-		"captitalize" : function( str ){ return str.charAt( 0 ).toUpperCase( ) + str.slice( 1 ); },
-		"city" : "detroit"
-	}
+{
+	"captitalize" : function( str ){ return str.charAt( 0 ).toUpperCase( ) + str.slice( 1 ); },
+	"city" : "detroit"
+}
 ```
 
 It's as easy as `{{capitalize( city )}}`.
@@ -142,13 +142,13 @@ Conditionals can be represented by `:if` and `:unless` blocks. Both of these tes
 or falsiness respectively.
 
 ``` html
-	{{:if @loggedIn do}}
-	<p>Welcome back, {{@username}}!</p>
-	{{end}}
+{{:if @loggedIn do}}
+<p>Welcome back, {{@username}}!</p>
+{{end}}
 
-	{{:unless @loggedIn do}}
-	<p>I don't believe we've met!</p>
-	{{end}}
+{{:unless @loggedIn do}}
+<p>I don't believe we've met!</p>
+{{end}}
 ```
 
 ### :each
@@ -156,9 +156,9 @@ or falsiness respectively.
 `:each` can be used to iterate over a collection.
 
 ``` html
-	{{:each @player do}}
-	<li>{{name}}</li>
-	{{end}}
+{{:each @player do}}
+<li>{{name}}</li>
+{{end}}
 ```
 
 > Like several other templating solutions, you can implicitly iterate over a collection of values, like strings, and template in the current value with `{{.}}`.
@@ -168,9 +168,9 @@ or falsiness respectively.
 `:with` can be used to force a change in context if you don't want to use tons of object paths.
 
 ``` html
-	{{:with @team.captain do}}
-	<p>Captain: {{name}}</p>
-	{{end}}
+{{:with @team.captain do}}
+<p>Captain: {{name}}</p>
+{{end}}
 ```
 
 ## Core Filters
@@ -186,9 +186,9 @@ Filters can be chained together, separated by whitespace. Filters can be used wi
 `:equals` tests the expression for strict equality. This is most useful with the conditional block helpers.
 
 ``` html
-	{{:if status | :equals( 'pending' ) do}}
-	<p>We're still working on it.</p>
-	{{end}}
+{{:if status | :equals( 'pending' ) do}}
+<p>We're still working on it.</p>
+{{end}}
 ```
 
 ### :or
@@ -196,7 +196,7 @@ Filters can be chained together, separated by whitespace. Filters can be used wi
 `:or` can be used to provide a default or fallback value if a member doesn't exist on your view object.
 
 ``` html
-	<h2>{{price | :or( 'N/A' )}}</h2>
+<h2>{{price | :or( 'N/A' )}}</h2>
 ```
 
 ### :log
@@ -204,9 +204,9 @@ Filters can be chained together, separated by whitespace. Filters can be used wi
 `:log` is a helper method for developers that simply passes its argument to the console.
 
 ``` html
-	You can log a {{@member | :log}} of the view object,
-	while {{. | :log}} will log the whole thing,
-	and {{"arbitrary literals" | :log}} can be logged, too!
+You can log a {{@member | :log}} of the view object,
+while {{. | :log}} will log the whole thing,
+and {{"arbitrary literals" | :log}} can be logged, too!
 ```
 
 ## Walrus.Collections
@@ -224,13 +224,13 @@ Parameters:
 Usage:
 
 ``` html
-	{{ :each numbers | :first do}}
-	  // 1
-	{{ end }}
+{{ :each numbers | :first do}}
+  <!-- 1 -->
+{{ end }}
 
-	{{ :each numbers | :first( 5 ) do }}
-	  // 1 2 3 4 5
-	{{ end }}
+{{ :each numbers | :first( 5 ) do }}
+  <!-- 1 2 3 4 5 -->
+{{ end }}
 ```
 
 ### :last
@@ -244,13 +244,13 @@ Parameters:
 Usage:
 
 ``` html
-	{{ :each numbers | :last do}}
-	  // 10
-	{{ end }}
+{{ :each numbers | :last do}}
+	<!-- 10 -->
+{{ end }}
 
-	{{ :each numbers | :last( 5 ) do }}
-	  // 6 7 8 9 10
-	{{ end }}
+{{ :each numbers | :last( 5 ) do }}
+	<!-- 6 7 8 9 10 -->
+{{ end }}
 ```
 
 ### :count
@@ -262,9 +262,9 @@ Parameters: none
 Usage:
 
 ``` html
-	var numbers = [ 1, 2, 3, 4, 5 ];
+var numbers = [ 1, 2, 3, 4, 5 ];
 
-	{{ numbers | :count }} // => 5
+{{ numbers | :count }} <!-- 5 -->
 ```
 
 ### :any
@@ -276,9 +276,9 @@ Parameters: none
 Usage:
 
 ``` html
-	var numbers = [ 1, 2, 3, 4, 5 ];
+var numbers = [ 1, 2, 3, 4, 5 ];
 
-	{{ numbers | :any }} // => true
+{{ numbers | :any }} <!-- true -->
 ```
 
 ### :empty
@@ -290,9 +290,9 @@ Parameters: none
 Usage:
 
 ``` html
-	var numbers = [ 1, 2, 3, 4, 5 ];
+var numbers = [ 1, 2, 3, 4, 5 ];
 
-	{{ numbers | :empty }} // => false
+{{ numbers | :empty }} <!-- false -->
 ```
 
 ## Walrus.Dates
