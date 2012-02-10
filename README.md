@@ -1,6 +1,38 @@
 Walrus
 ======
 
+A bolder kind of mustache.
+
+[![Build Status](https://secure.travis-ci.org/jeremyruppel/walrus.png)](http://travis-ci.org/jeremyruppel/walrus)
+
+About
+-----
+
+**Walrus** is a templating library inspired by [mustache][mustache], [handlebars][handlebars], [ejs][ejs] and friends,
+but with a couple of important differences in philosophy and style:
+
+- **View logic is different than business logic (and that's okay!).**
+	In modern web apps, there's often a good amount of presentation logic involved. This logic doesn't belong
+	in your application code, your backbone models, or anywhere else but the presentation layer. The templating
+	language is a good place to put this.
+
+- **Reusable view helpers are super fun and helpful.**
+	Rails had the right idea by shipping a bunch of view helpers with ActionView. Having commonly used view helpers
+	come bundled with the framework keeps developers from spending time writing them (and testing them, or even worse,
+	_not testing them_) again and again.
+
+- **Keep the core library light.**
+	While **walrus** ships with a bunch of filters and helpers you can use out-of-the-box, only the essentials
+	are included in the core. This keeps client-side code as small as it can be, letting you opt-in to extras
+	only as often as you need them.
+
+- **Stop hashing and slashing.**
+	Maybe it's just me, but opening and closing blocks with "hash-something" "slash-something" feels super redundant.
+	Walrus uses do/end for its blocks, which should look a lot more familiar to the ruby types.
+
+Paths
+-----
+
 Like some of the other templating solutions out there, Walrus will let you reference members using object paths.
 
 If your view object is:
@@ -131,9 +163,7 @@ If Walrus isn't quite your style...
 
 One of these fine other looks might suit you:
 
-- [handlebars](https://github.com/wycats/handlebars.js)
-- [mustache](https://github.com/janl/mustache.js/)
-- [ejs](https://github.com/visionmedia/ejs)
+
 
 In any case, Walrus borrows ideas from each of them, so they're all worth checking out!
 
@@ -141,3 +171,7 @@ License
 -------
 
 Walrus is released under the MIT license.
+
+[handlebars]: https://github.com/wycats/handlebars.js
+[mustache]: https://github.com/janl/mustache.js
+[ejs]: https://github.com/visionmedia/ejs
