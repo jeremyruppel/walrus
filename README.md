@@ -4,6 +4,8 @@ A bolder kind of mustache.
 
 [![Build Status](https://secure.travis-ci.org/jeremyruppel/walrus.png)](http://travis-ci.org/jeremyruppel/walrus)
 
+View this readme on [documentup](http://documentup.com/jeremyruppel/walrus).
+
 ## About
 
 **Walrus** is a templating library inspired by [mustache][mustache], [handlebars][handlebars], [ejs][ejs] and friends,
