@@ -423,7 +423,7 @@ Then, selectively apply those to your view object at template-time:
 
 ## Walrus.Inflections
 
-`walrus.inflections` contains helpers and filters that help work with human-friendly text.
+`walrus.inflections` contains helpers and filters to help work with human-friendly text.
 
 ### :pluralize
 
@@ -468,7 +468,108 @@ Usage:
 
 ## Walrus.Math
 
-TODO
+`walrus.math` contains helpers and filters to help work with numbers.
+
+### :plus
+
+Returns the sum of two numbers
+
+Parameters:
+	number - the number to add to the expression
+
+Usage:
+
+	{{ 15 | :plus( 6 ) }} <!-- 21 -->
+
+### :minus
+
+Returns the difference of two numbers
+
+Parameters:
+
+	number - the number to subtract from the expression
+
+Usage:
+
+	{{ 15 | :minus( 6 ) }} <!-- 9 -->
+
+### :gt
+
+Returns whether `value` is greater than the given number
+
+Parameters:
+
+	number - the number to compare against
+
+Usage:
+
+	{{ 15 | :gt( 5 ) }} <!-- true -->
+
+### :gte
+
+Returns whether `value` is greater than or equal to the given number
+
+Parameters:
+
+	number - the number to compare against
+
+Usage:
+
+	{{ 15 | :gte( 5 ) }} <!-- true -->
+
+### :lt
+
+Returns whether `value` is less than the given number
+
+Parameters:
+
+	number - the number to compare against
+
+Usage:
+
+	{{ 15 | :lt( 5 ) }} <!-- false -->
+
+### :lte
+
+Returns whether `value` is less than or equal to the given number
+
+Parameters:
+
+	number - the number to compare against
+
+Usage:
+
+	{{ 15 | :lte( 5 ) }} <!-- false -->
+
+### :floor
+
+Returns the given number rounded down to the nearest integer.
+
+Parameters: none
+
+Usage:
+
+	{{ 5.6 | :floor }} <!-- 5 -->
+
+### :ceil
+
+Returns the given number rounded up to the nearest integer.
+
+Parameters: none
+
+Usage:
+
+	{{ 5.6 | :ceil }} <!-- 6 -->
+
+### :round
+
+Returns the given number rounded to the nearest integer.
+
+Parameters: none
+
+Usage:
+
+	{{ 5.6 | :round }} <!-- 6 -->
 
 ## Walrus.Strings
 
