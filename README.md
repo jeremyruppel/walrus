@@ -111,6 +111,13 @@ You can create your badass hockey roster like:
 </ul>
 ```
 
+### (Un-)Escaping
+
+Like many other mustache-like languages, **walrus** escapes string members by default in an attempt
+to get rid of HTML-unsafe characters.
+
+If you want these characters included, use an equals sign before your expression, like: `{{=html}}`.
+
 ### Methods
 
 One of the main focuses of Walrus is to treat methods on your view object like first-class citizens. You can
