@@ -381,6 +381,7 @@ Usage:
 ### :time_ago_in_words
 
 Returns a human-readable relative time phrase from the given date.
+Heavily adapted from the [ActiveSupport][activesupport] method of the same name.
 
 Parameters:
 
@@ -422,7 +423,48 @@ Then, selectively apply those to your view object at template-time:
 
 ## Walrus.Inflections
 
-TODO
+`walrus.inflections` contains helpers and filters that help work with human-friendly text.
+
+### :pluralize
+
+Pluralizes the given word, optionally based on a _count_, and also optionally including the count in the result.
+Heavily adapted from the [ActiveSupport][activesupport] method of the same name.
+
+Parameters:
+
+	word - the word to be pluralized
+	count - Optional: count to base pluralization on
+	includeCount - Optional: whether or not to include the count in the result
+
+Usage:
+
+	{{ "book" | :pluralize }} <!-- books -->
+
+	{{ "book" | :pluralize( 1 ) }} <!-- book -->
+
+	{{ "book" | :pluralize( 5, true ) }} <!-- 5 books -->
+
+### :singularize
+
+Singularizes the given word. You're probably looking for `pluralize`.
+Heavily adapted from the [ActiveSupport][activesupport] method of the same name.
+
+Parameters: none
+
+Usage:
+
+	{{ "books" | :singularize }} <!-- book -->
+
+### :ordinalize
+
+Turns a number into an ordinal string, like 1st, 2nd, 3rd, etc...
+Heavily adapted from the [ActiveSupport][activesupport] method of the same name.
+
+Parameters: none
+
+Usage:
+
+	{{ 5 | :ordinalize }} <!-- 5th -->
 
 ## Walrus.Math
 
