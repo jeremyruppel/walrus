@@ -34,6 +34,20 @@ Walrus.addFilter 'equals', ( value, foo ) -> value is foo
 Walrus.addFilter 'if', ( value, condition ) -> if condition then value else ''
 
 ###*
+ * *:unless*
+ * Returns the expression if _condition_ is falsy, or nothing if _condition_ is truthy.
+ *
+ * Parameters:
+ *
+ *  condition - the condition to test against
+ *
+ * Usage:
+ *
+ *  {{ 'active' | :unless( true ) }} // => ""
+###
+Walrus.addFilter 'unless', ( value, condition ) -> if not condition then value else ''
+
+###*
  * *:or*
  * Returns the result of the expression if it is truthy, the given value if not.
  *
