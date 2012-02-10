@@ -30,7 +30,7 @@ but with a couple of important differences in philosophy and style:
 	Walrus uses do/end for its blocks, which should look a lot more familiar to ruby types.
 
 The **walrus** parser is written in [jison][jison] and the rest in [coffeescript][coffeescript], and everything
-is tested with [mocha][mocha].
+is tested with [mocha][mocha]. **Walrus has no runtime dependencies.**
 
 Since **walrus** is still pretty young, expect changes in the API, especially for filters and helpers.
 
@@ -224,7 +224,7 @@ Parameters:
 Usage:
 
 ``` html
-{{ :each numbers | :first do}}
+{{ :each numbers | :first do }}
   <!-- 1 -->
 {{ end }}
 
@@ -244,7 +244,7 @@ Parameters:
 Usage:
 
 ``` html
-{{ :each numbers | :last do}}
+{{ :each numbers | :last do }}
 	<!-- 10 -->
 {{ end }}
 
@@ -297,8 +297,99 @@ var numbers = [ 1, 2, 3, 4, 5 ];
 
 ## Walrus.Dates
 
-TODO
+`walrus.dates` contains helpers and filters that are useful when working with dates or timestamps.
 
+### :strftime
+
+Formats a date into the string given by `format`. Accepts any value that can be passed to `new Date( )`.
+
+Parameters:
+
+  format - The format string, according to these tokens, taken directly
+           from `man 3 strftime` (with some omissions):
+
+           %A    is replaced by national representation of the full weekday name.
+
+           %a    is replaced by national representation of the abbreviated weekday name.
+
+           %B    is replaced by national representation of the full month name.
+
+           %b    is replaced by national representation of the abbreviated month name.
+
+           %D    is equivalent to ``%m/%d/%y''.
+
+           %d    is replaced by the day of the month as a decimal number (01-31).
+
+           %e    is replaced by the day of month as a decimal number (1-31); single digits are
+                 preceded by a blank.
+
+           %F    is equivalent to ``%Y-%m-%d''.
+
+           %H    is replaced by the hour (24-hour clock) as a decimal number (00-23).
+
+           %I    is replaced by the hour (12-hour clock) as a decimal number (01-12).
+
+           %k    is replaced by the hour (24-hour clock) as a decimal number (0-23); single dig-
+                 its are preceded by a blank.
+
+           %l    is replaced by the hour (12-hour clock) as a decimal number (1-12); single dig-
+                 its are preceded by a blank.
+
+           %M    is replaced by the minute as a decimal number (00-59).
+
+           %m    is replaced by the month as a decimal number (01-12).
+
+           %n    is replaced by a newline.
+
+           %p    is replaced by national representation of either "ante meridiem" or "post meri-
+                 diem" as appropriate.
+
+           %R    is equivalent to ``%H:%M''.
+
+           %r    is equivalent to ``%I:%M:%S %p''.
+
+           %S    is replaced by the second as a decimal number (00-60).
+
+           %T    is equivalent to ``%H:%M:%S''.
+
+           %t    is replaced by a tab.
+
+           %U    is replaced by the week number of the year (Sunday as the first day of the
+                 week) as a decimal number (00-53).
+
+           %u    is replaced by the weekday (Monday as the first day of the week) as a decimal
+                 number (1-7).
+
+           %v    is equivalent to ``%e-%b-%Y''.
+
+           %w    is replaced by the weekday (Sunday as the first day of the week) as a decimal
+
+           %X    is replaced by national representation of the time.
+
+           %x    is replaced by national representation of the date.
+
+           %Y    is replaced by the year with century as a decimal number.
+
+           %y    is replaced by the year without century as a decimal number (00-99).
+
+           %Z    is replaced by the time zone name.
+
+Usage:
+
+	{{created_at | :strftime( '%F' )}} <!-- 2012-02-10 -->
+	
+### :time_ago_in_words
+
+Returns a human-readable relative time phrase from the given date.
+
+Parameters:
+
+	includeSeconds - (Optional) whether or not to include results for less than one minute
+
+Usage:
+
+	{{ created_at | :time_ago_in_words( true ) }} <!-- less than a minute -->
+	
 ## Walrus.Domain
 
 TODO
