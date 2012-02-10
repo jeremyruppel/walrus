@@ -955,6 +955,27 @@ if (typeof module !== 'undefined' && require.main === module) {
   });
 
   /**
+   * *:if*
+   * Returns the expression if _condition_ is truthy, or nothing if _condition_ is falsy.
+   *
+   * Parameters:
+   *
+   *  condition - the condition to test against
+   *
+   * Usage:
+   *
+   *  {{ 'active' | :if( true ) }} // => "active"
+  */
+
+  Walrus.addFilter('if', function(value, condition) {
+    if (condition) {
+      return value;
+    } else {
+      return '';
+    }
+  });
+
+  /**
    * *:or*
    * Returns the result of the expression if it is truthy, the given value if not.
    *

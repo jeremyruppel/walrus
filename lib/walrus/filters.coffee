@@ -20,6 +20,20 @@ Walrus.addFilter = ( name, fn ) ->
 Walrus.addFilter 'equals', ( value, foo ) -> value is foo
 
 ###*
+ * *:if*
+ * Returns the expression if _condition_ is truthy, or nothing if _condition_ is falsy.
+ *
+ * Parameters:
+ *
+ *  condition - the condition to test against
+ *
+ * Usage:
+ *
+ *  {{ 'active' | :if( true ) }} // => "active"
+###
+Walrus.addFilter 'if', ( value, condition ) -> if condition then value else ''
+
+###*
  * *:or*
  * Returns the result of the expression if it is truthy, the given value if not.
  *
