@@ -305,74 +305,73 @@ Formats a date into the string given by `format`. Accepts any value that can be 
 
 Parameters:
 
-  format - The format string, according to these tokens, taken directly
-           from `man 3 strftime` (with some omissions):
+	format - The format string, according to these tokens, taken directly from `man 3 strftime` (with some omissions):
 
-           %A    is replaced by national representation of the full weekday name.
+	%A    is replaced by national representation of the full weekday name.
 
-           %a    is replaced by national representation of the abbreviated weekday name.
+	%a    is replaced by national representation of the abbreviated weekday name.
 
-           %B    is replaced by national representation of the full month name.
+	%B    is replaced by national representation of the full month name.
 
-           %b    is replaced by national representation of the abbreviated month name.
+	%b    is replaced by national representation of the abbreviated month name.
 
-           %D    is equivalent to ``%m/%d/%y''.
+	%D    is equivalent to ``%m/%d/%y''.
 
-           %d    is replaced by the day of the month as a decimal number (01-31).
+	%d    is replaced by the day of the month as a decimal number (01-31).
 
-           %e    is replaced by the day of month as a decimal number (1-31); single digits are
-                 preceded by a blank.
+	%e    is replaced by the day of month as a decimal number (1-31); single digits are
+	      preceded by a blank.
 
-           %F    is equivalent to ``%Y-%m-%d''.
+	%F    is equivalent to ``%Y-%m-%d''.
 
-           %H    is replaced by the hour (24-hour clock) as a decimal number (00-23).
+	%H    is replaced by the hour (24-hour clock) as a decimal number (00-23).
 
-           %I    is replaced by the hour (12-hour clock) as a decimal number (01-12).
+	%I    is replaced by the hour (12-hour clock) as a decimal number (01-12).
 
-           %k    is replaced by the hour (24-hour clock) as a decimal number (0-23); single dig-
-                 its are preceded by a blank.
+	%k    is replaced by the hour (24-hour clock) as a decimal number (0-23); single dig-
+	      its are preceded by a blank.
 
-           %l    is replaced by the hour (12-hour clock) as a decimal number (1-12); single dig-
-                 its are preceded by a blank.
+	%l    is replaced by the hour (12-hour clock) as a decimal number (1-12); single dig-
+	      its are preceded by a blank.
 
-           %M    is replaced by the minute as a decimal number (00-59).
+	%M    is replaced by the minute as a decimal number (00-59).
 
-           %m    is replaced by the month as a decimal number (01-12).
+	%m    is replaced by the month as a decimal number (01-12).
 
-           %n    is replaced by a newline.
+	%n    is replaced by a newline.
 
-           %p    is replaced by national representation of either "ante meridiem" or "post meri-
-                 diem" as appropriate.
+	%p    is replaced by national representation of either "ante meridiem" or "post meri-
+	      diem" as appropriate.
 
-           %R    is equivalent to ``%H:%M''.
+	%R    is equivalent to ``%H:%M''.
 
-           %r    is equivalent to ``%I:%M:%S %p''.
+	%r    is equivalent to ``%I:%M:%S %p''.
 
-           %S    is replaced by the second as a decimal number (00-60).
+	%S    is replaced by the second as a decimal number (00-60).
 
-           %T    is equivalent to ``%H:%M:%S''.
+	%T    is equivalent to ``%H:%M:%S''.
 
-           %t    is replaced by a tab.
+	%t    is replaced by a tab.
 
-           %U    is replaced by the week number of the year (Sunday as the first day of the
-                 week) as a decimal number (00-53).
+	%U    is replaced by the week number of the year (Sunday as the first day of the
+	      week) as a decimal number (00-53).
 
-           %u    is replaced by the weekday (Monday as the first day of the week) as a decimal
-                 number (1-7).
+	%u    is replaced by the weekday (Monday as the first day of the week) as a decimal
+	      number (1-7).
 
-           %v    is equivalent to ``%e-%b-%Y''.
+	%v    is equivalent to ``%e-%b-%Y''.
 
-           %w    is replaced by the weekday (Sunday as the first day of the week) as a decimal
+	%w    is replaced by the weekday (Sunday as the first day of the week) as a decimal
 
-           %X    is replaced by national representation of the time.
+	%X    is replaced by national representation of the time.
 
-           %x    is replaced by national representation of the date.
+	%x    is replaced by national representation of the date.
 
-           %Y    is replaced by the year with century as a decimal number.
+	%Y    is replaced by the year with century as a decimal number.
 
-           %y    is replaced by the year without century as a decimal number (00-99).
+	%y    is replaced by the year without century as a decimal number (00-99).
 
-           %Z    is replaced by the time zone name.
+	%Z    is replaced by the time zone name.
 
 Usage:
 
