@@ -381,7 +381,7 @@ Usage:
 ### :time_ago_in_words
 
 Returns a human-readable relative time phrase from the given date.
-Heavily adapted from the [ActiveSupport][activesupport] method of the same name.
+Heavily adapted from the [ActionPack][actionpack] method of the same name.
 
 Parameters:
 
@@ -573,7 +573,65 @@ Usage:
 
 ## Walrus.Strings
 
-TODO
+`walrus.strings` contains helpers and filters to help work with strings.
+
+### :reverse
+
+Reverses a string.
+
+Parameters: none
+
+Usage:
+
+	{{ "hello" | :reverse }} <!-- olleh -->
+
+### :downcase
+
+Converts a string to lowercase characters. Opposite of `:upcase`.
+
+Parameters: none
+
+Usage:
+
+	{{ "HelLO!" | :downcase }} <!-- hello! -->
+
+### :upcase
+
+Converts a string to uppercase characters. Opposite of `:downcase`.
+
+Parameters: none
+
+Usage:
+
+	{{ "HelLO!" | :upcase }} <!-- HELLO! -->
+
+### :squish
+
+Removes all leading and trailing whitespace, then condenses any internal whitespace
+groups to a single space each.
+Heavily adapted from the [ActiveSupport][activesupport] method of the same name.
+
+Parameters: none
+
+Usage:
+
+	{{ " foo    bar \n baz"  | :squish }} <!-- foo bar baz -->
+
+### :truncate
+
+Truncates a string to the specified `length`, optionally breaking at a separator or
+providing a custom string to denote an omission.
+Heavily adapted from the [ActiveSupport][activesupport] method of the same name.
+
+Parameters:
+
+	length (int) - the number of characters to keep, at most
+	separator (string) - Optional: a specified string to break on
+	omission (string) - Optional: a string to denote an omission
+
+Usage:
+
+	{{ "Once upon a time in a world far far away" | :truncate( 27, ' ' ) }} <!-- Once upon a time in a... -->
 
 ## Mad Props
 
@@ -601,3 +659,4 @@ Walrus is released under the MIT license.
 [coffeescript]: http://coffeescript.org/
 [mocha]: http://visionmedia.github.com/mocha/
 [activesupport]: http://as.rubyonrails.org/
+[actionpack]: https://github.com/rails/rails/tree/master/actionpack
