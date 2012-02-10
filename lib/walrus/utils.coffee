@@ -28,5 +28,21 @@ Utils =
   ###
   extend : ( foo, bar ) -> foo[ key ] = value for key, value of bar
 
+  ###*
+   * all of the nasty html characters to escape
+  ###
+  escapees : /[&'"<>]/g
+  escapes :
+    '&' : '&amp;'
+    "'" : '&#x27;'
+    '"' : '&quot;'
+    '<' : '&lt;'
+    '>' : '&rt;'
+
+  ###*
+   * escapes nasty html characters
+  ###
+  escape : ( string ) -> string.replace @escapees, ( c ) => @escapes[ c ] || c
+
 # Export those utils, son.
 Walrus.Utils = Utils

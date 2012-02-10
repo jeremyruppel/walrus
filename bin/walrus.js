@@ -442,6 +442,26 @@ if (typeof module !== 'undefined' && require.main === module) {
         _results.push(foo[key] = value);
       }
       return _results;
+    },
+    /**
+     * all of the nasty html characters to escape
+    */
+    escapees: /[&'"<>]/g,
+    escapes: {
+      '&': '&amp;',
+      "'": '&#x27;',
+      '"': '&quot;',
+      '<': '&lt;',
+      '>': '&rt;'
+    },
+    /**
+     * escapes nasty html characters
+    */
+    escape: function(string) {
+      var _this = this;
+      return string.replace(this.escapees, function(c) {
+        return _this.escapes[c] || c;
+      });
     }
   };
 

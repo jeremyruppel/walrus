@@ -78,3 +78,14 @@ describe 'Walrus.Utils', ->
       foo.a.should.equal 456
       foo.b.should.equal 'asdf'
       foo.c.should.equal 'qwer'
+
+  describe '#escape', ->
+
+    it 'should be defined', -> should.exist Walrus.Utils.escape
+
+    it 'should escape ampersands',           -> Walrus.Utils.escape( '&' ).should.equal '&amp;'
+    it 'should escape single quotes',        -> Walrus.Utils.escape( "'" ).should.equal '&#x27;'
+    it 'should escape double quotes',        -> Walrus.Utils.escape( '"' ).should.equal '&quot;'
+    it 'should escape left angle brackets',  -> Walrus.Utils.escape( '<' ).should.equal '&lt;'
+    it 'should escape right angle brackets', -> Walrus.Utils.escape( '>' ).should.equal '&rt;'
+
