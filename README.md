@@ -471,9 +471,10 @@ Usage:
 
 ### :plus
 
-Returns the sum of two numbers
+Returns the sum of two numbers.
 
 Parameters:
+
 	number - the number to add to the expression
 
 Usage:
@@ -482,7 +483,7 @@ Usage:
 
 ### :minus
 
-Returns the difference of two numbers
+Returns the difference of two numbers.
 
 Parameters:
 
@@ -494,7 +495,7 @@ Usage:
 
 ### :gt
 
-Returns whether `value` is greater than the given number
+Returns whether `value` is greater than the given number.
 
 Parameters:
 
@@ -506,7 +507,7 @@ Usage:
 
 ### :gte
 
-Returns whether `value` is greater than or equal to the given number
+Returns whether `value` is greater than or equal to the given number.
 
 Parameters:
 
@@ -518,7 +519,7 @@ Usage:
 
 ### :lt
 
-Returns whether `value` is less than the given number
+Returns whether `value` is less than the given number.
 
 Parameters:
 
@@ -530,7 +531,7 @@ Usage:
 
 ### :lte
 
-Returns whether `value` is less than or equal to the given number
+Returns whether `value` is less than or equal to the given number.
 
 Parameters:
 
