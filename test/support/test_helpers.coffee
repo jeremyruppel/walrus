@@ -1,48 +1,58 @@
 Walrus = require '../../bin/walrus'
 
 fs   = require 'fs'
-path = require 'path'
+dir  = require 'path'
 exec = require( 'child_process' ).exec
 
 TestHelpers =
 
-  read : ( filename ) -> fs.readFileSync filename, 'utf8' if path.existsSync filename
+  read : ( filename ) -> fs.readFileSync filename, 'utf8' if dir.existsSync filename
+
+  find : ( specs, suffix='' ) ->
+
+    for file in fs.readdirSync specs when dir.extname( file ) is '.wal'
+
+      base = dir.basename file, '.wal'
+
+      spec = "#{base}#{suffix}"
+
+      path = "#{specs}/#{spec}.html"
+
+      text = @read "#{specs}/#{base}.wal"
+      json = @read "#{specs}/#{base}.js"
+      html = @read path
+
+      # if we can't find the suffixed version, try and find
+      # one without the suffix and use that instead.
+      if not html
+        spec = base
+        path = "#{specs}/#{spec}.html"
+        html = @read path
+
+      # if _that_ one doesn't exist, throw a helpful error.
+      throw "Can't find example html at #{specs}/#{base}#{suffix}.html or #{specs}/#{base}.html" if not html
+
+      name : spec, text : text, json : json, html : html, path : path
+
 
   pass : ( specs, suffix='' ) ->
 
-    for file in fs.readdirSync specs when path.extname( file ) is '.wal'
+    for spec in @find( specs, suffix )
 
-      do ( file ) =>
+      do ( spec ) =>
 
-        base = path.basename file, '.wal'
+        tmpl = Walrus.Parser.parse spec.text
 
-        spec = "#{base}#{suffix}"
+        it "should pass the #{spec.name} example", ( done ) ->
 
-        text = @read "#{specs}/#{base}.wal"
-        json = @read "#{specs}/#{base}.js"
-        html = @read "#{specs}/#{spec}.html"
+          comp = tmpl.compile( eval( "(#{spec.json})" ) ) + "\n"
 
-        # if we can't find the suffixed version, try and find
-        # one without the suffix and use that instead.
-        if not html
-          spec = base
-          html = @read "#{specs}/#{spec}.html"
-
-        # if _that_ one doesn't exist, throw a helpful error.
-        throw "Can't find example html at #{specs}/#{base}#{suffix}.html or #{specs}/#{base}.html" if not html
-
-        tmpl = Walrus.Parser.parse text
-
-        it "should pass the #{spec} example", ( done ) ->
-
-          comp = tmpl.compile( eval( "(#{json})" ) ) + "\n"
-
-          if comp is html
+          if comp is spec.html
             done( )
           else
 
             cmd = """
-            printf "#{comp}" | diff --unified #{specs}/#{spec}.html -
+            printf "#{comp}" | diff --unified #{spec.path} -
             """
 
             exec cmd, ( error, stdout, stderr ) ->
