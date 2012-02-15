@@ -527,8 +527,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   /**
    * AST.DocumentNode
-   * The root node of the document. Basically inherits from `AST.JoinedNodeCollection`
-   * and tacks on a CR (for version control style).
+   * The root node of the document.
   */
 
   AST.DocumentNode = (function(_super) {
@@ -540,7 +539,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     DocumentNode.prototype.compile = function(context) {
-      return DocumentNode.__super__.compile.call(this, context, context) + "\n";
+      return DocumentNode.__super__.compile.call(this, context, context);
     };
 
     return DocumentNode;

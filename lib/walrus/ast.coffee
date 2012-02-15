@@ -21,11 +21,10 @@ class AST.JoinedNodeCollection extends AST.NodeCollection
 
 ###*
  * AST.DocumentNode
- * The root node of the document. Basically inherits from `AST.JoinedNodeCollection`
- * and tacks on a CR (for version control style).
+ * The root node of the document.
 ###
 class AST.DocumentNode extends AST.JoinedNodeCollection
-  compile : ( context ) -> super( context, context ) + "\n"
+  compile : ( context ) -> super context, context
 
 ###*
  * AST.ContentNode
