@@ -16,7 +16,7 @@ statements
   ;
 
 statement
-  : OPEN helper mustache OPEN_BLOCK text CLOSE_BLOCK CLOSE { $$ = new yy.BlockNode( $helper, $mustache, new yy.JoinedNodeCollection( $text ) ) }
+  : OPEN helper mustache block { $$ = new yy.BlockNode( $helper, $mustache, $block ) }
   | OPEN mustache CLOSE { $$ = $mustache }
   | CONTENT { $$ = new yy.ContentNode( $CONTENT ) }
   ;
@@ -31,6 +31,10 @@ expression
   | paths { $$ = new yy.PathNode( $paths, true ) }
   | DOT { $$ = new yy.ThisNode( ) }
   | primitive { $$ = $primitive }
+  ;
+
+block
+  : OPEN_BLOCK text CLOSE_BLOCK CLOSE { $$ = new yy.JoinedNodeCollection( $text ) }
   ;
 
 helper
