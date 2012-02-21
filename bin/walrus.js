@@ -544,7 +544,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     JoinedNodeCollection.prototype.compile = function(context, root, safe) {
-      return Walrus.Utils.trim(JoinedNodeCollection.__super__.compile.call(this, context, root).join(''));
+      return Walrus.Utils.trim(JoinedNodeCollection.__super__.compile.call(this, context, root, safe).join(''));
     };
 
     return JoinedNodeCollection;
@@ -553,7 +553,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   /**
    * AST.DocumentNode
-   * The root node of the document.
+   * The root node of the document. Defaults to escaping its content.
   */
 
   AST.DocumentNode = (function(_super) {
@@ -565,7 +565,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     DocumentNode.prototype.compile = function(context) {
-      return DocumentNode.__super__.compile.call(this, context, context);
+      return DocumentNode.__super__.compile.call(this, context, context, false);
     };
 
     return DocumentNode;

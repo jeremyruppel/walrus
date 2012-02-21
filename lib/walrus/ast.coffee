@@ -27,14 +27,14 @@ class AST.NodeCollection
 class AST.JoinedNodeCollection extends AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root, safe ) -> Walrus.Utils.trim( super( context, root ).join '' )
+  compile : ( context, root, safe ) -> Walrus.Utils.trim( super( context, root, safe ).join '' )
 
 ###*
  * AST.DocumentNode
- * The root node of the document.
+ * The root node of the document. Defaults to escaping its content.
 ###
 class AST.DocumentNode extends AST.JoinedNodeCollection
-  compile : ( context ) -> super context, context
+  compile : ( context ) -> super context, context, false
 
 ###*
  * AST.ContentNode
