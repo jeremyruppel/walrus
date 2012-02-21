@@ -14,9 +14,9 @@ Walrus.addHelper = ( name, fn ) ->
  *    // block content
  *  {{end}}
 ###
-Walrus.addHelper 'if', ( expression, context, root, block ) ->
+Walrus.addHelper 'if', ( expression, context, root, safe, block ) ->
 
-  if expression.compile context, root then block.compile context, root else ''
+  if expression.compile context, root, safe then block.compile context, root, safe else ''
 
 ###*
  * *:unless*
@@ -28,18 +28,18 @@ Walrus.addHelper 'if', ( expression, context, root, block ) ->
  *    // block content
  *  {{end}}
 ###
-Walrus.addHelper 'unless', ( expression, context, root, block ) ->
+Walrus.addHelper 'unless', ( expression, context, root, safe, block ) ->
 
-  if not expression.compile context, root then block.compile context, root else ''
+  if not expression.compile context, root, safe then block.compile context, root, safe else ''
 
 ###*
  * *:each*
  * Iterates over the array returned by `expression` and evaluates the block
  * for each member of the array. The compiled blocks are then joined.
 ###
-Walrus.addHelper 'each', ( expression, context, root, block ) ->
+Walrus.addHelper 'each', ( expression, context, root, safe, block ) ->
 
-  array = expression.compile context, root
+  array = expression.compile context, root, safe
 
   items = for item, index in array
 
@@ -47,7 +47,7 @@ Walrus.addHelper 'each', ( expression, context, root, block ) ->
     item[ '$parent' ] = context
     item[ '$length' ] = array.length
 
-    block.compile item, root
+    block.compile item, root, safe
 
   items.join ''
 
@@ -61,10 +61,10 @@ Walrus.addHelper 'each', ( expression, context, root, block ) ->
  *    <p>{{name}}</p>
  *  {{end}}
 ###
-Walrus.addHelper 'with', ( expression, context, root, block ) ->
+Walrus.addHelper 'with', ( expression, context, root, safe, block ) ->
 
-  subcontext = ( expression.compile context, root )
+  subcontext = ( expression.compile context, root, safe )
 
   subcontext[ '$parent' ] = context
 
-  block.compile subcontext, root
+  block.compile subcontext, root, safe

@@ -17,6 +17,7 @@ statements
 
 statement
   : OPEN helper mustache block { $$ = new yy.BlockNode( $helper, $mustache, $block ) }
+  | SAFE mustache CLOSE { $$ = new yy.SafeNode( $mustache ) }
   | OPEN mustache CLOSE { $$ = $mustache }
   | CONTENT { $$ = new yy.ContentNode( $CONTENT ) }
   ;
@@ -84,6 +85,5 @@ primitive
   ;
 
 member
-  : SAFE MEMBER { $$ = new yy.MemberNode( $MEMBER, true ) }
-  | MEMBER { $$ = new yy.MemberNode( $MEMBER, false ) }
+  : MEMBER { $$ = new yy.MemberNode( $MEMBER, false ) }
   ;

@@ -1,6 +1,16 @@
 AST = { }
 
 ###*
+ * AST.SafeNode
+ * A simple wrapper node to signify safe compilation for the rest of
+ * the nodes in the tree.
+###
+class AST.SafeNode
+  constructor : ( @node ) ->
+
+  compile : ( context, root, safe ) -> @node.compile context, root, true
+
+###*
  * AST.NodeCollection
  * A collection of nodes with the #compile interface, simply compiles
  * each of its nodes and returns the resulting array.
@@ -8,7 +18,7 @@ AST = { }
 class AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root ) -> node.compile context, root for node in @nodes
+  compile : ( context, root, safe ) -> node.compile context, root, safe for node in @nodes
 
 ###*
  * AST.JoinedNodeCollection
@@ -17,7 +27,7 @@ class AST.NodeCollection
 class AST.JoinedNodeCollection extends AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root ) -> Walrus.Utils.trim( super( context, root ).join '' )
+  compile : ( context, root, safe ) -> Walrus.Utils.trim( super( context, root ).join '' )
 
 ###*
  * AST.DocumentNode
@@ -33,7 +43,7 @@ class AST.DocumentNode extends AST.JoinedNodeCollection
 class AST.ContentNode
   constructor : ( @content ) ->
 
-  compile : ( context, root ) -> @content
+  compile : ( context, root, safe ) -> @content
 
 ###*
  * AST.MemberNode
@@ -43,14 +53,11 @@ class AST.ContentNode
  * `{{member}}`, for instance, will compile to `index[ 'member' ]`.
 ###
 class AST.MemberNode
-  constructor : ( @path, @safe=false ) ->
+  constructor : ( @path ) ->
 
-  compile : ( index, context, root ) ->
+  compile : ( index, context, root, safe ) ->
 
-    if @safe or typeof index[ @path ] isnt 'string'
-      index[ @path ]
-    else
-      Walrus.Utils.escape( index[ @path ] )
+    if safe then index[ @path ] else Walrus.Utils.escape( index[ @path ] )
 
 ###*
  * AST.MethodNode
@@ -64,11 +71,11 @@ class AST.MemberNode
 class AST.MethodNode
   constructor : ( @path, @arguments ) ->
 
-  compile : ( index, context, root ) ->
+  compile : ( index, context, root, safe ) ->
 
     throw "Cannot find any method named '#{@path}' in #{index}." unless index[ @path ]?
 
-    index[ @path ] @arguments.compile( context, root )...
+    index[ @path ] @arguments.compile( context, root, safe )...
 
 ###*
  * AST.ThisNode
@@ -92,7 +99,7 @@ class AST.MethodNode
  *  {{end}}
 ###
 class AST.ThisNode
-  compile : ( context, root ) -> context
+  compile : ( context, root, safe ) -> context
 
 ###*
  * AST.PathNode
@@ -107,12 +114,12 @@ class AST.ThisNode
 class AST.PathNode
   constructor : ( @paths, @local ) ->
 
-  compile : ( context, root ) ->
+  compile : ( context, root, safe ) ->
 
     paths = @paths.concat( )
     scope = if @local then context else root
 
-    Walrus.Utils.reduce paths, scope, ( scope, path ) -> path.compile scope, context, root
+    Walrus.Utils.reduce paths, scope, ( scope, path ) -> path.compile scope, context, root, safe
 
 ###*
  * AST.PrimitiveNode
@@ -133,7 +140,7 @@ class AST.PathNode
 class AST.PrimitiveNode
   constructor : ( @value ) ->
 
-  compile : ( context, root ) -> @value
+  compile : ( context, root, safe ) -> @value
 
 ###*
  * AST.ExpressionNode
@@ -154,7 +161,7 @@ class AST.PrimitiveNode
 class AST.ExpressionNode
   constructor : ( @paths, @filters ) ->
 
-  compile : ( context, root ) -> @filters.apply @paths.compile( context, root ), context, root
+  compile : ( context, root, safe ) -> @filters.apply @paths.compile( context, root, safe ), context, root, safe
 
 ###*
  * AST.BlockNode
@@ -170,7 +177,7 @@ class AST.BlockNode
 
     throw "Cannot find any helper named '#{@name}'." unless Walrus.Helpers[ @name ]?
 
-  compile : ( context, root ) -> Walrus.Helpers[ @name ] @expression, context, root, @block
+  compile : ( context, root, safe ) -> Walrus.Helpers[ @name ] @expression, context, root, safe, @block
 
 ###*
  * AST.FilterNode
@@ -185,9 +192,9 @@ class AST.FilterNode
 
     throw "Cannot find any filter named '#{@name}'." unless Walrus.Filters[ @name ]?
 
-  apply : ( value, context, root ) ->
+  apply : ( value, context, root, safe ) ->
 
-    Walrus.Filters[ @name ] value, @arguments.compile( context, root )...
+    Walrus.Filters[ @name ] value, @arguments.compile( context, root, safe )...
 
 ###*
  * AST.FilterCollection
@@ -197,9 +204,9 @@ class AST.FilterNode
 class AST.FilterCollection
   constructor : ( @filters ) ->
 
-  apply : ( expression, context, root ) ->
+  apply : ( expression, context, root, safe ) ->
 
-    Walrus.Utils.reduce @filters, expression, ( memo, filter ) -> filter.apply memo, context, root
+    Walrus.Utils.reduce @filters, expression, ( memo, filter ) -> filter.apply memo, context, root, safe
 
 # Export that AST, son.
 Walrus.AST = AST

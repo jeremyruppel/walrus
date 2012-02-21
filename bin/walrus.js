@@ -18,9 +18,9 @@
 var walrus = (function(){
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"document":3,"text":4,"EOF":5,"statements":6,"statement":7,"OPEN":8,"helper":9,"mustache":10,"block":11,"CLOSE":12,"CONTENT":13,"expression":14,"PIPE":15,"filters":16,"ATTR":17,"paths":18,"DOT":19,"primitive":20,"OPEN_BLOCK":21,"CLOSE_BLOCK":22,"HELP":23,"MEMBER":24,"filter":25,"OPEN_PAREN":26,"arguments":27,"CLOSE_PAREN":28,"path":29,"method":30,"member":31,"COMMA":32,"argument":33,"SINGLE_QUOTE_STRING_LITERAL":34,"DOUBLE_QUOTE_STRING_LITERAL":35,"BOOLEAN_FALSE":36,"BOOLEAN_TRUE":37,"NUMBER":38,"SAFE":39,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",8:"OPEN",12:"CLOSE",13:"CONTENT",15:"PIPE",17:"ATTR",19:"DOT",21:"OPEN_BLOCK",22:"CLOSE_BLOCK",23:"HELP",24:"MEMBER",26:"OPEN_PAREN",28:"CLOSE_PAREN",32:"COMMA",34:"SINGLE_QUOTE_STRING_LITERAL",35:"DOUBLE_QUOTE_STRING_LITERAL",36:"BOOLEAN_FALSE",37:"BOOLEAN_TRUE",38:"NUMBER",39:"SAFE"},
-productions_: [0,[3,2],[4,1],[6,2],[6,1],[7,4],[7,3],[7,1],[10,3],[10,1],[14,2],[14,1],[14,1],[14,1],[11,4],[9,2],[16,2],[16,1],[25,5],[25,2],[18,3],[18,1],[29,1],[29,1],[30,4],[30,3],[27,3],[27,1],[33,1],[20,1],[20,1],[20,1],[20,1],[20,1],[31,2],[31,1]],
+symbols_: {"error":2,"document":3,"text":4,"EOF":5,"statements":6,"statement":7,"OPEN":8,"helper":9,"mustache":10,"block":11,"SAFE":12,"CLOSE":13,"CONTENT":14,"expression":15,"PIPE":16,"filters":17,"ATTR":18,"paths":19,"DOT":20,"primitive":21,"OPEN_BLOCK":22,"CLOSE_BLOCK":23,"HELP":24,"MEMBER":25,"filter":26,"OPEN_PAREN":27,"arguments":28,"CLOSE_PAREN":29,"path":30,"method":31,"member":32,"COMMA":33,"argument":34,"SINGLE_QUOTE_STRING_LITERAL":35,"DOUBLE_QUOTE_STRING_LITERAL":36,"BOOLEAN_FALSE":37,"BOOLEAN_TRUE":38,"NUMBER":39,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",8:"OPEN",12:"SAFE",13:"CLOSE",14:"CONTENT",16:"PIPE",18:"ATTR",20:"DOT",22:"OPEN_BLOCK",23:"CLOSE_BLOCK",24:"HELP",25:"MEMBER",27:"OPEN_PAREN",29:"CLOSE_PAREN",33:"COMMA",35:"SINGLE_QUOTE_STRING_LITERAL",36:"DOUBLE_QUOTE_STRING_LITERAL",37:"BOOLEAN_FALSE",38:"BOOLEAN_TRUE",39:"NUMBER"},
+productions_: [0,[3,2],[4,1],[6,2],[6,1],[7,4],[7,3],[7,3],[7,1],[10,3],[10,1],[15,2],[15,1],[15,1],[15,1],[11,4],[9,2],[17,2],[17,1],[26,5],[26,2],[19,3],[19,1],[30,1],[30,1],[31,4],[31,3],[28,3],[28,1],[34,1],[21,1],[21,1],[21,1],[21,1],[21,1],[32,1]],
 performAction: function anonymous(yytext,yyleng,yylineno,yy,yystate,$$,_$) {
 
 var $0 = $$.length - 1;
@@ -35,70 +35,70 @@ case 4: this.$ = [ $$[$0] ]
 break;
 case 5: this.$ = new yy.BlockNode( $$[$0-2], $$[$0-1], $$[$0] ) 
 break;
-case 6: this.$ = $$[$0-1] 
+case 6: this.$ = new yy.SafeNode( $$[$0-1] ) 
 break;
-case 7: this.$ = new yy.ContentNode( $$[$0] ) 
+case 7: this.$ = $$[$0-1] 
 break;
-case 8: this.$ = new yy.ExpressionNode( $$[$0-2], new yy.FilterCollection( $$[$0] ) ) 
+case 8: this.$ = new yy.ContentNode( $$[$0] ) 
 break;
-case 9: this.$ = new yy.ExpressionNode( $$[$0], new yy.FilterCollection( [ ] ) ) 
+case 9: this.$ = new yy.ExpressionNode( $$[$0-2], new yy.FilterCollection( $$[$0] ) ) 
 break;
-case 10: this.$ = new yy.PathNode( $$[$0], false ) 
+case 10: this.$ = new yy.ExpressionNode( $$[$0], new yy.FilterCollection( [ ] ) ) 
 break;
-case 11: this.$ = new yy.PathNode( $$[$0], true ) 
+case 11: this.$ = new yy.PathNode( $$[$0], false ) 
 break;
-case 12: this.$ = new yy.ThisNode( ) 
+case 12: this.$ = new yy.PathNode( $$[$0], true ) 
 break;
-case 13: this.$ = $$[$0] 
+case 13: this.$ = new yy.ThisNode( ) 
 break;
-case 14: this.$ = new yy.JoinedNodeCollection( $$[$0-2] ) 
+case 14: this.$ = $$[$0] 
 break;
-case 15: this.$ = $$[$0] 
+case 15: this.$ = new yy.JoinedNodeCollection( $$[$0-2] ) 
 break;
-case 16: $$[$0-1].push( $$[$0] ); this.$ = $$[$0-1] 
+case 16: this.$ = $$[$0] 
 break;
-case 17: this.$ = [ $$[$0] ] 
+case 17: $$[$0-1].push( $$[$0] ); this.$ = $$[$0-1] 
 break;
-case 18: this.$ = new yy.FilterNode( $$[$0-3], new yy.NodeCollection( $$[$0-1] ) ) 
+case 18: this.$ = [ $$[$0] ] 
 break;
-case 19: this.$ = new yy.FilterNode( $$[$0], new yy.NodeCollection( [ ] ) ) 
+case 19: this.$ = new yy.FilterNode( $$[$0-3], new yy.NodeCollection( $$[$0-1] ) ) 
 break;
-case 20: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
+case 20: this.$ = new yy.FilterNode( $$[$0], new yy.NodeCollection( [ ] ) ) 
 break;
-case 21: this.$ = [ $$[$0] ] 
+case 21: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
 break;
-case 22: this.$ = $$[$0] 
+case 22: this.$ = [ $$[$0] ] 
 break;
 case 23: this.$ = $$[$0] 
 break;
-case 24: this.$ = new yy.MethodNode( $$[$0-3], new yy.NodeCollection( $$[$0-1] ) ) 
+case 24: this.$ = $$[$0] 
 break;
-case 25: this.$ = new yy.MethodNode( $$[$0-2], new yy.NodeCollection( [ ] ) ) 
+case 25: this.$ = new yy.MethodNode( $$[$0-3], new yy.NodeCollection( $$[$0-1] ) ) 
 break;
-case 26: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
+case 26: this.$ = new yy.MethodNode( $$[$0-2], new yy.NodeCollection( [ ] ) ) 
 break;
-case 27: this.$ = [ $$[$0] ] 
+case 27: $$[$0-2].push( $$[$0] ); this.$ = $$[$0-2] 
 break;
-case 28: this.$ = $$[$0] 
+case 28: this.$ = [ $$[$0] ] 
 break;
-case 29: this.$ = new yy.PrimitiveNode( $$[$0] ) 
+case 29: this.$ = $$[$0] 
 break;
 case 30: this.$ = new yy.PrimitiveNode( $$[$0] ) 
 break;
-case 31: this.$ = new yy.PrimitiveNode( false ) 
+case 31: this.$ = new yy.PrimitiveNode( $$[$0] ) 
 break;
-case 32: this.$ = new yy.PrimitiveNode( true ) 
+case 32: this.$ = new yy.PrimitiveNode( false ) 
 break;
-case 33: this.$ = new yy.PrimitiveNode( parseFloat( $$[$0] ) ) 
+case 33: this.$ = new yy.PrimitiveNode( true ) 
 break;
-case 34: this.$ = new yy.MemberNode( $$[$0], true ) 
+case 34: this.$ = new yy.PrimitiveNode( parseFloat( $$[$0] ) ) 
 break;
 case 35: this.$ = new yy.MemberNode( $$[$0], false ) 
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,8:[1,5],13:[1,6]},{1:[3]},{5:[1,7]},{5:[2,2],7:8,8:[1,5],13:[1,6],22:[2,2]},{5:[2,4],8:[2,4],13:[2,4],22:[2,4]},{9:9,10:10,14:12,17:[1,13],18:14,19:[1,15],20:16,23:[1,11],24:[1,25],29:17,30:23,31:24,34:[1,18],35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,26]},{5:[2,7],8:[2,7],13:[2,7],22:[2,7]},{1:[2,1]},{5:[2,3],8:[2,3],13:[2,3],22:[2,3]},{10:27,14:12,17:[1,13],18:14,19:[1,15],20:16,24:[1,25],29:17,30:23,31:24,34:[1,18],35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,26]},{12:[1,28]},{24:[1,29]},{12:[2,9],15:[1,30],21:[2,9]},{18:31,24:[1,25],29:17,30:23,31:24,39:[1,26]},{12:[2,11],15:[2,11],19:[1,32],21:[2,11],28:[2,11],32:[2,11]},{12:[2,12],15:[2,12],21:[2,12],28:[2,12],32:[2,12]},{12:[2,13],15:[2,13],21:[2,13],28:[2,13],32:[2,13]},{12:[2,21],15:[2,21],19:[2,21],21:[2,21],28:[2,21],32:[2,21]},{12:[2,29],15:[2,29],21:[2,29],28:[2,29],32:[2,29]},{12:[2,30],15:[2,30],21:[2,30],28:[2,30],32:[2,30]},{12:[2,31],15:[2,31],21:[2,31],28:[2,31],32:[2,31]},{12:[2,32],15:[2,32],21:[2,32],28:[2,32],32:[2,32]},{12:[2,33],15:[2,33],21:[2,33],28:[2,33],32:[2,33]},{12:[2,22],15:[2,22],19:[2,22],21:[2,22],28:[2,22],32:[2,22]},{12:[2,23],15:[2,23],19:[2,23],21:[2,23],28:[2,23],32:[2,23]},{12:[2,35],15:[2,35],19:[2,35],21:[2,35],26:[1,33],28:[2,35],32:[2,35]},{24:[1,34]},{11:35,21:[1,36]},{5:[2,6],8:[2,6],13:[2,6],22:[2,6]},{17:[2,15],19:[2,15],24:[2,15],34:[2,15],35:[2,15],36:[2,15],37:[2,15],38:[2,15],39:[2,15]},{16:37,23:[1,39],25:38},{12:[2,10],15:[2,10],19:[1,32],21:[2,10],28:[2,10],32:[2,10]},{24:[1,25],29:40,30:23,31:24,39:[1,26]},{14:44,17:[1,13],18:14,19:[1,15],20:16,24:[1,25],27:41,28:[1,42],29:17,30:23,31:24,33:43,34:[1,18],35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,26]},{12:[2,34],15:[2,34],19:[2,34],21:[2,34],28:[2,34],32:[2,34]},{5:[2,5],8:[2,5],13:[2,5],22:[2,5]},{4:45,6:3,7:4,8:[1,5],13:[1,6]},{12:[2,8],21:[2,8],23:[1,39],25:46},{12:[2,17],21:[2,17],23:[2,17]},{24:[1,47]},{12:[2,20],15:[2,20],19:[2,20],21:[2,20],28:[2,20],32:[2,20]},{28:[1,48],32:[1,49]},{12:[2,25],15:[2,25],19:[2,25],21:[2,25],28:[2,25],32:[2,25]},{28:[2,27],32:[2,27]},{28:[2,28],32:[2,28]},{22:[1,50]},{12:[2,16],21:[2,16],23:[2,16]},{12:[2,19],21:[2,19],23:[2,19],26:[1,51]},{12:[2,24],15:[2,24],19:[2,24],21:[2,24],28:[2,24],32:[2,24]},{14:44,17:[1,13],18:14,19:[1,15],20:16,24:[1,25],29:17,30:23,31:24,33:52,34:[1,18],35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,26]},{12:[1,53]},{14:44,17:[1,13],18:14,19:[1,15],20:16,24:[1,25],27:54,29:17,30:23,31:24,33:43,34:[1,18],35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,26]},{28:[2,26],32:[2,26]},{5:[2,14],8:[2,14],13:[2,14],22:[2,14]},{28:[1,55],32:[1,49]},{12:[2,18],21:[2,18],23:[2,18]}],
-defaultActions: {7:[2,1]},
+table: [{3:1,4:2,6:3,7:4,8:[1,5],12:[1,6],14:[1,7]},{1:[3]},{5:[1,8]},{5:[2,2],7:9,8:[1,5],12:[1,6],14:[1,7],23:[2,2]},{5:[2,4],8:[2,4],12:[2,4],14:[2,4],23:[2,4]},{9:10,10:11,15:13,18:[1,14],19:15,20:[1,16],21:17,24:[1,12],25:[1,26],30:18,31:24,32:25,35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,23]},{10:27,15:13,18:[1,14],19:15,20:[1,16],21:17,25:[1,26],30:18,31:24,32:25,35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,23]},{5:[2,8],8:[2,8],12:[2,8],14:[2,8],23:[2,8]},{1:[2,1]},{5:[2,3],8:[2,3],12:[2,3],14:[2,3],23:[2,3]},{10:28,15:13,18:[1,14],19:15,20:[1,16],21:17,25:[1,26],30:18,31:24,32:25,35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,23]},{13:[1,29]},{25:[1,30]},{13:[2,10],16:[1,31],22:[2,10]},{19:32,25:[1,26],30:18,31:24,32:25},{13:[2,12],16:[2,12],20:[1,33],22:[2,12],29:[2,12],33:[2,12]},{13:[2,13],16:[2,13],22:[2,13],29:[2,13],33:[2,13]},{13:[2,14],16:[2,14],22:[2,14],29:[2,14],33:[2,14]},{13:[2,22],16:[2,22],20:[2,22],22:[2,22],29:[2,22],33:[2,22]},{13:[2,30],16:[2,30],22:[2,30],29:[2,30],33:[2,30]},{13:[2,31],16:[2,31],22:[2,31],29:[2,31],33:[2,31]},{13:[2,32],16:[2,32],22:[2,32],29:[2,32],33:[2,32]},{13:[2,33],16:[2,33],22:[2,33],29:[2,33],33:[2,33]},{13:[2,34],16:[2,34],22:[2,34],29:[2,34],33:[2,34]},{13:[2,23],16:[2,23],20:[2,23],22:[2,23],29:[2,23],33:[2,23]},{13:[2,24],16:[2,24],20:[2,24],22:[2,24],29:[2,24],33:[2,24]},{13:[2,35],16:[2,35],20:[2,35],22:[2,35],27:[1,34],29:[2,35],33:[2,35]},{13:[1,35]},{11:36,22:[1,37]},{5:[2,7],8:[2,7],12:[2,7],14:[2,7],23:[2,7]},{18:[2,16],20:[2,16],25:[2,16],35:[2,16],36:[2,16],37:[2,16],38:[2,16],39:[2,16]},{17:38,24:[1,40],26:39},{13:[2,11],16:[2,11],20:[1,33],22:[2,11],29:[2,11],33:[2,11]},{25:[1,26],30:41,31:24,32:25},{15:45,18:[1,14],19:15,20:[1,16],21:17,25:[1,26],28:42,29:[1,43],30:18,31:24,32:25,34:44,35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,23]},{5:[2,6],8:[2,6],12:[2,6],14:[2,6],23:[2,6]},{5:[2,5],8:[2,5],12:[2,5],14:[2,5],23:[2,5]},{4:46,6:3,7:4,8:[1,5],12:[1,6],14:[1,7]},{13:[2,9],22:[2,9],24:[1,40],26:47},{13:[2,18],22:[2,18],24:[2,18]},{25:[1,48]},{13:[2,21],16:[2,21],20:[2,21],22:[2,21],29:[2,21],33:[2,21]},{29:[1,49],33:[1,50]},{13:[2,26],16:[2,26],20:[2,26],22:[2,26],29:[2,26],33:[2,26]},{29:[2,28],33:[2,28]},{29:[2,29],33:[2,29]},{23:[1,51]},{13:[2,17],22:[2,17],24:[2,17]},{13:[2,20],22:[2,20],24:[2,20],27:[1,52]},{13:[2,25],16:[2,25],20:[2,25],22:[2,25],29:[2,25],33:[2,25]},{15:45,18:[1,14],19:15,20:[1,16],21:17,25:[1,26],30:18,31:24,32:25,34:53,35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,23]},{13:[1,54]},{15:45,18:[1,14],19:15,20:[1,16],21:17,25:[1,26],28:55,30:18,31:24,32:25,34:44,35:[1,19],36:[1,20],37:[1,21],38:[1,22],39:[1,23]},{29:[2,27],33:[2,27]},{5:[2,15],8:[2,15],12:[2,15],14:[2,15],23:[2,15]},{29:[1,56],33:[1,50]},{13:[2,19],22:[2,19],24:[2,19]}],
+defaultActions: {8:[2,1]},
 parseError: function parseError(str, hash) {
     throw new Error(str);
 },
@@ -331,53 +331,53 @@ lexer.performAction = function anonymous(yy,yy_,$avoiding_name_collisions,YY_STA
 
 var YYSTATE=YY_START
 switch($avoiding_name_collisions) {
-case 0: this.begin( 'mu' ); if( yy_.yytext ) return 13; 
+case 0: this.begin( 'mu' ); if( yy_.yytext ) return 14; 
 break;
-case 1: return 13; 
+case 1: return 14; 
 break;
-case 2: this.begin( 'INITIAL' ); return 21; 
+case 2: this.begin( 'INITIAL' ); return 22; 
 break;
-case 3: return 22; 
+case 3: return 23; 
 break;
-case 4: return 8; 
+case 4: return 12; 
 break;
-case 5: this.begin( 'INITIAL' ); return 12; 
+case 5: return 8; 
 break;
-case 6: return 39; 
+case 6: this.begin( 'INITIAL' ); return 13; 
 break;
-case 7: return 17; 
+case 7: return 18; 
 break;
-case 8: return 23; 
+case 8: return 24; 
 break;
-case 9: return 15; 
+case 9: return 16; 
 break;
-case 10: return 19; 
+case 10: return 20; 
 break;
-case 11: return 32; 
+case 11: return 33; 
 break;
 case 12: /* ignore whitespace */ 
 break;
-case 13: yy_.yytext = yy_.yytext.substr( 1, yy_.yyleng - 2 ); return 34; 
+case 13: yy_.yytext = yy_.yytext.substr( 1, yy_.yyleng - 2 ); return 35; 
 break;
-case 14: yy_.yytext = yy_.yytext.substr( 1, yy_.yyleng - 2 ); return 35; 
+case 14: yy_.yytext = yy_.yytext.substr( 1, yy_.yyleng - 2 ); return 36; 
 break;
-case 15: return 26; 
+case 15: return 27; 
 break;
-case 16: return 28; 
+case 16: return 29; 
 break;
-case 17: return 37; 
+case 17: return 38; 
 break;
-case 18: return 36; 
+case 18: return 37; 
 break;
-case 19: return 38; 
+case 19: return 39; 
 break;
-case 20: return 24; 
+case 20: return 25; 
 break;
 case 21: return 5; 
 break;
 }
 };
-lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}/,/^\{\{\s*end\b/,/^\{\{/,/^\}\}/,/^=/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^-?\d+(\.\d+)?/,/^[a-zA-Z0-9\_\$]+/,/^$/];
+lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}/,/^\{\{\s*end\b/,/^\{\{=/,/^\{\{/,/^\}\}/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^-?\d+(\.\d+)?/,/^[a-zA-Z0-9\_\$]+/,/^$/];
 lexer.conditions = {"mu":{"rules":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],"inclusive":false},"INITIAL":{"rules":[0,1,21],"inclusive":true}};
 return lexer;})()
 parser.lexer = lexer;
@@ -484,6 +484,26 @@ if (typeof module !== 'undefined' && require.main === module) {
   AST = {};
 
   /**
+   * AST.SafeNode
+   * A simple wrapper node to signify safe compilation for the rest of
+   * the nodes in the tree.
+  */
+
+  AST.SafeNode = (function() {
+
+    function SafeNode(node) {
+      this.node = node;
+    }
+
+    SafeNode.prototype.compile = function(context, root, safe) {
+      return this.node.compile(context, root, true);
+    };
+
+    return SafeNode;
+
+  })();
+
+  /**
    * AST.NodeCollection
    * A collection of nodes with the #compile interface, simply compiles
    * each of its nodes and returns the resulting array.
@@ -495,13 +515,13 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.nodes = nodes;
     }
 
-    NodeCollection.prototype.compile = function(context, root) {
+    NodeCollection.prototype.compile = function(context, root, safe) {
       var node, _i, _len, _ref, _results;
       _ref = this.nodes;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         node = _ref[_i];
-        _results.push(node.compile(context, root));
+        _results.push(node.compile(context, root, safe));
       }
       return _results;
     };
@@ -523,7 +543,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.nodes = nodes;
     }
 
-    JoinedNodeCollection.prototype.compile = function(context, root) {
+    JoinedNodeCollection.prototype.compile = function(context, root, safe) {
       return Walrus.Utils.trim(JoinedNodeCollection.__super__.compile.call(this, context, root).join(''));
     };
 
@@ -563,7 +583,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.content = content;
     }
 
-    ContentNode.prototype.compile = function(context, root) {
+    ContentNode.prototype.compile = function(context, root, safe) {
       return this.content;
     };
 
@@ -581,13 +601,12 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   AST.MemberNode = (function() {
 
-    function MemberNode(path, safe) {
+    function MemberNode(path) {
       this.path = path;
-      this.safe = safe != null ? safe : false;
     }
 
-    MemberNode.prototype.compile = function(index, context, root) {
-      if (this.safe || typeof index[this.path] !== 'string') {
+    MemberNode.prototype.compile = function(index, context, root, safe) {
+      if (safe) {
         return index[this.path];
       } else {
         return Walrus.Utils.escape(index[this.path]);
@@ -615,11 +634,11 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.arguments = _arguments;
     }
 
-    MethodNode.prototype.compile = function(index, context, root) {
+    MethodNode.prototype.compile = function(index, context, root, safe) {
       if (index[this.path] == null) {
         throw "Cannot find any method named '" + this.path + "' in " + index + ".";
       }
-      return index[this.path].apply(index, this.arguments.compile(context, root));
+      return index[this.path].apply(index, this.arguments.compile(context, root, safe));
     };
 
     return MethodNode;
@@ -652,7 +671,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     function ThisNode() {}
 
-    ThisNode.prototype.compile = function(context, root) {
+    ThisNode.prototype.compile = function(context, root, safe) {
       return context;
     };
 
@@ -678,12 +697,12 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.local = local;
     }
 
-    PathNode.prototype.compile = function(context, root) {
+    PathNode.prototype.compile = function(context, root, safe) {
       var paths, scope;
       paths = this.paths.concat();
       scope = this.local ? context : root;
       return Walrus.Utils.reduce(paths, scope, function(scope, path) {
-        return path.compile(scope, context, root);
+        return path.compile(scope, context, root, safe);
       });
     };
 
@@ -714,7 +733,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.value = value;
     }
 
-    PrimitiveNode.prototype.compile = function(context, root) {
+    PrimitiveNode.prototype.compile = function(context, root, safe) {
       return this.value;
     };
 
@@ -746,8 +765,8 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.filters = filters;
     }
 
-    ExpressionNode.prototype.compile = function(context, root) {
-      return this.filters.apply(this.paths.compile(context, root), context, root);
+    ExpressionNode.prototype.compile = function(context, root, safe) {
+      return this.filters.apply(this.paths.compile(context, root, safe), context, root, safe);
     };
 
     return ExpressionNode;
@@ -775,8 +794,8 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
     }
 
-    BlockNode.prototype.compile = function(context, root) {
-      return Walrus.Helpers[this.name](this.expression, context, root, this.block);
+    BlockNode.prototype.compile = function(context, root, safe) {
+      return Walrus.Helpers[this.name](this.expression, context, root, safe, this.block);
     };
 
     return BlockNode;
@@ -802,9 +821,9 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
     }
 
-    FilterNode.prototype.apply = function(value, context, root) {
+    FilterNode.prototype.apply = function(value, context, root, safe) {
       var _ref;
-      return (_ref = Walrus.Filters)[this.name].apply(_ref, [value].concat(__slice.call(this.arguments.compile(context, root))));
+      return (_ref = Walrus.Filters)[this.name].apply(_ref, [value].concat(__slice.call(this.arguments.compile(context, root, safe))));
     };
 
     return FilterNode;
@@ -823,9 +842,9 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.filters = filters;
     }
 
-    FilterCollection.prototype.apply = function(expression, context, root) {
+    FilterCollection.prototype.apply = function(expression, context, root, safe) {
       return Walrus.Utils.reduce(this.filters, expression, function(memo, filter) {
-        return filter.apply(memo, context, root);
+        return filter.apply(memo, context, root, safe);
       });
     };
 
@@ -859,9 +878,9 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-  Walrus.addHelper('if', function(expression, context, root, block) {
-    if (expression.compile(context, root)) {
-      return block.compile(context, root);
+  Walrus.addHelper('if', function(expression, context, root, safe, block) {
+    if (expression.compile(context, root, safe)) {
+      return block.compile(context, root, safe);
     } else {
       return '';
     }
@@ -878,9 +897,9 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-  Walrus.addHelper('unless', function(expression, context, root, block) {
-    if (!expression.compile(context, root)) {
-      return block.compile(context, root);
+  Walrus.addHelper('unless', function(expression, context, root, safe, block) {
+    if (!expression.compile(context, root, safe)) {
+      return block.compile(context, root, safe);
     } else {
       return '';
     }
@@ -892,9 +911,9 @@ if (typeof module !== 'undefined' && require.main === module) {
    * for each member of the array. The compiled blocks are then joined.
   */
 
-  Walrus.addHelper('each', function(expression, context, root, block) {
+  Walrus.addHelper('each', function(expression, context, root, safe, block) {
     var array, index, item, items;
-    array = expression.compile(context, root);
+    array = expression.compile(context, root, safe);
     items = (function() {
       var _len, _results;
       _results = [];
@@ -903,7 +922,7 @@ if (typeof module !== 'undefined' && require.main === module) {
         item['$index'] = index;
         item['$parent'] = context;
         item['$length'] = array.length;
-        _results.push(block.compile(item, root));
+        _results.push(block.compile(item, root, safe));
       }
       return _results;
     })();
@@ -921,11 +940,11 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-  Walrus.addHelper('with', function(expression, context, root, block) {
+  Walrus.addHelper('with', function(expression, context, root, safe, block) {
     var subcontext;
-    subcontext = expression.compile(context, root);
+    subcontext = expression.compile(context, root, safe);
     subcontext['$parent'] = context;
-    return block.compile(subcontext, root);
+    return block.compile(subcontext, root, safe);
   });
 
   /**

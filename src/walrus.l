@@ -9,10 +9,10 @@
 <mu>"do"\s*"}}"             { this.begin( 'INITIAL' ); return 'OPEN_BLOCK'; }
 <mu>"{{"\s*"end"            { return 'CLOSE_BLOCK'; }
 
+<mu>"{{="                   { return 'SAFE'; }
 <mu>"{{"                    { return 'OPEN'; }
 <mu>"}}"                    { this.begin( 'INITIAL' ); return 'CLOSE'; }
 
-<mu>\=                      { return 'SAFE'; }
 <mu>\@                      { return 'ATTR'; }
 <mu>\:                      { return 'HELP'; }
 <mu>\|                      { return 'PIPE'; }
