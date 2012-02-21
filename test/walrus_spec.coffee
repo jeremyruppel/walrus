@@ -10,6 +10,10 @@ describe 'Walrus.Parser', ->
 
     it 'should be defined', -> should.exist Walrus.Parser.parse
 
+    it 'should be able to parse an empty string', ->
+
+      ( -> Walrus.Parser.parse '' ).should.not.throw( )
+
     # TODO there's got to be a better place to put these spec-only filters
     Walrus.addFilter 'append',  ( value, something ) -> "#{value}, #{something}"
     Walrus.addFilter 'prepend', ( value, something ) -> "#{something}, #{value}"

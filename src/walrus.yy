@@ -4,6 +4,7 @@
 
 document
   : text EOF { return new yy.DocumentNode( $text ) }
+  | EOF { return new yy.DocumentNode( [ ] ) }
   ;
 
 text
