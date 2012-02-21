@@ -636,7 +636,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     MethodNode.prototype.compile = function(index, context, root, safe) {
       if (index[this.path] == null) {
-        throw "Cannot find any method named '" + this.path + "' in " + index + ".";
+        throw new Error("Cannot find any method named '" + this.path + "' in " + index + ".");
       }
       return index[this.path].apply(index, this.arguments.compile(context, root, safe));
     };
@@ -790,7 +790,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.expression = expression;
       this.block = block;
       if (Walrus.Helpers[this.name] == null) {
-        throw "Cannot find any helper named '" + this.name + "'.";
+        throw new Error("Cannot find any helper named '" + this.name + "'.");
       }
     }
 
@@ -817,7 +817,7 @@ if (typeof module !== 'undefined' && require.main === module) {
       this.name = name;
       this.arguments = _arguments;
       if (Walrus.Filters[this.name] == null) {
-        throw "Cannot find any filter named '" + this.name + "'.";
+        throw new Error("Cannot find any filter named '" + this.name + "'.");
       }
     }
 

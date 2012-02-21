@@ -73,7 +73,7 @@ class AST.MethodNode
 
   compile : ( index, context, root, safe ) ->
 
-    throw "Cannot find any method named '#{@path}' in #{index}." unless index[ @path ]?
+    throw new Error "Cannot find any method named '#{@path}' in #{index}." unless index[ @path ]?
 
     index[ @path ] @arguments.compile( context, root, safe )...
 
@@ -175,7 +175,7 @@ class AST.ExpressionNode
 class AST.BlockNode
   constructor : ( @name, @expression, @block ) ->
 
-    throw "Cannot find any helper named '#{@name}'." unless Walrus.Helpers[ @name ]?
+    throw new Error "Cannot find any helper named '#{@name}'." unless Walrus.Helpers[ @name ]?
 
   compile : ( context, root, safe ) -> Walrus.Helpers[ @name ] @expression, context, root, safe, @block
 
@@ -190,7 +190,7 @@ class AST.BlockNode
 class AST.FilterNode
   constructor : ( @name, @arguments ) ->
 
-    throw "Cannot find any filter named '#{@name}'." unless Walrus.Filters[ @name ]?
+    throw new Error "Cannot find any filter named '#{@name}'." unless Walrus.Filters[ @name ]?
 
   apply : ( value, context, root, safe ) ->
 
