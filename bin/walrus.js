@@ -463,11 +463,15 @@ if (typeof module !== 'undefined' && require.main === module) {
     /**
      * escapes nasty html characters
     */
-    escape: function(string) {
+    escape: function(value) {
       var _this = this;
-      return string.replace(this.escapees, function(c) {
-        return _this.escapes[c] || c;
-      });
+      if (value.replace != null) {
+        return value.replace(this.escapees, function(c) {
+          return _this.escapes[c] || c;
+        });
+      } else {
+        return value;
+      }
     }
   };
 

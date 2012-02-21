@@ -89,3 +89,6 @@ describe 'Walrus.Utils', ->
     it 'should escape left angle brackets',  -> Walrus.Utils.escape( '<' ).should.equal '&lt;'
     it 'should escape right angle brackets', -> Walrus.Utils.escape( '>' ).should.equal '&gt;'
 
+    it 'should simply pass back values that are not strings', ->
+
+      Walrus.Utils.escape( 123 ).should.equal 123

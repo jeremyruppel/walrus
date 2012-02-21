@@ -42,7 +42,9 @@ Utils =
   ###*
    * escapes nasty html characters
   ###
-  escape : ( string ) -> string.replace @escapees, ( c ) => @escapes[ c ] || c
+  escape : ( value ) ->
+
+    if value.replace? then value.replace( @escapees, ( c ) => @escapes[ c ] || c ) else value
 
 # Export those utils, son.
 Walrus.Utils = Utils
