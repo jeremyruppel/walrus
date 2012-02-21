@@ -6,12 +6,12 @@
 [^\x00]*?/("{{")            { this.begin( 'mu' ); if( yytext ) return 'CONTENT'; }
 [^\x00]+                    { return 'CONTENT'; }
 
-<mu>"do"\s*"}}"             { this.begin( 'INITIAL' ); return 'OPEN_BLOCK'; }
+<mu>"do"\s*"}}"\n*          { this.begin( 'INITIAL' ); return 'OPEN_BLOCK'; }
 <mu>"{{"\s*"end"            { return 'CLOSE_BLOCK'; }
 
 <mu>"{{="                   { return 'SAFE'; }
 <mu>"{{"                    { return 'OPEN'; }
-<mu>"}}"                    { this.begin( 'INITIAL' ); return 'CLOSE'; }
+<mu>"}}"\n*                 { this.begin( 'INITIAL' ); return 'CLOSE'; }
 
 <mu>\@                      { return 'ATTR'; }
 <mu>\:                      { return 'HELP'; }

@@ -45,7 +45,7 @@ TestHelpers =
 
         it "should pass the #{spec.name} example", ( done ) ->
 
-          comp = tmpl.compile( eval( "(#{spec.json})" ) ) + "\n"
+          comp = tmpl.compile( eval( "(#{spec.json})" ) )
 
           if comp is spec.html
             done( )

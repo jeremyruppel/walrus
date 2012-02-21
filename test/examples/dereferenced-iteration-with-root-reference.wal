@@ -2,8 +2,8 @@
 {{:with child do}}
 <p>{{=confirm}}</p>
 <ul>
-  {{:each numbers do}}
+{{:each numbers do}}
   <li>{{.}} {{@hut}}</li>
-  {{end}}
+{{end}}
 </ul>
 {{end}}

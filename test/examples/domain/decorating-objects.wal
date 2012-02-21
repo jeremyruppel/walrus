@@ -1,6 +1,6 @@
 <p>You can decorate as you dereference with :with</p>
 <ul>
-  {{:with response | :as( 'person' ) :as( 'hockeyPlayer' ) do}}
+{{:with response | :as( 'person' ) :as( 'hockeyPlayer' ) do}}
   <li>{{fullName( )}} plays {{positionName( )}}</li>
-  {{end}}
+{{end}}
 </ul>

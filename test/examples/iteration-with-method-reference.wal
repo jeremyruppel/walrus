@@ -1,8 +1,8 @@
 <h1>This should print a list of clients:</h1>
 <ul>
-  {{:each clients do}}
+{{:each clients do}}
   <li>
     <a href="{{@client_hash( slug )}}">{{name}}</a>
   </li>
-  {{end}}
+{{end}}
 </ul>

@@ -1,6 +1,6 @@
 <p>Use the special property `$index` to get the current index while iterating.</p>
 <ul>
-  {{:each albums do}}
+{{:each albums do}}
   <li>{{$index}}. {{title}}</li>
-  {{end}}
+{{end}}
 </ul>

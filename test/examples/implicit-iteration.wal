@@ -1,6 +1,6 @@
 <p>Implicitly reference the array item with `.`:</p>
 <ul>
-  {{:each @foods do}}
+{{:each @foods do}}
   <li>{{.}}</li>
-  {{end}}
+{{end}}
 </ul>

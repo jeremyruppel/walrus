@@ -1,7 +1,7 @@
 <p>For breakfast, I got:</p>
 <ul>
-  {{:each @foods do}}
+{{:each @foods do}}
   <li>{{name}}</li>
-  {{end}}
+{{end}}
 </ul>
 <p>Out of the three, I like bacon the most.</p>

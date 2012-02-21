@@ -379,7 +379,7 @@ case 21: return 5;
 break;
 }
 };
-lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}/,/^\{\{\s*end\b/,/^\{\{=/,/^\{\{/,/^\}\}/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^-?\d+(\.\d+)?/,/^[a-zA-Z0-9\_\$]+/,/^$/];
+lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}\n*/,/^\{\{\s*end\b/,/^\{\{=/,/^\{\{/,/^\}\}\n*/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^-?\d+(\.\d+)?/,/^[a-zA-Z0-9\_\$]+/,/^$/];
 lexer.conditions = {"mu":{"rules":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],"inclusive":false},"INITIAL":{"rules":[0,1,21],"inclusive":true}};
 return lexer;})()
 parser.lexer = lexer;
@@ -534,7 +534,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   /**
    * AST.JoinedNodeCollection
-   * Compiles all of its nodes, then joins and trims them.
+   * Compiles all of its nodes, then joins them.
   */
 
   AST.JoinedNodeCollection = (function(_super) {
@@ -546,7 +546,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     JoinedNodeCollection.prototype.compile = function(context, root, safe) {
-      return Walrus.Utils.trim(JoinedNodeCollection.__super__.compile.call(this, context, root, safe).join(''));
+      return JoinedNodeCollection.__super__.compile.call(this, context, root, safe).join('');
     };
 
     return JoinedNodeCollection;

@@ -1,6 +1,6 @@
 <p>Implicitly reference the root array with `.`:</p>
 <ul>
-  {{:each . do}}
+{{:each . do}}
   <li>{{.}}</li>
-  {{end}}
+{{end}}
 </ul>

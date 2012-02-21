@@ -1,6 +1,6 @@
 <p>You can chain filters to decorate your view object multiple times</p>
 <ul>
-  {{:each players | :as( 'person' ) :as( 'hockeyPlayer' ) do}}
+{{:each players | :as( 'person' ) :as( 'hockeyPlayer' ) do}}
   <li>{{fullName( )}} plays {{positionName( )}}</li>
-  {{end}}
+{{end}}
 </ul>

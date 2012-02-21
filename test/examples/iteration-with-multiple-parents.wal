@@ -1,10 +1,10 @@
 <p>If you're nesting iterating blocks, you can climb the $parent tree if you need to</p>
 {{:with result do}}
 <ul>
-  {{:each albums do}}
-  {{:each songs do}}
+{{:each albums do}}
+{{:each songs do}}
   <li>{{title}}, {{$parent.title}} - {{$parent.$parent.artist}}</li>
-  {{end}}
-  {{end}}
+{{end}}
+{{end}}
 </ul>
 {{end}}

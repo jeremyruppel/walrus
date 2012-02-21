@@ -22,12 +22,12 @@ class AST.NodeCollection
 
 ###*
  * AST.JoinedNodeCollection
- * Compiles all of its nodes, then joins and trims them.
+ * Compiles all of its nodes, then joins them.
 ###
 class AST.JoinedNodeCollection extends AST.NodeCollection
   constructor : ( @nodes ) ->
 
-  compile : ( context, root, safe ) -> Walrus.Utils.trim( super( context, root, safe ).join '' )
+  compile : ( context, root, safe ) -> super( context, root, safe ).join ''
 
 ###*
  * AST.DocumentNode

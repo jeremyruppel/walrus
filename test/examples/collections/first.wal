@@ -1,6 +1,6 @@
 <h1>{{numbers | :first}}</h1>
 <ul>
-  {{:each numbers | :first( 3 ) do}}
+{{:each numbers | :first( 3 ) do}}
   <li>{{.}}</li>
-  {{end}}
+{{end}}
 </ul>
