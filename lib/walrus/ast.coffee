@@ -116,10 +116,9 @@ class AST.PathNode
 
   compile : ( context, root, safe ) ->
 
-    paths = @paths.concat( )
     scope = if @local then context else root
 
-    Walrus.Utils.reduce paths, scope, ( scope, path ) -> path.compile scope, context, root, safe
+    Walrus.Utils.reduce @paths, scope, ( scope, path ) -> path.compile scope, context, root, safe
 
 ###*
  * AST.PrimitiveNode

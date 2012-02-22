@@ -700,10 +700,9 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     PathNode.prototype.compile = function(context, root, safe) {
-      var paths, scope;
-      paths = this.paths.concat();
+      var scope;
       scope = this.local ? context : root;
-      return Walrus.Utils.reduce(paths, scope, function(scope, path) {
+      return Walrus.Utils.reduce(this.paths, scope, function(scope, path) {
         return path.compile(scope, context, root, safe);
       });
     };
