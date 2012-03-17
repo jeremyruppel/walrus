@@ -1,8 +1,8 @@
 Walrus = require '../../bin/walrus'
 
-fs   = require 'fs'
-dir  = require 'path'
-exec = require( 'child_process' ).exec
+fs     = require 'fs'
+dir    = require 'path'
+should = require 'should'
 
 TestHelpers =
 
@@ -43,21 +43,10 @@ TestHelpers =
 
         tmpl = Walrus.Parser.parse spec.text
 
-        it "should pass the #{spec.name} example", ( done ) ->
+        it "should pass the #{spec.name} example", ->
 
           comp = tmpl.compile( eval( "(#{spec.json})" ) )
 
-          if comp is spec.html
-            done( )
-          else
-
-            cmd = """
-            printf "#{comp}" | diff --unified #{spec.path} -
-            """
-
-            exec cmd, ( error, stdout, stderr ) ->
-
-              done new Error "Expected did not match actual:\n" + stdout
-
+          comp.should.eql spec.html
 
 module.exports = TestHelpers
