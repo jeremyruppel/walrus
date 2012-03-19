@@ -286,6 +286,38 @@ Usage:
 {{ end }}
 ```
 
+### :after
+
+Selects all of the items in the array except for the first _count_.
+
+Parameters:
+
+	count - how many items to omit from the beginning
+
+Usage:
+
+``` html
+{{ :each numbers | :after( 3 ) do }}
+	<!-- 4 5 6 7 8 9 10 -->
+{{ end }}
+```
+
+### :before
+
+Selects all of the items in the array except for the last _count_.
+
+Parameters:
+
+	count - how many items to omit from the end
+
+Usage:
+
+``` html
+{{ :each numbers | :before( 3 ) do }}
+	<!-- 1 2 3 4 5 6 7 -->
+{{ end }}
+```
+
 ### :count
 
 Returns the length of the given array.
