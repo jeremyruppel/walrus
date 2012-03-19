@@ -1,0 +1,5 @@
+<ul>
+{{:each numbers | :before( 3 ) do}}
+  <li>{{.}}</li>
+{{end}}
+</ul>

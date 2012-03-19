@@ -43,6 +43,36 @@ Walrus.addFilter 'last', ( array, count ) ->
   if count? then array.slice -count else array[ array.length - 1 ]
 
 ###*
+ * *:after*
+ * Selects all of the items in the array except for the first _count_.
+ *
+ * Parameters:
+ *  count - how many items to omit from the beginning
+ *
+ * Usage:
+ *
+ *  {{ :each numbers | :after( 3 ) do }}
+ *    // 4 5 6 7 8 9 10
+ *  {{ end }}
+###
+Walrus.addFilter 'after', ( array, count ) -> array.slice count
+
+###*
+ * *:before*
+ * Selects all of the items in the array except for the last _count_.
+ *
+ * Parameters:
+ *  count - how many items to omit from the end
+ *
+ * Usage:
+ *
+ *  {{ :each numbers | :before( 3 ) do }}
+ *    // 1 2 3 4 5 6 7
+ *  {{ end }}
+###
+Walrus.addFilter 'before', ( array, count ) -> array.slice 0, -count
+
+###*
  * *:count*
  * Returns the length of the given array.
  *
