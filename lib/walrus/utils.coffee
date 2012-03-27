@@ -44,7 +44,7 @@ Utils =
   ###
   escape : ( value ) ->
 
-    if value.replace? then value.replace( @escapees, ( c ) => @escapes[ c ] || c ) else value
+    if value? and value.replace? then value.replace( @escapees, ( c ) => @escapes[ c ] || c ) else value
 
 # Export those utils, son.
 Walrus.Utils = Utils

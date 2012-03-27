@@ -90,5 +90,10 @@ describe 'Walrus.Utils', ->
     it 'should escape right angle brackets', -> Walrus.Utils.escape( '>' ).should.equal '&gt;'
 
     it 'should simply pass back values that are not strings', ->
-
       Walrus.Utils.escape( 123 ).should.equal 123
+
+    it 'should simply pass back `undefined`', ->
+      should.equal Walrus.Utils.escape( undefined ), undefined
+
+    it 'should simply pass back `null`', ->
+      should.equal Walrus.Utils.escape( null ), null
