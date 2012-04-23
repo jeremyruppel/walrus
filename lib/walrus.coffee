@@ -31,4 +31,11 @@ Walrus.Parser.parser.yy = Walrus.AST
 ###*
  * Export
 ###
-if require? and exports? then module.exports = Walrus else window.Walrus = Walrus
+((root, factory) ->
+  if typeof exports is "object"
+    module.exports = factory()
+  else if typeof define is "function" and define.amd
+    define "walrus", [], factory()
+  else
+    root.Walrus = factory
+) this, -> Walrus
