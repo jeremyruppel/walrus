@@ -712,6 +712,11 @@ In any case, walrus borrows ideas from each of them, so they're all worth checki
 Many of the filters in walrus are inspired or borrowed from [ActiveSupport][activesupport]. If walrus can
 be half as helpful to developers as ActiveSupport has been, it'll be a great success.
 
+## Contributors
+
+- [Eddie Leffler](https://github.com/hershmire)
+- [Curtis Steckel](https://github.com/steckel)
+
 ## License
 
 Walrus is released under the MIT license.
