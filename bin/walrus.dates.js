@@ -25,7 +25,7 @@
     var d;
     d = new Date(dateish);
     if (!isNaN(d.getMilliseconds())) return d;
-    return Date(dateish.split(/[-\s:]/));
+    return Date.apply(dateish.split(/[-\s:]/));
   };
 
   /**
