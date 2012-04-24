@@ -37,5 +37,5 @@ Walrus.Parser.parser.yy = Walrus.AST
   else if typeof define is "function" and define.amd
     define "walrus", [], factory()
   else
-    root.Walrus = factory
+    root.Walrus = factory( )
 ) this, -> Walrus

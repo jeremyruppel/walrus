@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.6.1
+ * Walrus.js 0.6.2
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
@@ -11,7 +11,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.6.1'
+    VERSION: '0.6.2'
   };
 
   /* Jison generated parser */
@@ -1165,7 +1165,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     } else if (typeof define === "function" && define.amd) {
       return define("walrus", [], factory());
     } else {
-      return root.Walrus = factory;
+      return root.Walrus = factory();
     }
   })(this, function() {
     return Walrus;

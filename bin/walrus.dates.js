@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.6.1
+ * Walrus.js 0.6.2
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
