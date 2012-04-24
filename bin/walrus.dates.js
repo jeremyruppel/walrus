@@ -5,7 +5,7 @@
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
  */
 (function() {
-  var ABBR_DAYNAMES, ABBR_MONTHNAMES, FULL_DAYNAMES, FULL_MONTHNAMES, Walrus, newDate;
+  var ABBR_DAYNAMES, ABBR_MONTHNAMES, FULL_DAYNAMES, FULL_MONTHNAMES, Walrus;
 
   Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
 
@@ -16,17 +16,6 @@
   FULL_MONTHNAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   ABBR_MONTHNAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-  /**
-   * new Date() helper for mobile safari suckitude
-  */
-
-  newDate = function(dateish) {
-    var d;
-    d = new Date(dateish);
-    if (!isNaN(d.getMilliseconds())) return d;
-    return Date.apply(dateish.split(/[-\s:]/));
-  };
 
   /**
    * *:strftime*
@@ -109,7 +98,7 @@
   Walrus.addFilter('strftime', function(dateish, format) {
     var date, pad,
       _this = this;
-    date = newDate(dateish);
+    date = new Date(dateish);
     pad = function(value, to, padding) {
       if (to == null) to = 2;
       if (padding == null) padding = '0';
@@ -230,8 +219,8 @@
     var diff, distanceInMinutes, distanceInSeconds, distanceInYears, fdate, fyear, leapYears, minuteOffsetForLeapYear, minutesWithOffset, remainder, tdate, tyear;
     if (ttime == null) ttime = 0;
     if (includeSeconds == null) includeSeconds = false;
-    fdate = newDate(ftime);
-    tdate = newDate(ttime);
+    fdate = new Date(ftime);
+    tdate = new Date(ttime);
     diff = (tdate - fdate) / 1000;
     distanceInMinutes = Math.round(Math.abs(diff) / 60);
     distanceInSeconds = Math.round(Math.abs(diff));

@@ -7,14 +7,6 @@ FULL_MONTHNAMES = [ "January", "February", "March", "April", "May", "June", "Jul
 ABBR_MONTHNAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
 
 ###*
- * new Date() helper for mobile safari suckitude
-###
-newDate = ( dateish ) ->
-  d = new Date dateish
-  return d unless isNaN( d.getMilliseconds( ) )
-  Date.apply dateish.split /[-\s:]/
-
-###*
  * *:strftime*
  * Formats a date into the string given by `format`. Accepts any value
  * that can be passed to `new Date( )`.
@@ -93,7 +85,7 @@ newDate = ( dateish ) ->
 ###
 Walrus.addFilter 'strftime', ( dateish, format ) ->
 
-  date = newDate dateish
+  date = new Date dateish
 
   pad = ( value, to=2, padding='0' ) ->
 
@@ -158,8 +150,8 @@ Walrus.Utils.leapYearsBetween = ( from, to ) ->
 ###
 Walrus.Utils.distanceOfTimeInWords = ( ftime, ttime=0, includeSeconds=false ) ->
 
-  fdate = newDate ftime
-  tdate = newDate ttime
+  fdate = new Date ftime
+  tdate = new Date ttime
 
   diff  = ( tdate - fdate ) / 1000 # javascript Date returns milliseconds, ruby Time returns seconds
 
