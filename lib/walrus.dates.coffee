@@ -12,7 +12,7 @@ ABBR_MONTHNAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 newDate = ( dateish ) ->
   d = new Date dateish
   return d unless isNaN( d.getMilliseconds( ) )
-  Date.apply dateish.split /[-\s:]/
+  Date dateish.split /[-\s:]/
 
 ###*
  * *:strftime*
