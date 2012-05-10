@@ -1,0 +1,6 @@
+{{:each foo do}}
+<p>{{.}}</p>
+{{end}}
+{{:each bar do}}
+<p>{{.}}</p>
+{{end}}

@@ -41,6 +41,8 @@ Walrus.addHelper 'each', ( expression, context, root, safe, block ) ->
 
   array = expression.compile context, root, safe
 
+  array = [ array ] unless Walrus.Utils.isArray( array )
+
   items = for item, index in array
 
     item[ '$index'  ] = index

@@ -1001,6 +1001,7 @@ if (typeof module !== 'undefined' && require.main === module) {
   Walrus.addHelper('each', function(expression, context, root, safe, block) {
     var array, index, item, items;
     array = expression.compile(context, root, safe);
+    if (!Walrus.Utils.isArray(array)) array = [array];
     items = (function() {
       var _len, _results;
       _results = [];
