@@ -4,3 +4,6 @@
   <li>{{.}}</li>
 {{end}}
 </ul>
+{{:each imageUrls | :first do}}
+<img src="{{thumb}}" />
+{{end}}
