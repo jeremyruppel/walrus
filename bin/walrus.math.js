@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.6.2
+ * Walrus.js 0.7.0
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
@@ -21,6 +21,7 @@
    *  {{ 15 | :plus( 6 ) }} // => 21
   */
 
+
   Walrus.addFilter('plus', function(value, number) {
     return value + number;
   });
@@ -36,6 +37,7 @@
    *
    *  {{ 15 | :minus( 6 ) }} // => 9
   */
+
 
   Walrus.addFilter('minus', function(value, number) {
     return value - number;
@@ -53,6 +55,7 @@
    *  {{ 15 | :gt( 5 ) }} // => true
   */
 
+
   Walrus.addFilter('gt', function(value, number) {
     return value > number;
   });
@@ -68,6 +71,7 @@
    *
    *  {{ 15 | :gte( 5 ) }} // => true
   */
+
 
   Walrus.addFilter('gte', function(value, number) {
     return value >= number;
@@ -85,6 +89,7 @@
    *  {{ 15 | :lt( 5 ) }} // => false
   */
 
+
   Walrus.addFilter('lt', function(value, number) {
     return value < number;
   });
@@ -101,6 +106,7 @@
    *  {{ 15 | :lte( 5 ) }} // => false
   */
 
+
   Walrus.addFilter('lte', function(value, number) {
     return value <= number;
   });
@@ -114,6 +120,7 @@
    * Usage:
    *  {{ 5.6 | :floor }} // => 5
   */
+
 
   Walrus.addFilter('floor', function(value) {
     return Math.floor(value);
@@ -129,6 +136,7 @@
    *  {{ 5.6 | :ceil }} // => 6
   */
 
+
   Walrus.addFilter('ceil', function(value) {
     return Math.ceil(value);
   });
@@ -142,6 +150,7 @@
    * Usage:
    *  {{ 5.6 | :round }} // => 6
   */
+
 
   Walrus.addFilter('round', function(value) {
     return Math.round(value);

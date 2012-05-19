@@ -1,0 +1,8 @@
+<p>Car price (as is): {{car | :dollar}}</p>
+<p>Car price (forced cents shown): {{car | :dollar( 0 )}}</p>
+<p>Sandwich price (as is): {{sandwich | :dollar}}</p>
+<p>Sandwich price (forced no cents shown): {{sandwich | :dollar( 0 )}}</p>
+<p>Sandwich price (forced cents shown): {{sandwich | :dollar( 2 )}}</p>
+<p>Icecream price (as is): {{icecream | :dollar}}</p>
+<p>Icecream price (forced no cents shown): {{icecream | :dollar( 0 )}}</p>
+<p>Icecream price (forced cents shown): {{icecream | :dollar( 2 )}}</p>
