@@ -1,5 +1,5 @@
 /**
- * Walrus.js 0.6.2
+ * Walrus.js 0.7.0
  * (c) 2012 Jeremy Ruppel
  * Walrus.js is freely distributable under the terms of the MIT license.
  * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
@@ -95,13 +95,18 @@
    * TODO: i18n
   */
 
+
   Walrus.addFilter('strftime', function(dateish, format) {
     var date, pad,
       _this = this;
     date = new Date(dateish);
     pad = function(value, to, padding) {
-      if (to == null) to = 2;
-      if (padding == null) padding = '0';
+      if (to == null) {
+        to = 2;
+      }
+      if (padding == null) {
+        padding = '0';
+      }
       if (("" + value).length < to) {
         return pad("" + padding + value, to, padding);
       } else {
@@ -191,6 +196,7 @@
    * returns whether or not the given year is a leap year
   */
 
+
   Walrus.Utils.isLeapYear = function(year) {
     return new Date(year, 1, 29).getDate() === 29;
   };
@@ -199,12 +205,17 @@
    * returns the number of leap years between the two given years
   */
 
+
   Walrus.Utils.leapYearsBetween = function(from, to) {
-    var count, year;
-    if (from > to) return 0;
+    var count, year, _i;
+    if (from > to) {
+      return 0;
+    }
     count = 0;
-    for (year = from; from <= to ? year <= to : year >= to; from <= to ? year++ : year--) {
-      if (this.isLeapYear(year)) count++;
+    for (year = _i = from; from <= to ? _i <= to : _i >= to; year = from <= to ? ++_i : --_i) {
+      if (this.isLeapYear(year)) {
+        count++;
+      }
     }
     return count;
   };
@@ -215,10 +226,15 @@
    * TODO i18n
   */
 
+
   Walrus.Utils.distanceOfTimeInWords = function(ftime, ttime, includeSeconds) {
     var diff, distanceInMinutes, distanceInSeconds, distanceInYears, fdate, fyear, leapYears, minuteOffsetForLeapYear, minutesWithOffset, remainder, tdate, tyear;
-    if (ttime == null) ttime = 0;
-    if (includeSeconds == null) includeSeconds = false;
+    if (ttime == null) {
+      ttime = 0;
+    }
+    if (includeSeconds == null) {
+      includeSeconds = false;
+    }
     fdate = new Date(ftime);
     tdate = new Date(ttime);
     diff = (tdate - fdate) / 1000;
@@ -265,9 +281,13 @@
         return "" + (Math.round(distanceInMinutes / 43200)) + " months";
       default:
         fyear = fdate.getFullYear();
-        if (fdate.getMonth() >= 2) fyear += 1;
+        if (fdate.getMonth() >= 2) {
+          fyear += 1;
+        }
         tyear = tdate.getFullYear();
-        if (tdate.getMonth() < 2) tyear -= 1;
+        if (tdate.getMonth() < 2) {
+          tyear -= 1;
+        }
         leapYears = Walrus.Utils.leapYearsBetween(fyear, tyear);
         minuteOffsetForLeapYear = leapYears * 1440;
         minutesWithOffset = distanceInMinutes - minuteOffsetForLeapYear;
@@ -294,6 +314,7 @@
    *
    *  {{ created_at | :time_ago_in_words( true ) }} // => "less than a minute"
   */
+
 
   Walrus.addFilter('time_ago_in_words', function(dateish, includeSeconds) {
     return Walrus.Utils.distanceOfTimeInWords(dateish, new Date(), includeSeconds);
