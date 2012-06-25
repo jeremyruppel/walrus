@@ -1,6 +1,6 @@
 
 /**
- * walrus 0.7.0
+ * walrus 0.7.1
  * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
  * Released under the MIT license.
@@ -15,7 +15,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.7.0'
+    VERSION: '0.7.1'
   };
 
   
