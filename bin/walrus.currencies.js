@@ -1,19 +1,27 @@
 (function() {
-  var Walrus, addCommas;
+  var FORMATS, Walrus, separate;
 
   Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
 
-  addCommas = function(nStr) {
-    var rgx, x, x1, x2;
-    nStr += "";
-    x = nStr.split(".");
-    x1 = x[0];
-    x2 = (x.length > 1 ? "." + x[1] : "");
-    rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-      x1 = x1.replace(rgx, "$1" + "," + "$2");
+  FORMATS = {
+    'en-US': {
+      format: function(amount) {
+        return "$" + amount;
+      },
+      separator: ','
     }
-    return x1 + x2;
+  };
+
+  separate = function(value, separator) {
+    var decimal, whole, _ref;
+    if (separator == null) separator = ',';
+    _ref = value.split('.'), whole = _ref[0], decimal = _ref[1];
+    whole = whole.replace(/(\d)(?=(\d{3})+$)/g, "$1" + separator);
+    if (decimal) {
+      return [whole, decimal].join('.');
+    } else {
+      return whole;
+    }
   };
 
   /**
@@ -21,7 +29,7 @@
    * Returns a string formatted as US dollars
    *
    * Parameters:
-   *  decimalPlace - the decimal place level to show cents
+   *  precision - the decimal place level to show cents
    *
    * Usage:
    *
@@ -29,12 +37,11 @@
    *  {{ 36000 | :dollar }} // => $36,000
   */
 
-  Walrus.addFilter('dollar', function(value, decimalPlace) {
-    if (decimalPlace != null) {
-      return '$' + addCommas(value.toFixed(decimalPlace));
-    } else {
-      return '$' + addCommas(value);
-    }
+  Walrus.addFilter('dollar', function(value, precision) {
+    var locale, moneys;
+    locale = FORMATS['en-US'];
+    moneys = precision != null ? value.toFixed(precision) : value.toString();
+    return locale.format(separate(moneys, locale.separator));
   });
 
 }).call(this);
