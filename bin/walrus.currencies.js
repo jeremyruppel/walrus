@@ -1,13 +1,7 @@
-/**
- * Walrus.js 0.7.0
- * (c) 2012 Jeremy Ruppel
- * Walrus.js is freely distributable under the terms of the MIT license.
- * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
- */
 (function() {
   var Walrus, addCommas;
 
-  Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
+  Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
 
   addCommas = function(nStr) {
     var rgx, x, x1, x2;
@@ -34,7 +28,6 @@
    *  {{ 36000 | :dollar( 2 ) }} // => $36,000.00
    *  {{ 36000 | :dollar }} // => $36,000
   */
-
 
   Walrus.addFilter('dollar', function(value, decimalPlace) {
     if (decimalPlace != null) {

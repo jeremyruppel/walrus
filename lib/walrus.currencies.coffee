@@ -1,4 +1,4 @@
-Walrus = if require? and exports? then require './walrus' else window.Walrus
+Walrus = (global ? @).Walrus
 
 addCommas = (nStr) ->
   nStr += ""
@@ -8,7 +8,7 @@ addCommas = (nStr) ->
   rgx = /(\d+)(\d{3})/
   x1 = x1.replace(rgx, "$1" + "," + "$2")  while rgx.test(x1)
   x1 + x2
-  
+
 
 ###*
  * *:dollar*
@@ -22,6 +22,5 @@ addCommas = (nStr) ->
  *  {{ 36000 | :dollar( 2 ) }} // => $36,000.00
  *  {{ 36000 | :dollar }} // => $36,000
 ###
-Walrus.addFilter 'dollar', ( value, decimalPlace ) -> 
+Walrus.addFilter 'dollar', ( value, decimalPlace ) ->
   if decimalPlace? then '$' + addCommas(value.toFixed decimalPlace) else '$' + addCommas value
-  
