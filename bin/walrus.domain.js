@@ -1,18 +1,11 @@
-/**
- * Walrus.js 0.7.0
- * (c) 2012 Jeremy Ruppel
- * Walrus.js is freely distributable under the terms of the MIT license.
- * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
- */
 (function() {
   var Walrus;
 
-  Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
+  Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
 
   /**
    * Create a namespace for all of our domain methods
   */
-
 
   Walrus.Domain = {};
 
@@ -24,7 +17,6 @@
    * Parameters:
    *  name - The key for the object on `Walrus.Domain` to decorate with
   */
-
 
   Walrus.addFilter('as', function(value, name) {
     var item, _i, _len;

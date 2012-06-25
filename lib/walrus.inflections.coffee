@@ -1,4 +1,4 @@
-Walrus = if require? and exports? then require './walrus' else window.Walrus
+Walrus = (global ? @).Walrus
 
 ###*
  * Plenty of the methods in `walrus.inflections` are borrowed from or inspired by ActiveSupport:

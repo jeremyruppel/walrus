@@ -1,9 +1,7 @@
-Walrus = require '../bin/walrus'
+require '../bin/walrus'
+require '../bin/walrus.strings'
+
 should = require 'should'
 helper = require './support/test_helpers'
 
-require '../bin/walrus.strings'
-
-describe 'Walrus.Strings', ->
-
-  helper.pass './test/examples/strings'
+describe 'Walrus.Strings', -> helper.pass './test/examples/strings'

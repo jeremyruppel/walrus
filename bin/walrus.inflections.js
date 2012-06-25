@@ -1,14 +1,8 @@
-/**
- * Walrus.js 0.7.0
- * (c) 2012 Jeremy Ruppel
- * Walrus.js is freely distributable under the terms of the MIT license.
- * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
- */
 (function() {
   var Walrus, gsub, inflect, pluralize, plurals, singularize, singulars, uncountables,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+    __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
+  Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
 
   /**
    * Plenty of the methods in `walrus.inflections` are borrowed from or inspired by ActiveSupport:
@@ -17,7 +11,6 @@
    * https://github.com/jeremyruppel/underscore.inflection
    * (Which was also inspired by and borrows from ActiveSupport)
   */
-
 
   plurals = [[/$/, 's'], [/s$/, 's'], [/(ax|test)is$/, '$1es'], [/(octop|vir)us$/, '$1i'], [/(octop|vir)i$/, '$1i'], [/(alias|status)$/, '$1es'], [/(bu)s$/, '$1ses'], [/(buffal|tomat)o$/, '$1oes'], [/([ti])um$/, '$1a'], [/([ti])a$/, '$1a'], [/sis$/, 'ses'], [/(?:([^f])fe|([lr])f)$/, '$1$2ves'], [/(hive)$/, '$1s'], [/([^aeiouy]|qu)y$/, '$1ies'], [/(x|ch|ss|sh)$/, '$1es'], [/(matr|vert|ind)(?:ix|ex)$/, '$1ices'], [/([m|l])ouse$/, '$1ice'], [/([m|l])ice$/, '$1ice'], [/^(ox)$/, '$1en'], [/^(oxen)$/, '$1'], [/(quiz)$/, '$1zes'], ['person', 'people'], ['man', 'men'], ['child', 'children'], ['sex', 'sexes'], ['move', 'moves'], ['cow', 'kine']].reverse();
 
@@ -28,9 +21,7 @@
   gsub = function(word, rule, replacement) {
     var pattern;
     pattern = new RegExp(rule.source || rule, 'gi');
-    if (pattern.test(word)) {
-      return word.replace(pattern, replacement);
-    }
+    if (pattern.test(word)) return word.replace(pattern, replacement);
   };
 
   inflect = function(word, rules) {
@@ -39,35 +30,25 @@
     for (_i = 0, _len = rules.length; _i < _len; _i++) {
       rule = rules[_i];
       sub = gsub(word, rule[0], rule[1]);
-      if (sub) {
-        result = sub;
-      }
-      if (sub) {
-        break;
-      }
+      if (sub) result = sub;
+      if (sub) break;
     }
     return result;
   };
 
   singularize = function(word) {
-    if (__indexOf.call(uncountables, word) >= 0) {
-      return word;
-    }
+    if (__indexOf.call(uncountables, word) >= 0) return word;
     return inflect(word, singulars);
   };
 
   pluralize = function(word, count, includeCount) {
     var result;
-    if (includeCount == null) {
-      includeCount = false;
-    }
+    if (includeCount == null) includeCount = false;
     if (count != null) {
       result = count === 1 ? singularize(word) : pluralize(word);
       return result = includeCount ? "" + count + " " + result : result;
     } else {
-      if (__indexOf.call(uncountables, word) >= 0) {
-        return word;
-      }
+      if (__indexOf.call(uncountables, word) >= 0) return word;
       return inflect(word, plurals);
     }
   };
@@ -91,7 +72,6 @@
    *  {{ "book" | :pluralize( 5, true ) }} // => "5 books"
   */
 
-
   Walrus.addFilter('pluralize', pluralize);
 
   /**
@@ -105,7 +85,6 @@
    *  {{ "books" | :singularize }} // => "book"
   */
 
-
   Walrus.addFilter('singularize', singularize);
 
   /**
@@ -118,7 +97,6 @@
    *
    *  {{ 5 | :ordinalize }} // => "5th"
   */
-
 
   Walrus.addFilter('ordinalize', function(value) {
     var normal, _ref;

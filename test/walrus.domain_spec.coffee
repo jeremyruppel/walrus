@@ -1,8 +1,8 @@
-Walrus = require '../bin/walrus'
+require '../bin/walrus'
+require '../bin/walrus.domain'
+
 should = require 'should'
 helper = require './support/test_helpers'
-
-require '../bin/walrus.domain'
 
 describe 'Walrus.Domain', ->
 

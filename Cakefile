@@ -1,58 +1,31 @@
-fs       = require 'fs'
-path     = require 'path'
-exec     = require( 'child_process' ).exec
-readline = require 'readline'
+{sh,mv,concat,each} = require 'frosting'
+readline            = require 'readline'
 
 # Prepend path to package.json dependencies' binaries
 process.env.PATH = "node_modules/.bin:#{process.env.PATH}"
 
-sh = ( command, callback ) ->
-
-  exec command, ( error, stdout, stderr ) ->
-
-    console.log error  if error?
-    console.log stdout if stdout?
-    console.log stderr if stderr?
-
-    callback( ) if callback?
-
-mv = ( from, to ) -> fs.renameSync from, to
-
 task 'compile', 'Compile the walrus parser', ->
-
-  sh 'jison src/walrus.yy src/walrus.l', ->
-
-    mv './walrus.js', './lib/walrus/parser.js'
+  sh 'jison src/walrus.yy src/walrus.l', -> mv './walrus.js', './lib/walrus/parser.js'
 
 task 'test', 'Run the test suite', ->
-
   sh 'mocha --reporter spec --colors'
 
 task 'build', 'Build the walrus javascripts', ->
+  concat [
+    './lib/walrus.coffee',
+    '`',
+    './lib/walrus/parser.js',
+    '`',
+    './lib/walrus/utils.coffee',
+    './lib/walrus/ast.coffee',
+    './lib/walrus/helpers.coffee',
+    './lib/walrus/filters.coffee',
+    './lib/walrus/export.coffee'
+  ], ( f ) -> f.header './package.json', -> f.compile -> f.write './bin/walrus.js'
 
-  ejs = require 'ejs'
-  cof = require 'coffee-script'
-  ugl = require 'uglify-js'
-
-  hdr = ejs.render fs.readFileSync( 'lib/header.js', 'utf8' ), fs : fs
-
-  for file in fs.readdirSync 'lib' when path.extname( file ) is '.coffee'
-
-    tmp = ejs.render fs.readFileSync( "lib/#{file}", 'utf8' ), fs : fs
-
-    dev = "bin/#{path.basename( file, '.coffee' )}.js"
-    min = "bin/#{path.basename( file, '.coffee' )}.min.js"
-
-    fs.writeFileSync dev, ( hdr + cof.compile tmp )
-
-    ast = ugl.parser.parse fs.readFileSync dev, 'utf8'
-    ast = ugl.uglify.ast_mangle ast
-    ast = ugl.uglify.ast_squeeze ast
-
-    fs.writeFileSync min, ( hdr + ugl.uglify.gen_code ast )
+  each './lib/walrus.*.coffee', ( f ) -> f.compile -> f.write "./bin/#{f.basename( )}.js"
 
 task 'all', 'Runs all build, compilation, and test tasks in order', ->
-
   invoke 'compile'
   invoke 'build'
   invoke 'test'

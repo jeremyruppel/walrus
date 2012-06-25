@@ -1,4 +1,4 @@
-Walrus = if require? and exports? then require './walrus' else window.Walrus
+Walrus = (global ? @).Walrus
 
 ###*
  * Create a namespace for all of our domain methods

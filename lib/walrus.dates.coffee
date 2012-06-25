@@ -1,4 +1,4 @@
-Walrus = if require? and exports? then require './walrus' else window.Walrus
+Walrus = (global ? @).Walrus
 
 FULL_DAYNAMES = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
 ABBR_DAYNAMES = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]

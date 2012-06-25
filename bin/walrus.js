@@ -1,20 +1,25 @@
+
 /**
- * Walrus.js 0.7.0
+ * walrus 0.7.1
+ * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
- * Walrus.js is freely distributable under the terms of the MIT license.
- * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
- */
+ * Released under the MIT license.
+ * For all details and documentation:
+ * https://github.com/jeremyruppel/walrus
+*/
+
 (function() {
   var AST, Utils, Walrus,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    __slice = [].slice;
+    __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; },
+    __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.7.0'
+    VERSION: '0.7.1'
   };
 
-  /* Jison generated parser */
+  
+/* Jison generated parser */
 var walrus = (function(){
 var parser = {trace: function trace() { },
 yy: {},
@@ -326,9 +331,6 @@ more:function () {
         this._more = true;
         return this;
     },
-less:function (n) {
-        this._input = this.match.slice(n) + this._input;
-    },
 pastInput:function () {
         var past = this.matched.substr(0, this.matched.length - this.match.length);
         return (past.length > 20 ? '...':'') + past.substr(-20).replace(/\n/g, "");
@@ -384,7 +386,6 @@ next:function () {
             this._input = this._input.slice(match[0].length);
             this.matched += match[0];
             token = this.performAction.call(this, this.yy, this, rules[index],this.conditionStack[this.conditionStack.length-1]);
-            if (this.done && this._input) this.done = false;
             if (token) return token;
             else return;
         }
@@ -469,7 +470,7 @@ case 21: return 5;
 break;
 }
 };
-lexer.rules = [/^(?:[^\x00]*?(?=(\{\{)))/,/^(?:[^\x00]+)/,/^(?:do\s*\}\}\n*)/,/^(?:\{\{\s*end\b)/,/^(?:\{\{=)/,/^(?:\{\{)/,/^(?:\}\}\n*)/,/^(?:@)/,/^(?::)/,/^(?:\|)/,/^(?:\.)/,/^(?:,)/,/^(?:\s+)/,/^(?:'[^\']*?')/,/^(?:"[^\"]*?")/,/^(?:\()/,/^(?:\))/,/^(?:true\b)/,/^(?:false\b)/,/^(?:-?\d+(\.\d+)?)/,/^(?:[a-zA-Z0-9\_\$]+)/,/^(?:$)/];
+lexer.rules = [/^[^\x00]*?(?=(\{\{))/,/^[^\x00]+/,/^do\s*\}\}\n*/,/^\{\{\s*end\b/,/^\{\{=/,/^\{\{/,/^\}\}\n*/,/^@/,/^:/,/^\|/,/^\./,/^,/,/^\s+/,/^'[^\']*?'/,/^"[^\"]*?"/,/^\(/,/^\)/,/^true\b/,/^false\b/,/^-?\d+(\.\d+)?/,/^[a-zA-Z0-9\_\$]+/,/^$/];
 lexer.conditions = {"mu":{"rules":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],"inclusive":false},"INITIAL":{"rules":[0,1,21],"inclusive":true}};
 return lexer;})()
 parser.lexer = lexer;
@@ -492,26 +493,19 @@ exports.main = function commonjsMain(args) {
 if (typeof module !== 'undefined' && require.main === module) {
   exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
 }
-};
-
-
-  /**
-   * Utils
-  */
-
+}
+;
 
   Utils = {
     /**
      * trims leading and trailing whitespace
     */
-
     trim: function(str) {
       return str.replace(/^\s+|\s+$/g, '');
     },
     /**
      * reduces a list into a single result
     */
-
     reduce: function(array, initial, method) {
       var item, memo, _i, _len;
       memo = initial;
@@ -524,21 +518,18 @@ if (typeof module !== 'undefined' && require.main === module) {
     /**
      * returns the string representation of `foo`
     */
-
     toString: function(foo) {
       return Object.prototype.toString.call(foo);
     },
     /**
      * returns whether or not `foo` is an array
     */
-
     isArray: function(foo) {
       return this.toString(foo) === '[object Array]';
     },
     /**
      * applies all properties from `bar` onto `foo`
     */
-
     extend: function(foo, bar) {
       var key, value, _results;
       _results = [];
@@ -551,7 +542,6 @@ if (typeof module !== 'undefined' && require.main === module) {
     /**
      * all of the nasty html characters to escape
     */
-
     escapees: /[&'"<>]/g,
     escapes: {
       '&': '&amp;',
@@ -563,7 +553,6 @@ if (typeof module !== 'undefined' && require.main === module) {
     /**
      * escapes nasty html characters
     */
-
     escape: function(value) {
       var _this = this;
       if ((value != null) && (value.replace != null)) {
@@ -578,11 +567,6 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Walrus.Utils = Utils;
 
-  /**
-   * AST
-  */
-
-
   AST = {};
 
   /**
@@ -590,7 +574,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * A simple wrapper node to signify safe compilation for the rest of
    * the nodes in the tree.
   */
-
 
   AST.SafeNode = (function() {
 
@@ -611,7 +594,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * A collection of nodes with the #compile interface, simply compiles
    * each of its nodes and returns the resulting array.
   */
-
 
   AST.NodeCollection = (function() {
 
@@ -639,7 +621,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * Compiles all of its nodes, then joins them.
   */
 
-
   AST.JoinedNodeCollection = (function(_super) {
 
     __extends(JoinedNodeCollection, _super);
@@ -661,13 +642,12 @@ if (typeof module !== 'undefined' && require.main === module) {
    * The root node of the document. Defaults to escaping its content.
   */
 
-
   AST.DocumentNode = (function(_super) {
 
     __extends(DocumentNode, _super);
 
     function DocumentNode() {
-      return DocumentNode.__super__.constructor.apply(this, arguments);
+      DocumentNode.__super__.constructor.apply(this, arguments);
     }
 
     DocumentNode.prototype.compile = function(context) {
@@ -682,7 +662,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * AST.ContentNode
    * A node with non-mustache content, probably HTML. We simply pass the content through.
   */
-
 
   AST.ContentNode = (function() {
 
@@ -705,7 +684,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *
    * `{{member}}`, for instance, will compile to `index[ 'member' ]`.
   */
-
 
   AST.MemberNode = (function() {
 
@@ -735,19 +713,18 @@ if (typeof module !== 'undefined' && require.main === module) {
    * `{{member( )}}`, for instance, will compile to `index[ 'member' ]( )`.
   */
 
-
   AST.MethodNode = (function() {
 
     function MethodNode(path, _arguments) {
       this.path = path;
-      this["arguments"] = _arguments;
+      this.arguments = _arguments;
     }
 
     MethodNode.prototype.compile = function(index, context, root, safe) {
       if (index[this.path] == null) {
         throw new Error("Cannot find any method named '" + this.path + "' in " + index + ".");
       }
-      return index[this.path].apply(index, this["arguments"].compile(context, root, safe));
+      return index[this.path].apply(index, this.arguments.compile(context, root, safe));
     };
 
     return MethodNode;
@@ -776,7 +753,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-
   AST.ThisNode = (function() {
 
     function ThisNode() {}
@@ -799,7 +775,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * the object path from the current context, while `{{@foo.bar.baz}}` will
    * start back up at the root view object.
   */
-
 
   AST.PathNode = (function() {
 
@@ -837,7 +812,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * and `NumberNode`.
   */
 
-
   AST.PrimitiveNode = (function() {
 
     function PrimitiveNode(value) {
@@ -869,7 +843,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{ end }}
   */
 
-
   AST.ExpressionNode = (function() {
 
     function ExpressionNode(paths, filters) {
@@ -894,7 +867,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *
    * Will throw an error if the named helper is not defined in `Walrus.Helpers`.
   */
-
 
   AST.BlockNode = (function() {
 
@@ -924,12 +896,11 @@ if (typeof module !== 'undefined' && require.main === module) {
    * Will throw an error if the named filter is not defined in `Walrus.Filters`.
   */
 
-
   AST.FilterNode = (function() {
 
     function FilterNode(name, _arguments) {
       this.name = name;
-      this["arguments"] = _arguments;
+      this.arguments = _arguments;
       if (Walrus.Filters[this.name] == null) {
         throw new Error("Cannot find any filter named '" + this.name + "'.");
       }
@@ -937,7 +908,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 
     FilterNode.prototype.apply = function(value, context, root, safe) {
       var _ref;
-      return (_ref = Walrus.Filters)[this.name].apply(_ref, [value].concat(__slice.call(this["arguments"].compile(context, root, safe))));
+      return (_ref = Walrus.Filters)[this.name].apply(_ref, [value].concat(__slice.call(this.arguments.compile(context, root, safe))));
     };
 
     return FilterNode;
@@ -949,7 +920,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * A collection of filters. Filters are applied to the expression
    * in order from left to right.
   */
-
 
   AST.FilterCollection = (function() {
 
@@ -968,11 +938,6 @@ if (typeof module !== 'undefined' && require.main === module) {
   })();
 
   Walrus.AST = AST;
-
-  /**
-   * Core Helpers
-  */
-
 
   Walrus.Helpers = {};
 
@@ -994,7 +959,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-
   Walrus.addHelper('if', function(expression, context, root, safe, block) {
     if (expression.compile(context, root, safe)) {
       return block.compile(context, root, safe);
@@ -1014,7 +978,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-
   Walrus.addHelper('unless', function(expression, context, root, safe, block) {
     if (!expression.compile(context, root, safe)) {
       return block.compile(context, root, safe);
@@ -1029,17 +992,14 @@ if (typeof module !== 'undefined' && require.main === module) {
    * for each member of the array. The compiled blocks are then joined.
   */
 
-
   Walrus.addHelper('each', function(expression, context, root, safe, block) {
     var array, index, item, items;
     array = expression.compile(context, root, safe);
-    if (!Walrus.Utils.isArray(array)) {
-      array = [array];
-    }
+    if (!Walrus.Utils.isArray(array)) array = [array];
     items = (function() {
-      var _i, _len, _results;
+      var _len, _results;
       _results = [];
-      for (index = _i = 0, _len = array.length; _i < _len; index = ++_i) {
+      for (index = 0, _len = array.length; index < _len; index++) {
         item = array[index];
         item['$index'] = index;
         item['$parent'] = context;
@@ -1062,18 +1022,12 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{end}}
   */
 
-
   Walrus.addHelper('with', function(expression, context, root, safe, block) {
     var subcontext;
     subcontext = expression.compile(context, root, safe);
     subcontext['$parent'] = context;
     return block.compile(subcontext, root, safe);
   });
-
-  /**
-   * Core Filters
-  */
-
 
   Walrus.Filters = {};
 
@@ -1098,7 +1052,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{ end }}
   */
 
-
   Walrus.addFilter('equals', function(value, foo) {
     return value === foo;
   });
@@ -1115,7 +1068,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *
    *  {{ 'active' | :if( true ) }} // => "active"
   */
-
 
   Walrus.addFilter('if', function(value, condition) {
     if (condition) {
@@ -1138,7 +1090,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{ 'active' | :unless( true ) }} // => ""
   */
 
-
   Walrus.addFilter('unless', function(value, condition) {
     if (!condition) {
       return value;
@@ -1159,7 +1110,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{ false | :or( "Not Specified" ) }} // => "Not Specified"
   */
 
-
   Walrus.addFilter('or', function(value, foo) {
     return value || foo;
   });
@@ -1177,7 +1127,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    *  {{ @root | :log( 'wtf' ) }} // => Console logs: [object Object], 'wtf'
   */
 
-
   Walrus.addFilter('log', function() {
     if ((typeof console !== "undefined" && console !== null) && (console.log != null)) {
       return console.log.apply(console, ['[Walrus]'].concat(__slice.call(arguments)));
@@ -1187,7 +1136,6 @@ if (typeof module !== 'undefined' && require.main === module) {
   /**
    * Setup
   */
-
 
   Walrus.Parser = {
     parser: walrus,
@@ -1202,17 +1150,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * Export
   */
 
-
-  (function(root, factory) {
-    if (typeof exports === "object") {
-      return module.exports = factory();
-    } else if (typeof define === "function" && define.amd) {
-      return define("walrus", [], factory());
-    } else {
-      return root.Walrus = factory();
-    }
-  })(this, function() {
-    return Walrus;
-  });
+  (typeof global !== "undefined" && global !== null ? global : this).Walrus = Walrus;
 
 }).call(this);
