@@ -1,9 +1,13 @@
+
 /**
- * Walrus.js 0.7.0
+ * walrus 0.7.0
+ * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
- * Walrus.js is freely distributable under the terms of the MIT license.
- * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
- */
+ * Released under the MIT license.
+ * For all details and documentation:
+ * https://github.com/jeremyruppel/walrus
+*/
+
 (function() {
   var AST, Utils, Walrus,
     __hasProp = Object.prototype.hasOwnProperty,
@@ -14,7 +18,8 @@
     VERSION: '0.7.0'
   };
 
-  /* Jison generated parser */
+  
+/* Jison generated parser */
 var walrus = (function(){
 var parser = {trace: function trace() { },
 yy: {},
@@ -488,11 +493,8 @@ exports.main = function commonjsMain(args) {
 if (typeof module !== 'undefined' && require.main === module) {
   exports.main(typeof process !== 'undefined' ? process.argv.slice(1) : require("system").args);
 }
-};
-
-  /**
-   * Utils
-  */
+}
+;
 
   Utils = {
     /**
@@ -564,10 +566,6 @@ if (typeof module !== 'undefined' && require.main === module) {
   };
 
   Walrus.Utils = Utils;
-
-  /**
-   * AST
-  */
 
   AST = {};
 
@@ -941,10 +939,6 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Walrus.AST = AST;
 
-  /**
-   * Core Helpers
-  */
-
   Walrus.Helpers = {};
 
   Walrus.addHelper = function(name, fn) {
@@ -1034,10 +1028,6 @@ if (typeof module !== 'undefined' && require.main === module) {
     subcontext['$parent'] = context;
     return block.compile(subcontext, root, safe);
   });
-
-  /**
-   * Core Filters
-  */
 
   Walrus.Filters = {};
 
@@ -1155,21 +1145,5 @@ if (typeof module !== 'undefined' && require.main === module) {
   };
 
   Walrus.Parser.parser.yy = Walrus.AST;
-
-  /**
-   * Export
-  */
-
-  (function(root, factory) {
-    if (typeof exports === "object") {
-      return module.exports = factory();
-    } else if (typeof define === "function" && define.amd) {
-      return define("walrus", [], factory());
-    } else {
-      return root.Walrus = factory();
-    }
-  })(this, function() {
-    return Walrus;
-  });
 
 }).call(this);
