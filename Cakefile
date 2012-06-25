@@ -32,7 +32,6 @@ task 'build', 'Build the walrus javascripts', ->
 
   ejs = require 'ejs'
   cof = require 'coffee-script'
-  ugl = require 'uglify-js'
 
   hdr = ejs.render fs.readFileSync( 'lib/header.js', 'utf8' ), fs : fs
 
@@ -41,15 +40,8 @@ task 'build', 'Build the walrus javascripts', ->
     tmp = ejs.render fs.readFileSync( "lib/#{file}", 'utf8' ), fs : fs
 
     dev = "bin/#{path.basename( file, '.coffee' )}.js"
-    min = "bin/#{path.basename( file, '.coffee' )}.min.js"
 
     fs.writeFileSync dev, ( hdr + cof.compile tmp )
-
-    ast = ugl.parser.parse fs.readFileSync dev, 'utf8'
-    ast = ugl.uglify.ast_mangle ast
-    ast = ugl.uglify.ast_squeeze ast
-
-    fs.writeFileSync min, ( hdr + ugl.uglify.gen_code ast )
 
 task 'all', 'Runs all build, compilation, and test tasks in order', ->
 
