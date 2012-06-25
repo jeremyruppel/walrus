@@ -1,10 +1,10 @@
-Walrus = require '../bin/walrus'
+require '../bin/walrus'
+require '../bin/walrus.dates'
+
 should = require 'should'
 helper = require './support/test_helpers'
 
 require './support/date_helpers'
-
-require '../bin/walrus.dates'
 
 describe 'Walrus.Dates', ->
 

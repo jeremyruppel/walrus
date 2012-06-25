@@ -1,14 +1,8 @@
-/**
- * Walrus.js 0.7.0
- * (c) 2012 Jeremy Ruppel
- * Walrus.js is freely distributable under the terms of the MIT license.
- * https://raw.github.com/jeremyruppel/walrus/master/LICENSE
- */
 (function() {
   var Walrus, gsub, inflect, pluralize, plurals, singularize, singulars, uncountables,
     __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  Walrus = (typeof require !== "undefined" && require !== null) && (typeof exports !== "undefined" && exports !== null) ? require('./walrus') : window.Walrus;
+  Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
 
   /**
    * Plenty of the methods in `walrus.inflections` are borrowed from or inspired by ActiveSupport:

@@ -1146,4 +1146,10 @@ if (typeof module !== 'undefined' && require.main === module) {
 
   Walrus.Parser.parser.yy = Walrus.AST;
 
+  /**
+   * Export
+  */
+
+  (typeof global !== "undefined" && global !== null ? global : this).Walrus = Walrus;
+
 }).call(this);

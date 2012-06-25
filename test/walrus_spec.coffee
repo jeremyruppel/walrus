@@ -1,4 +1,5 @@
-Walrus = require '../bin/walrus'
+require '../bin/walrus'
+
 should = require 'should'
 helper = require './support/test_helpers'
 

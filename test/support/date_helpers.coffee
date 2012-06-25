@@ -1,4 +1,4 @@
-Walrus = require '../../bin/walrus'
+require '../../bin/walrus'
 
 class Duration
 
