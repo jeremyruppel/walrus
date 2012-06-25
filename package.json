@@ -7,18 +7,27 @@
     "url": "https://github.com/jeremyruppel/walrus"
   },
   "engines": {
-    "node": "~v0.4.1"
+    "node": ">= 0.6"
   },
+  "keywords":[
+    "template",
+    "templating",
+    "mustache",
+    "handlebars",
+    "client side",
+    "action view"
+  ],
   "main": "./lib/walrus",
   "dependencies": {},
   "devDependencies": {
-    "jison":"0.3.2",
-    "mocha":"0.14.1",
-    "should":"0.6.0",
-    "ejs":"0.6.1",
-    "coffee-script":"1.2.0",
-    "uglify-js":"1.2.5"
+    "jison"         :"0.3.2",
+    "mocha"         :"0.14.1",
+    "should"        :"0.6.0",
+    "ejs"           :"0.6.1",
+    "coffee-script" :"1.2.0",
+    "uglify-js"     :"1.2.5"
   },
+  "license":"MIT",
   "scripts": {
     "test": "mocha"
   }
