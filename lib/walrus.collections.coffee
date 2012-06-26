@@ -113,3 +113,40 @@ Walrus.addFilter 'any', ( array ) -> array.length > 0
  *  {{ numbers | :empty }} // => false
 ###
 Walrus.addFilter 'empty', ( array ) -> array.length is 0
+
+###*
+ * *:join*
+ * Joins an array into a string, optionally with a separator
+ *
+ * Parameters:
+ *  separator - (Optional) string to join on
+ *
+ * Usage:
+ *
+ *  var numbers [ 1, 2, 3 ];
+ *
+ *  {{ numbers | :join }} // => "123"
+ *  {{ numbers | :join( ', ' ) }} // => "1, 2, 3"
+###
+Walrus.addFilter 'join', ( array, separator='' ) -> array.join separator
+
+###*
+ * *:sort*
+ * Sorts the members of an array, optionally by a specific field
+ *
+ * Parameters:
+ *  field - (Optional) field to compare by
+ *
+ * Usage:
+ *
+ *  var names = [ 'Billy', 'Alex', 'Don' ]
+ *
+ *  {{ names | :sort }} // => [ 'Alex', 'Billy', 'Don' ]
+ *  {{ names | :sort( 'length' ) }} // [ 'Don', 'Billy', 'Alex' ]
+###
+Walrus.addFilter 'sort', ( array, field ) ->
+  if field?
+    array.sort ( one, two ) -> one[ field ] > two[ field ]
+  else
+    array.sort( )
+

@@ -142,4 +142,49 @@
     return array.length === 0;
   });
 
+  /**
+   * *:join*
+   * Joins an array into a string, optionally with a separator
+   *
+   * Parameters:
+   *  separator - (Optional) string to join on
+   *
+   * Usage:
+   *
+   *  var numbers [ 1, 2, 3 ];
+   *
+   *  {{ numbers | :join }} // => "123"
+   *  {{ numbers | :join( ', ' ) }} // => "1, 2, 3"
+  */
+
+  Walrus.addFilter('join', function(array, separator) {
+    if (separator == null) separator = '';
+    return array.join(separator);
+  });
+
+  /**
+   * *:sort*
+   * Sorts the members of an array, optionally by a specific field
+   *
+   * Parameters:
+   *  field - (Optional) field to compare by
+   *
+   * Usage:
+   *
+   *  var names = [ 'Billy', 'Alex', 'Don' ]
+   *
+   *  {{ names | :sort }} // => [ 'Alex', 'Billy', 'Don' ]
+   *  {{ names | :sort( 'length' ) }} // [ 'Don', 'Billy', 'Alex' ]
+  */
+
+  Walrus.addFilter('sort', function(array, field) {
+    if (field != null) {
+      return array.sort(function(one, two) {
+        return one[field] > two[field];
+      });
+    } else {
+      return array.sort();
+    }
+  });
+
 }).call(this);

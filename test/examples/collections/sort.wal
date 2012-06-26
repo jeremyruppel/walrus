@@ -1,0 +1,7 @@
+<p>{{ numbers | :sort :join( ', ' ) }}</p>
+{{ :each players | :sort( 'first' ) do }}
+<p>{{ first }} {{ last }}</p>
+{{ end }}
+{{ :each players | :sort( 'last' ) do }}
+<p>{{ first }} {{ last }}</p>
+{{ end }}
