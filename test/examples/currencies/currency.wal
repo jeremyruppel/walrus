@@ -1,8 +1,8 @@
-<p>Car price (as is): {{car | :currency}}</p>
-<p>Car price (forced cents shown): {{car | :currency( 0 )}}</p>
-<p>Sandwich price (as is): {{sandwich | :currency}}</p>
-<p>Sandwich price (forced no cents shown): {{sandwich | :currency( 0 )}}</p>
-<p>Sandwich price (forced cents shown): {{sandwich | :currency( 2 )}}</p>
-<p>Icecream price (as is): {{icecream | :currency}}</p>
-<p>Icecream price (forced no cents shown): {{icecream | :currency( 0 )}}</p>
-<p>Icecream price (forced cents shown): {{icecream | :currency( 2 )}}</p>
+<p>Car price (locale default precision): {{car | :currency}}</p>
+<p>Car price (forced cents shown): {{car | :currency( '$', 0 )}}</p>
+<p>Sandwich price (locale default precision): {{sandwich | :currency}}</p>
+<p>Sandwich price (forced no cents shown): {{sandwich | :currency( '$', 0 )}}</p>
+<p>Sandwich price (forced cents shown): {{sandwich | :currency( '$', 2 )}}</p>
+<p>Icecream price (locale default precision): {{icecream | :currency}}</p>
+<p>Icecream price (forced no cents shown): {{icecream | :currency( '$', 0 )}}</p>
+<p>Icecream price (forced cents shown): {{icecream | :currency( '$', 2 )}}</p>

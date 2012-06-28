@@ -26,8 +26,10 @@ Walrus.i18n = {
 
   en :
     currencies :
-      format    : '$%{amount}'
-      separator : ','
+      symbol    : '$'
+      precision : 2
+      decimal   : '.'
+      thousand  : ','
     dates :
       full_daynames : [
         'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'

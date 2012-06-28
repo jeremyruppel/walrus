@@ -1,6 +1,6 @@
 
 /**
- * walrus 0.7.3
+ * walrus 0.8.0
  * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
  * Released under the MIT license.
@@ -15,7 +15,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.7.3'
+    VERSION: '0.8.0'
   };
 
   
@@ -527,8 +527,10 @@ if (typeof module !== 'undefined' && require.main === module) {
     },
     en: {
       currencies: {
-        format: '$%{amount}',
-        separator: ','
+        symbol: '$',
+        precision: 2,
+        decimal: '.',
+        thousand: ','
       },
       dates: {
         full_daynames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
