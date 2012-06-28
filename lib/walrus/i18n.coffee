@@ -25,6 +25,9 @@ Walrus.i18n = {
       throw new Error "Missing translation: #{@locale}.#{keypath}"
 
   en :
+    currencies :
+      format    : '$%{amount}'
+      separator : ','
     dates :
       full_daynames : [
         'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'

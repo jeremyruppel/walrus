@@ -526,6 +526,10 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
     },
     en: {
+      currencies: {
+        format: '$%{amount}',
+        separator: ','
+      },
       dates: {
         full_daynames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         abbr_daynames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
