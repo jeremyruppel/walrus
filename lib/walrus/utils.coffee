@@ -46,5 +46,17 @@ Utils =
 
     if value? and value.replace? then value.replace( @escapees, ( c ) => @escapes[ c ] || c ) else value
 
+  ###*
+   * looks up a nested property on an object
+  ###
+  keypath : ( path, object ) ->
+    @reduce path.split( '.' ), object, ( memo, key ) -> memo[ key ]
+
+  ###*
+   * inserts values into a string
+  ###
+  interpolate : ( string, context={} ) ->
+    string.replace /%{(\w+)}/g, ( match, key ) -> context[ key ] || match
+
 # Export those utils, son.
 Walrus.Utils = Utils

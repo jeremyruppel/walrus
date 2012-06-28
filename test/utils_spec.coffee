@@ -98,3 +98,28 @@ describe 'Walrus.Utils', ->
 
     it 'should simply pass back `null`', ->
       should.equal Walrus.Utils.escape( null ), null
+
+  describe '#keypath', ->
+
+    it 'should be defined', -> should.exist Walrus.Utils.keypath
+
+    it 'should retrieve the value of a deeply nested property', ->
+
+      foo = { bar : { baz : 'woot' } }
+
+      Walrus.Utils.keypath( 'bar.baz', foo ).should.equal 'woot'
+
+  describe '#interpolate', ->
+
+    it 'should be defined', -> should.exist Walrus.Utils.interpolate
+
+    before -> @context = foo : 'foo!', bar : 'bar!'
+
+    it 'should fill in the named values', ->
+      Walrus.Utils.interpolate( 'sup %{foo}?', @context ).should.equal 'sup foo!?'
+
+    it 'should fill in a value more than once', ->
+      Walrus.Utils.interpolate( '%{foo} %{foo}', @context ).should.equal 'foo! foo!'
+
+    it 'should ignore missing keys', ->
+      Walrus.Utils.interpolate( '%{foo} %{wut}', @context ).should.equal 'foo! %{wut}'

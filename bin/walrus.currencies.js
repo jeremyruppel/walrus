@@ -1,47 +1,57 @@
 (function() {
-  var FORMATS, Walrus, separate;
+  var Walrus, locale, separate;
 
   Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
 
-  FORMATS = {
-    'en-US': {
-      format: function(amount) {
-        return "$" + amount;
-      },
-      separator: ','
-    }
-  };
-
-  separate = function(value, separator) {
-    var decimal, whole, _ref;
-    if (separator == null) separator = ',';
-    _ref = value.split('.'), whole = _ref[0], decimal = _ref[1];
-    whole = whole.replace(/(\d)(?=(\d{3})+$)/g, "$1" + separator);
-    if (decimal) {
-      return [whole, decimal].join('.');
+  separate = function(value, thousands, decimal) {
+    var fraction, whole, _ref;
+    _ref = value.split(decimal), whole = _ref[0], fraction = _ref[1];
+    whole = whole.replace(/(\d)(?=(\d{3})+$)/g, "$1" + thousands);
+    if (fraction) {
+      return [whole, fraction].join(decimal);
     } else {
       return whole;
     }
   };
 
   /**
-   * *:dollar*
-   * Returns a string formatted as US dollars
+   * *:currency*
+   * Returns a string formatted in the current locale's format.
+   * Delegates to [accounting.js](http://josscrowcroft.github.com/accounting.js/) if present.
    *
    * Parameters:
-   *  precision - the decimal place level to show cents
+   *  precision - the decimal place level to show cents, if applicable
    *
    * Usage:
    *
-   *  {{ 36000 | :dollar( 2 ) }} // => $36,000.00
-   *  {{ 36000 | :dollar }} // => $36,000
+   *  {{ 36000 | :currency( '$', 2 ) }} // => $36,000.00
+   *  {{ 36000 | :currency }} // => $36,000
   */
 
-  Walrus.addFilter('dollar', function(value, precision) {
-    var locale, moneys;
-    locale = FORMATS['en-US'];
-    moneys = precision != null ? value.toFixed(precision) : value.toString();
-    return locale.format(separate(moneys, locale.separator));
-  });
+  locale = Walrus.i18n.l('currencies');
+
+  if (typeof accounting !== "undefined" && accounting !== null) {
+    accounting.settings.currency.symbol = locale.symbol;
+    accounting.settings.currency.decimal = locale.decimal;
+    accounting.settings.currency.precision = locale.precision;
+    accounting.settings.currency.thousand = locale.thousand;
+    Walrus.addFilter('currency', function() {
+      return accounting.formatMoney.apply(accounting, arguments);
+    });
+    Walrus.addFilter('formatMoney', function() {
+      return accounting.formatMoney.apply(accounting, arguments);
+    });
+  } else {
+    Walrus.addFilter('currency', function(value, symbol, precision, decimal, thousand) {
+      var amount, moneys;
+      if (symbol == null) symbol = locale.symbol;
+      if (precision == null) precision = locale.precision;
+      if (decimal == null) decimal = locale.decimal;
+      if (thousand == null) thousand = locale.thousand;
+      moneys = value.toFixed(precision);
+      amount = separate(moneys, thousand, decimal);
+      return "" + symbol + amount;
+    });
+  }
 
 }).call(this);

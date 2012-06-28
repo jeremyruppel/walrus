@@ -364,18 +364,21 @@ var numbers = [ 1, 2, 3, 4, 5 ];
 
 `walrus.currencies` contains helpers and filters that are useful when working with dolla bills.
 
-### :dollar
+### :currency
 
-Returns a string formatted as US dollars
+Returns a string formatted in the current locale's format.
+Delegates to [accounting.js](http://josscrowcroft.github.com/accounting.js/) if present.
 
 Parameters:
-
+  symbol - (Optional) the currency symbol to use
 	precision - (Optional) the decimal place level to show cents
+	decimal - (Optional) the character used to delimit decimals
+	thousand - (Optional) the character used to delimit thousands
 
 Usage:
 
-	{{ 36000 | :dollar( 2 ) }} // => $36,000.00
-	{{ 36000 | :dollar }} // => $36,000
+	{{ 36000 | :currency }} // => $36,000.00
+	{{ 36000 | :currency( '$', 0 ) }} // => $36,000
 
 ## Walrus.Dates
 
