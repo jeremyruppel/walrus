@@ -496,6 +496,8 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 ;
 
+  Walrus.i18n = {};
+
   Utils = {
     /**
      * trims leading and trailing whitespace

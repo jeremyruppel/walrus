@@ -16,6 +16,7 @@ task 'build', 'Build the walrus javascripts', ->
     '`',
     './lib/walrus/parser.js',
     '`',
+    './lib/walrus/i18n.coffee',
     './lib/walrus/utils.coffee',
     './lib/walrus/ast.coffee',
     './lib/walrus/helpers.coffee',
