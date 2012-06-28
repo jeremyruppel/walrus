@@ -1,11 +1,5 @@
 Walrus = (global ? @).Walrus
 
-FULL_DAYNAMES = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
-ABBR_DAYNAMES = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
-
-FULL_MONTHNAMES = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-ABBR_MONTHNAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
-
 ###*
  * *:strftime*
  * Formats a date into the string given by `format`. Accepts any value
@@ -80,8 +74,6 @@ ABBR_MONTHNAMES = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
  *           %y    is replaced by the year without century as a decimal number (00-99).
  *
  *           %Z    is replaced by the time zone name.
- *
- * TODO: i18n
 ###
 Walrus.addFilter 'strftime', ( dateish, format ) ->
 
@@ -94,10 +86,10 @@ Walrus.addFilter 'strftime', ( dateish, format ) ->
   format.replace /%(.)/g, ( input ) =>
 
     switch input
-      when '%a' then ABBR_DAYNAMES[ date.getDay( ) ]
-      when '%A' then FULL_DAYNAMES[ date.getDay( ) ]
-      when '%b' then ABBR_MONTHNAMES[ date.getMonth( ) ]
-      when '%B' then FULL_MONTHNAMES[ date.getMonth( ) ]
+      when '%a' then Walrus.i18n.l( 'dates.abbr_daynames'   )[ date.getDay( )   ]
+      when '%A' then Walrus.i18n.l( 'dates.full_daynames'   )[ date.getDay( )   ]
+      when '%b' then Walrus.i18n.l( 'dates.abbr_monthnames' )[ date.getMonth( ) ]
+      when '%B' then Walrus.i18n.l( 'dates.full_monthnames' )[ date.getMonth( ) ]
       when '%D' then @strftime date, '%m/%d/%y'
       when '%d' then pad( date.getDate( ) )
       when '%e' then date.getDate( )
@@ -112,7 +104,7 @@ Walrus.addFilter 'strftime', ( dateish, format ) ->
       when '%m' then pad( ( date.getMonth( ) + 1 ) )
       when '%n' then "\n"
       when '%p'
-        if date.getHours( ) > 12 then 'PM' else 'AM'
+        if date.getHours( ) > 12 then Walrus.i18n.t( 'dates.pm' ) else Walrus.i18n.t( 'dates.am' )
       when '%R' then @strftime date, '%H:%M'
       when '%r' then @strftime date, '%I:%M:%S %p'
       when '%S' then pad( date.getSeconds( ) )
@@ -145,10 +137,12 @@ Walrus.Utils.leapYearsBetween = ( from, to ) ->
 
 ###*
  * returns the distance between two times in words
- *
- * TODO i18n
 ###
 Walrus.Utils.distanceOfTimeInWords = ( ftime, ttime=0, includeSeconds=false ) ->
+
+  t = ( keypath, count=1 ) ->
+    amount = if count is 1 then 'one' else 'other'
+    Walrus.i18n.t "dates.distance_in_words.#{keypath}.#{amount}", count : count
 
   fdate = new Date ftime
   tdate = new Date ttime
@@ -158,28 +152,30 @@ Walrus.Utils.distanceOfTimeInWords = ( ftime, ttime=0, includeSeconds=false ) ->
   distanceInMinutes = Math.round( Math.abs( diff ) / 60 )
   distanceInSeconds = Math.round( Math.abs( diff ) )
 
+  d = ( divisor=1 ) -> Math.round( distanceInMinutes / divisor )
+
   switch
     when 0        <= distanceInMinutes <= 1
 
       unless includeSeconds
-        if distanceInMinutes is 0 then "less than a minute" else "1 minute"
+        if distanceInMinutes is 0 then t( 'less_than_x_minutes' ) else t( 'x_minutes' )
 
       else
         switch
-          when 0  <= distanceInSeconds <= 4      then "less than 5 seconds"
-          when 5  <= distanceInSeconds <= 9      then "less than 10 seconds"
-          when 10 <= distanceInSeconds <= 19     then "less than 20 seconds"
-          when 20 <= distanceInSeconds <= 39     then "half a minute"
-          when 40 <= distanceInSeconds <= 59     then "less than a minute"
+          when 0  <= distanceInSeconds <= 4      then t( 'less_than_x_seconds', 5  )
+          when 5  <= distanceInSeconds <= 9      then t( 'less_than_x_seconds', 10 )
+          when 10 <= distanceInSeconds <= 19     then t( 'less_than_x_seconds', 20 )
+          when 20 <= distanceInSeconds <= 39     then t( 'half_a_minute' )
+          when 40 <= distanceInSeconds <= 59     then t( 'less_than_x_minutes' )
           else "1 minute"
 
-    when 2        <= distanceInMinutes <= 44     then "#{distanceInMinutes} minutes"
-    when 45       <= distanceInMinutes <= 89     then "about 1 hour"
-    when 90       <= distanceInMinutes <= 1439   then "about #{Math.round( distanceInMinutes / 60 )} hours"
-    when 1440     <= distanceInMinutes <= 2519   then "1 day"
-    when 2520     <= distanceInMinutes <= 43199  then "#{Math.round( distanceInMinutes / 1440 )} days"
-    when 43200    <= distanceInMinutes <= 86399  then "about 1 month"
-    when 86400    <= distanceInMinutes <= 525599 then "#{Math.round( distanceInMinutes / 43200 )} months"
+    when 2        <= distanceInMinutes <= 44     then t( 'x_minutes', d( ) )
+    when 45       <= distanceInMinutes <= 89     then t( 'about_x_hours' )
+    when 90       <= distanceInMinutes <= 1439   then t( 'about_x_hours', d( 60 ) )
+    when 1440     <= distanceInMinutes <= 2519   then t( 'x_days' )
+    when 2520     <= distanceInMinutes <= 43199  then t( 'x_days', d( 1440 ) )
+    when 43200    <= distanceInMinutes <= 86399  then t( 'about_x_months' )
+    when 86400    <= distanceInMinutes <= 525599 then t( 'x_months', d( 43200 ) )
     else
       fyear  = fdate.getFullYear( )
       fyear += 1 if fdate.getMonth( ) >= 2
@@ -195,13 +191,11 @@ Walrus.Utils.distanceOfTimeInWords = ( ftime, ttime=0, includeSeconds=false ) ->
       distanceInYears   = Math.floor( minutesWithOffset / 525600 )
 
       if remainder < 131400
-        "about #{distanceInYears} #{if distanceInYears is 1 then 'year' else 'years'}"
+        t( 'about_x_years', distanceInYears )
       else if remainder < 394200
-        "over #{distanceInYears} #{if distanceInYears is 1 then 'year' else 'years'}"
+        t( 'over_x_years', distanceInYears )
       else
-        "almost #{distanceInYears + 1} years"
-
-
+        t( 'almost_x_years', distanceInYears + 1 )
 
 ###*
  * *:time_ago_in_words*

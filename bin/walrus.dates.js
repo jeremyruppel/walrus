@@ -1,15 +1,7 @@
 (function() {
-  var ABBR_DAYNAMES, ABBR_MONTHNAMES, FULL_DAYNAMES, FULL_MONTHNAMES, Walrus;
+  var Walrus;
 
   Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
-
-  FULL_DAYNAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-  ABBR_DAYNAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-  FULL_MONTHNAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-  ABBR_MONTHNAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   /**
    * *:strftime*
@@ -85,8 +77,6 @@
    *           %y    is replaced by the year without century as a decimal number (00-99).
    *
    *           %Z    is replaced by the time zone name.
-   *
-   * TODO: i18n
   */
 
   Walrus.addFilter('strftime', function(dateish, format) {
@@ -105,13 +95,13 @@
     return format.replace(/%(.)/g, function(input) {
       switch (input) {
         case '%a':
-          return ABBR_DAYNAMES[date.getDay()];
+          return Walrus.i18n.l('dates.abbr_daynames')[date.getDay()];
         case '%A':
-          return FULL_DAYNAMES[date.getDay()];
+          return Walrus.i18n.l('dates.full_daynames')[date.getDay()];
         case '%b':
-          return ABBR_MONTHNAMES[date.getMonth()];
+          return Walrus.i18n.l('dates.abbr_monthnames')[date.getMonth()];
         case '%B':
-          return FULL_MONTHNAMES[date.getMonth()];
+          return Walrus.i18n.l('dates.full_monthnames')[date.getMonth()];
         case '%D':
           return _this.strftime(date, '%m/%d/%y');
         case '%d':
@@ -146,9 +136,9 @@
           return "\n";
         case '%p':
           if (date.getHours() > 12) {
-            return 'PM';
+            return Walrus.i18n.t('dates.pm');
           } else {
-            return 'AM';
+            return Walrus.i18n.t('dates.am');
           }
           break;
         case '%R':
@@ -205,58 +195,68 @@
 
   /**
    * returns the distance between two times in words
-   *
-   * TODO i18n
   */
 
   Walrus.Utils.distanceOfTimeInWords = function(ftime, ttime, includeSeconds) {
-    var diff, distanceInMinutes, distanceInSeconds, distanceInYears, fdate, fyear, leapYears, minuteOffsetForLeapYear, minutesWithOffset, remainder, tdate, tyear;
+    var d, diff, distanceInMinutes, distanceInSeconds, distanceInYears, fdate, fyear, leapYears, minuteOffsetForLeapYear, minutesWithOffset, remainder, t, tdate, tyear;
     if (ttime == null) ttime = 0;
     if (includeSeconds == null) includeSeconds = false;
+    t = function(keypath, count) {
+      var amount;
+      if (count == null) count = 1;
+      amount = count === 1 ? 'one' : 'other';
+      return Walrus.i18n.t("dates.distance_in_words." + keypath + "." + amount, {
+        count: count
+      });
+    };
     fdate = new Date(ftime);
     tdate = new Date(ttime);
     diff = (tdate - fdate) / 1000;
     distanceInMinutes = Math.round(Math.abs(diff) / 60);
     distanceInSeconds = Math.round(Math.abs(diff));
+    d = function(divisor) {
+      if (divisor == null) divisor = 1;
+      return Math.round(distanceInMinutes / divisor);
+    };
     switch (false) {
       case !((0 <= distanceInMinutes && distanceInMinutes <= 1)):
         if (!includeSeconds) {
           if (distanceInMinutes === 0) {
-            return "less than a minute";
+            return t('less_than_x_minutes');
           } else {
-            return "1 minute";
+            return t('x_minutes');
           }
         } else {
           switch (false) {
             case !((0 <= distanceInSeconds && distanceInSeconds <= 4)):
-              return "less than 5 seconds";
+              return t('less_than_x_seconds', 5);
             case !((5 <= distanceInSeconds && distanceInSeconds <= 9)):
-              return "less than 10 seconds";
+              return t('less_than_x_seconds', 10);
             case !((10 <= distanceInSeconds && distanceInSeconds <= 19)):
-              return "less than 20 seconds";
+              return t('less_than_x_seconds', 20);
             case !((20 <= distanceInSeconds && distanceInSeconds <= 39)):
-              return "half a minute";
+              return t('half_a_minute');
             case !((40 <= distanceInSeconds && distanceInSeconds <= 59)):
-              return "less than a minute";
+              return t('less_than_x_minutes');
             default:
               return "1 minute";
           }
         }
         break;
       case !((2 <= distanceInMinutes && distanceInMinutes <= 44)):
-        return "" + distanceInMinutes + " minutes";
+        return t('x_minutes', d());
       case !((45 <= distanceInMinutes && distanceInMinutes <= 89)):
-        return "about 1 hour";
+        return t('about_x_hours');
       case !((90 <= distanceInMinutes && distanceInMinutes <= 1439)):
-        return "about " + (Math.round(distanceInMinutes / 60)) + " hours";
+        return t('about_x_hours', d(60));
       case !((1440 <= distanceInMinutes && distanceInMinutes <= 2519)):
-        return "1 day";
+        return t('x_days');
       case !((2520 <= distanceInMinutes && distanceInMinutes <= 43199)):
-        return "" + (Math.round(distanceInMinutes / 1440)) + " days";
+        return t('x_days', d(1440));
       case !((43200 <= distanceInMinutes && distanceInMinutes <= 86399)):
-        return "about 1 month";
+        return t('about_x_months');
       case !((86400 <= distanceInMinutes && distanceInMinutes <= 525599)):
-        return "" + (Math.round(distanceInMinutes / 43200)) + " months";
+        return t('x_months', d(43200));
       default:
         fyear = fdate.getFullYear();
         if (fdate.getMonth() >= 2) fyear += 1;
@@ -268,11 +268,11 @@
         remainder = minutesWithOffset % 525600;
         distanceInYears = Math.floor(minutesWithOffset / 525600);
         if (remainder < 131400) {
-          return "about " + distanceInYears + " " + (distanceInYears === 1 ? 'year' : 'years');
+          return t('about_x_years', distanceInYears);
         } else if (remainder < 394200) {
-          return "over " + distanceInYears + " " + (distanceInYears === 1 ? 'year' : 'years');
+          return t('over_x_years', distanceInYears);
         } else {
-          return "almost " + (distanceInYears + 1) + " years";
+          return t('almost_x_years', distanceInYears + 1);
         }
     }
   };
