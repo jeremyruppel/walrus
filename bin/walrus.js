@@ -496,7 +496,20 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 ;
 
-  Walrus.i18n = {};
+  Walrus.i18n = {
+    t: function(keypath, context) {
+      var string;
+      if (context == null) context = {};
+      try {
+        string = Walrus.Utils.keypath(keypath, this[this.locale]);
+        return Walrus.Utils.interpolate(string, context);
+      } catch (error) {
+        throw new Error("Missing translation: " + this.locale + "." + keypath);
+      }
+    },
+    locale: 'en',
+    en: {}
+  };
 
   Utils = {
     /**
