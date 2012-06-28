@@ -562,6 +562,23 @@ if (typeof module !== 'undefined' && require.main === module) {
       } else {
         return value;
       }
+    },
+    /**
+     * looks up a nested property on an object
+    */
+    keypath: function(path, object) {
+      return this.reduce(path.split('.'), object, function(memo, key) {
+        return memo[key];
+      });
+    },
+    /**
+     * inserts values into a string
+    */
+    interpolate: function(string, context) {
+      if (context == null) context = {};
+      return string.replace(/%{(\w+)}/g, function(match, key) {
+        return context[key] || match;
+      });
     }
   };
 
