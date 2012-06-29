@@ -18,7 +18,7 @@ describe 'Walrus.i18n', ->
   describe 't', ->
 
     before -> Walrus.i18n.locale = 'en'
-    before -> Walrus.i18n.en.whatever = { greeting : 'Sup %{name}!' }
+    before -> Walrus.i18n.en.whatever = { greeting : 'Sup %{name}!', array : [ 1, 2, 3 ] }
 
     it 'should look up the proper value in the current locale', ->
       Walrus.i18n.t( 'whatever.greeting' ).should.equal( 'Sup %{name}!' )
@@ -26,19 +26,10 @@ describe 'Walrus.i18n', ->
     it 'should interpolate the context into the string if given', ->
       Walrus.i18n.t( 'whatever.greeting', name : 'broseph' ).should.equal( 'Sup broseph!' )
 
+    it 'should return the value straight up if not a string', ->
+      Walrus.i18n.t( 'whatever.array' ).should.eql [ 1, 2, 3 ]
+
     it 'should throw an error on a missing keypath', ->
       ( ->
         Walrus.i18n.t 'whatever.nothings.here'
-      ).should.throw( 'Missing translation: en.whatever.nothings.here' )
-
-  describe 'l', ->
-    before -> Walrus.i18n.locale = 'en'
-    before -> Walrus.i18n.en.whatever = [ 'one', 'two', 'three' ]
-
-    it 'should look up the proper value in the current locale', ->
-      Walrus.i18n.l( 'whatever' ).should.eql [ 'one', 'two', 'three' ]
-
-    it 'should throw an error on a missing keypath', ->
-      ( ->
-        Walrus.i18n.l 'whatever.nothings.here'
       ).should.throw( 'Missing translation: en.whatever.nothings.here' )

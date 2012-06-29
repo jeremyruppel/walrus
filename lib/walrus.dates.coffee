@@ -86,10 +86,10 @@ Walrus.addFilter 'strftime', ( dateish, format ) ->
   format.replace /%(.)/g, ( input ) =>
 
     switch input
-      when '%a' then Walrus.i18n.l( 'dates.abbr_daynames'   )[ date.getDay( )   ]
-      when '%A' then Walrus.i18n.l( 'dates.full_daynames'   )[ date.getDay( )   ]
-      when '%b' then Walrus.i18n.l( 'dates.abbr_monthnames' )[ date.getMonth( ) ]
-      when '%B' then Walrus.i18n.l( 'dates.full_monthnames' )[ date.getMonth( ) ]
+      when '%a' then Walrus.i18n.t( 'dates.abbr_daynames'   )[ date.getDay( )   ]
+      when '%A' then Walrus.i18n.t( 'dates.full_daynames'   )[ date.getDay( )   ]
+      when '%b' then Walrus.i18n.t( 'dates.abbr_monthnames' )[ date.getMonth( ) ]
+      when '%B' then Walrus.i18n.t( 'dates.full_monthnames' )[ date.getMonth( ) ]
       when '%D' then @strftime date, '%m/%d/%y'
       when '%d' then pad( date.getDate( ) )
       when '%e' then date.getDate( )

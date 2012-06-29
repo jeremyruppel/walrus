@@ -28,7 +28,7 @@
    *  {{ 36000 | :currency }} // => $36,000
   */
 
-  locale = Walrus.i18n.l('currencies');
+  locale = Walrus.i18n.t('currencies');
 
   if (typeof accounting !== "undefined" && accounting !== null) {
     accounting.settings.currency.symbol = locale.symbol;

@@ -20,7 +20,7 @@ separate = ( value, thousands, decimal ) ->
  *  {{ 36000 | :currency( '$', 2 ) }} // => $36,000.00
  *  {{ 36000 | :currency }} // => $36,000
 ###
-locale = Walrus.i18n.l 'currencies'
+locale = Walrus.i18n.t 'currencies'
 
 if accounting?
   accounting.settings.currency.symbol    = locale.symbol

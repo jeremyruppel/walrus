@@ -1,6 +1,6 @@
 
 /**
- * walrus 0.8.1
+ * walrus 0.8.2
  * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
  * Released under the MIT license.
@@ -15,7 +15,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.8.1'
+    VERSION: '0.8.2'
     /**
      * This object will get mixed in to every object
      * passed to a compiled template. This is a good
@@ -514,25 +514,24 @@ if (typeof module !== 'undefined' && require.main === module) {
      * optionally interpolating values from `context`
     */
     t: function(keypath, context) {
-      var string;
+      var value;
       if (context == null) context = {};
       try {
-        string = Walrus.Utils.keypath(keypath, Walrus.i18n[Walrus.i18n.locale]);
-        return Walrus.Utils.interpolate(string, context);
+        value = Walrus.Utils.keypath(keypath, Walrus.i18n[Walrus.i18n.locale]);
+        if (typeof value === 'string') {
+          return Walrus.Utils.interpolate(value, context);
+        } else {
+          return value;
+        }
       } catch (error) {
         throw new Error("Missing translation: " + Walrus.i18n.locale + "." + keypath);
       }
     },
     /**
-     * returns the raw value for the current locale at `keypath`
+     * default en translations
+     * TODO this hash should probably be opt-in, either explicitly
+     * or by breaking it up and including each portion with its filter bundle
     */
-    l: function(keypath) {
-      try {
-        return Walrus.Utils.keypath(keypath, Walrus.i18n[Walrus.i18n.locale]);
-      } catch (error) {
-        throw new Error("Missing translation: " + Walrus.i18n.locale + "." + keypath);
-      }
-    },
     en: {
       currencies: {
         symbol: '$',

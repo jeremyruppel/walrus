@@ -10,20 +10,19 @@ Walrus.i18n = {
   ###
   t : ( keypath, context={} ) ->
     try
-      string = Walrus.Utils.keypath keypath, Walrus.i18n[ Walrus.i18n.locale ]
-      Walrus.Utils.interpolate string, context
+      value = Walrus.Utils.keypath keypath, Walrus.i18n[ Walrus.i18n.locale ]
+      if typeof value is 'string'
+        Walrus.Utils.interpolate value, context
+      else
+        value
     catch error
       throw new Error "Missing translation: #{Walrus.i18n.locale}.#{keypath}"
 
   ###*
-   * returns the raw value for the current locale at `keypath`
+   * default en translations
+   * TODO this hash should probably be opt-in, either explicitly
+   * or by breaking it up and including each portion with its filter bundle
   ###
-  l : ( keypath ) ->
-    try
-      Walrus.Utils.keypath keypath, Walrus.i18n[ Walrus.i18n.locale ]
-    catch error
-      throw new Error "Missing translation: #{Walrus.i18n.locale}.#{keypath}"
-
   en :
     currencies :
       symbol    : '$'

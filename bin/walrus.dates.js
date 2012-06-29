@@ -95,13 +95,13 @@
     return format.replace(/%(.)/g, function(input) {
       switch (input) {
         case '%a':
-          return Walrus.i18n.l('dates.abbr_daynames')[date.getDay()];
+          return Walrus.i18n.t('dates.abbr_daynames')[date.getDay()];
         case '%A':
-          return Walrus.i18n.l('dates.full_daynames')[date.getDay()];
+          return Walrus.i18n.t('dates.full_daynames')[date.getDay()];
         case '%b':
-          return Walrus.i18n.l('dates.abbr_monthnames')[date.getMonth()];
+          return Walrus.i18n.t('dates.abbr_monthnames')[date.getMonth()];
         case '%B':
-          return Walrus.i18n.l('dates.full_monthnames')[date.getMonth()];
+          return Walrus.i18n.t('dates.full_monthnames')[date.getMonth()];
         case '%D':
           return _this.strftime(date, '%m/%d/%y');
         case '%d':
