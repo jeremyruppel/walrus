@@ -1,0 +1,1 @@
+<p>{{ t( 'spec.interpolation', . )}}</p>

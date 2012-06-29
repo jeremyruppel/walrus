@@ -1,6 +1,6 @@
 
 /**
- * walrus 0.8.0
+ * walrus 0.8.1
  * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
  * Released under the MIT license.
@@ -15,8 +15,16 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.8.0'
+    VERSION: '0.8.1'
+    /**
+     * This object will get mixed in to every object
+     * passed to a compiled template. This is a good
+     * place to put any methods you need to access
+     * in all of your templates.
+    */
   };
+
+  Walrus.Context = {};
 
   
 /* Jison generated parser */
@@ -509,10 +517,10 @@ if (typeof module !== 'undefined' && require.main === module) {
       var string;
       if (context == null) context = {};
       try {
-        string = Walrus.Utils.keypath(keypath, this[this.locale]);
+        string = Walrus.Utils.keypath(keypath, Walrus.i18n[Walrus.i18n.locale]);
         return Walrus.Utils.interpolate(string, context);
       } catch (error) {
-        throw new Error("Missing translation: " + this.locale + "." + keypath);
+        throw new Error("Missing translation: " + Walrus.i18n.locale + "." + keypath);
       }
     },
     /**
@@ -520,9 +528,9 @@ if (typeof module !== 'undefined' && require.main === module) {
     */
     l: function(keypath) {
       try {
-        return Walrus.Utils.keypath(keypath, this[this.locale]);
+        return Walrus.Utils.keypath(keypath, Walrus.i18n[Walrus.i18n.locale]);
       } catch (error) {
-        throw new Error("Missing translation: " + this.locale + "." + keypath);
+        throw new Error("Missing translation: " + Walrus.i18n.locale + "." + keypath);
       }
     },
     en: {
@@ -585,6 +593,12 @@ if (typeof module !== 'undefined' && require.main === module) {
       }
     }
   };
+
+  /**
+   * Allow Walrus.Context to use the `t` method
+  */
+
+  Walrus.Context.t = Walrus.i18n.t;
 
   Utils = {
     /**
@@ -758,6 +772,7 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
 
     DocumentNode.prototype.compile = function(context) {
+      Walrus.Utils.extend(context, Walrus.Context);
       return DocumentNode.__super__.compile.call(this, context, context, false);
     };
 

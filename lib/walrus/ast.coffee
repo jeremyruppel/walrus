@@ -34,7 +34,11 @@ class AST.JoinedNodeCollection extends AST.NodeCollection
  * The root node of the document. Defaults to escaping its content.
 ###
 class AST.DocumentNode extends AST.JoinedNodeCollection
-  compile : ( context ) -> super context, context, false
+  compile : ( context ) ->
+
+    Walrus.Utils.extend context, Walrus.Context
+
+    super context, context, false
 
 ###*
  * AST.ContentNode

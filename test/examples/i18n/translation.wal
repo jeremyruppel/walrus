@@ -1,0 +1,1 @@
+<p>Translation? {{ t( 'spec.translation' ) }}</p>

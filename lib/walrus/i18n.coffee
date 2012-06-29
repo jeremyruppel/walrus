@@ -10,19 +10,19 @@ Walrus.i18n = {
   ###
   t : ( keypath, context={} ) ->
     try
-      string = Walrus.Utils.keypath keypath, @[ @locale ]
+      string = Walrus.Utils.keypath keypath, Walrus.i18n[ Walrus.i18n.locale ]
       Walrus.Utils.interpolate string, context
     catch error
-      throw new Error "Missing translation: #{@locale}.#{keypath}"
+      throw new Error "Missing translation: #{Walrus.i18n.locale}.#{keypath}"
 
   ###*
    * returns the raw value for the current locale at `keypath`
   ###
   l : ( keypath ) ->
     try
-      Walrus.Utils.keypath keypath, @[ @locale ]
+      Walrus.Utils.keypath keypath, Walrus.i18n[ Walrus.i18n.locale ]
     catch error
-      throw new Error "Missing translation: #{@locale}.#{keypath}"
+      throw new Error "Missing translation: #{Walrus.i18n.locale}.#{keypath}"
 
   en :
     currencies :
@@ -79,3 +79,8 @@ Walrus.i18n = {
           other : 'almost %{count} years'
 
 }
+
+###*
+ * Allow Walrus.Context to use the `t` method
+###
+Walrus.Context.t = Walrus.i18n.t

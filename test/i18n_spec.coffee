@@ -1,8 +1,16 @@
 require '../bin/walrus'
 
 should = require 'should'
+helper = require './support/test_helpers'
 
 describe 'Walrus.i18n', ->
+  before ->
+    Walrus.i18n.en.spec = {
+      translation   : 'Yup this works'
+      interpolation : 'Why, hello %{name}!'
+    }
+
+  helper.pass './test/examples/i18n'
 
   describe 'locale', ->
     it 'should be defined', -> should.exist Walrus.i18n.locale
