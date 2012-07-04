@@ -47,16 +47,16 @@ The **walrus** core contains the walrus parser/compiler, several common helpers 
 
 Like other [jison][jison]-based parsers, templating with **walrus** is a two-step process.
 
-First, grab your template and compile it:
+First, grab your template and parse it:
 
 ``` js
-var compiledTemplate = Walrus.Parser.parse( $( '#my-template' ).html( ) );
+var template = Walrus.Parser.parse( $( '#my-template' ).html( ) );
 ```
 
-`compiledTemplate` is a JavaScript object ready to accept a view object and kick out some text.
+`template` is a JavaScript object ready to accept a view object and kick out some text.
 
 ``` js
-var htmlGoodness = compiledTemplate.compile( { data : 'foo bar baz' } );
+var htmlGoodness = template.compile( { data : 'foo bar baz' } );
 ```
 
 ### Paths
@@ -170,6 +170,11 @@ or falsiness respectively.
 {{end}}
 ```
 
+> While in an `:each` block, you can use the following special variables:
+> 	`$index` provides the index of the current item in the collection
+> 	`$length` provides the length of the collection
+>		`$parent` provides access to the parent object of the collection
+
 > Like several other templating solutions, you can implicitly iterate over a collection of values, like strings, and template in the current value with `{{.}}`.
 
 ### :with
@@ -181,6 +186,9 @@ or falsiness respectively.
 <p>Captain: {{name}}</p>
 {{end}}
 ```
+
+> While in a `:with` block, you can use the following special variables:
+>		`$parent` provides access to the parent object of the context
 
 ## Core Filters
 
