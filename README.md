@@ -171,10 +171,13 @@ or falsiness respectively.
 ```
 
 > While in an `:each` block, you can use the following special variables:
-> 	`$index` provides the index of the current item in the collection
-> 	`$length` provides the length of the collection
->		`$parent` provides access to the parent object of the collection
-
+>
+> **$index** provides the index of the current item in the collection
+>
+> **$length** provides the length of the collection
+>
+>	**$parent** provides access to the parent object of the collection
+>
 > Like several other templating solutions, you can implicitly iterate over a collection of values, like strings, and template in the current value with `{{.}}`.
 
 ### :with
@@ -188,7 +191,8 @@ or falsiness respectively.
 ```
 
 > While in a `:with` block, you can use the following special variables:
->		`$parent` provides access to the parent object of the context
+>
+> **$parent** provides access to the parent object of the context
 
 ## Core Filters
 
