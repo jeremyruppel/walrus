@@ -21,7 +21,7 @@
     "client side",
     "action view"
   ],
-  "main": "./lib/walrus",
+  "main": "./bin/walrus",
   "dependencies": {},
   "devDependencies": {
     "jison"         : "0.3.2",
