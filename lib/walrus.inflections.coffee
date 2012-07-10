@@ -1,4 +1,4 @@
-Walrus = (global ? @).Walrus
+{Walrus} = (if exports? then require('./walrus') else @)
 
 ###*
  * Plenty of the methods in `walrus.inflections` are borrowed from or inspired by ActiveSupport:

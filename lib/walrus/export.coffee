@@ -7,4 +7,4 @@ Walrus.Parser.parser.yy = Walrus.AST
 ###*
  * Export
 ###
-(global ? @).Walrus = Walrus
+(exports ? @).Walrus = Walrus

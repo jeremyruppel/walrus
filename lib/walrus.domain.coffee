@@ -1,4 +1,4 @@
-Walrus = (global ? @).Walrus
+{Walrus} = (if exports? then require('./walrus') else @)
 
 ###*
  * Create a namespace for all of our domain methods

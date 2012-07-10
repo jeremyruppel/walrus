@@ -1,6 +1,6 @@
 
 /**
- * walrus 0.8.3
+ * walrus 0.9.0
  * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
  * Released under the MIT license.
@@ -15,7 +15,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.8.3'
+    VERSION: '0.9.0'
     /**
      * This object will get mixed in to every object
      * passed to a compiled template. This is a good
@@ -1271,6 +1271,6 @@ if (typeof module !== 'undefined' && require.main === module) {
    * Export
   */
 
-  (typeof global !== "undefined" && global !== null ? global : this).Walrus = Walrus;
+  (typeof exports !== "undefined" && exports !== null ? exports : this).Walrus = Walrus;
 
 }).call(this);

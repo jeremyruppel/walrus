@@ -1,7 +1,7 @@
 (function() {
   var Walrus;
 
-  Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
+  Walrus = (typeof exports !== "undefined" && exports !== null ? require('./walrus') : this).Walrus;
 
   /**
    * Create a namespace for all of our domain methods

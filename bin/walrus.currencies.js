@@ -1,7 +1,7 @@
 (function() {
   var Walrus, locale, separate;
 
-  Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
+  Walrus = (typeof exports !== "undefined" && exports !== null ? require('./walrus') : this).Walrus;
 
   separate = function(value, thousands, decimal) {
     var fraction, whole, _ref;

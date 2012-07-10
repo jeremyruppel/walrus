@@ -2,7 +2,7 @@
   var Walrus, gsub, inflect, pluralize, plurals, singularize, singulars, uncountables,
     __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  Walrus = (typeof global !== "undefined" && global !== null ? global : this).Walrus;
+  Walrus = (typeof exports !== "undefined" && exports !== null ? require('./walrus') : this).Walrus;
 
   /**
    * Plenty of the methods in `walrus.inflections` are borrowed from or inspired by ActiveSupport:

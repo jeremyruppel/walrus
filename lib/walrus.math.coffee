@@ -1,4 +1,4 @@
-Walrus = (global ? @).Walrus
+{Walrus} = (if exports? then require('./walrus') else @)
 
 ###*
  * *:plus*

@@ -1,4 +1,5 @@
-require '../bin/walrus'
+{Walrus} = require '../bin/walrus'
+
 require '../bin/walrus.strings'
 
 should = require 'should'
