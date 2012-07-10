@@ -1,0 +1,4 @@
+<h1>{{first | :titleize}}</h1>
+<h1>{{second | :titleize}}</h1>
+<h1>{{third | :titleize}}</h1>
+<h1>{{fourth | :titleize}}</h1>
