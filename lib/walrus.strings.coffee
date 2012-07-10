@@ -87,11 +87,9 @@ Walrus.addFilter 'truncate', ( string, length, separator=false, omission='...' )
  *  "raiders_of_the_lost_ark".titleize  // => "Raiders Of The Lost Ark"
 ###
 Walrus.addFilter 'titleize', ( string ) ->
-  string = string.replace(/[ \-_]+/g, ' ')
-  words = string.replace(/([A-Z])/g, " $&").trim().split(' ');
+  title = string.replace /[ \-_]+/g, ' '
+  words = Walrus.Utils.trim( title.replace /([A-Z])/g, " $&" ).split ' '
 
-  newWords = words.map ( word ) ->
+  capitalize = ( word ) -> word.charAt( 0 ).toUpperCase( ) + word.slice( 1 )
 
-  	word.charAt(0).toUpperCase() + word.substr(1, word.length - 1)
-
-  newWords.join(' ')
+  ( capitalize word for word in words ).join ' '

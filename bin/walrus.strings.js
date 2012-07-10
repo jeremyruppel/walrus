@@ -107,13 +107,21 @@
   */
 
   Walrus.addFilter('titleize', function(string) {
-    var newWords, words;
-    string = string.replace(/[ \-_]+/g, ' ');
-    words = string.replace(/([A-Z])/g, " $&").trim().split(' ');
-    newWords = words.map(function(word) {
-      return word.charAt(0).toUpperCase() + word.substr(1, word.length - 1);
-    });
-    return newWords.join(' ');
+    var capitalize, title, word, words;
+    title = string.replace(/[ \-_]+/g, ' ');
+    words = Walrus.Utils.trim(title.replace(/([A-Z])/g, " $&")).split(' ');
+    capitalize = function(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    };
+    return ((function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = words.length; _i < _len; _i++) {
+        word = words[_i];
+        _results.push(capitalize(word));
+      }
+      return _results;
+    })()).join(' ');
   });
 
 }).call(this);
