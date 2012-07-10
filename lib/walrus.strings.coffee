@@ -81,10 +81,10 @@ Walrus.addFilter 'truncate', ( string, length, separator=false, omission='...' )
  *
  * Usage:
  *
- *  "man from the boondocks".titleize   // => "Man From The Boondocks"
- *  "x-men: the last stand".titleize    // => "X Men: The Last Stand"
- *  "TheManWithoutAPast".titleize       // => "The Man Without A Past"
- *  "raiders_of_the_lost_ark".titleize  // => "Raiders Of The Lost Ark"
+ *  { "man from the boondocks" | :titleize }   // => "Man From The Boondocks"
+ *  { "x-men: the last stand" | :titleize }    // => "X Men: The Last Stand"
+ *  { "TheManWithoutAPast" | :titleize }       // => "The Man Without A Past"
+ *  { "raiders_of_the_lost_ark" | :titleize }  // => "Raiders Of The Lost Ark"
 ###
 Walrus.addFilter 'titleize', ( string ) ->
   title = string.replace /[ \-_]+/g, ' '

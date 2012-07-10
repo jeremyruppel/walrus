@@ -730,6 +730,19 @@ Usage:
 
 	{{ "Once upon a time in a world far far away" | :truncate( 27, ' ' ) }} <!-- Once upon a time in a... -->
 
+### :titleize
+
+Capitalizes all words within a string
+
+Parameters: none
+
+Usage:
+
+	{ "man from the boondocks" | :titleize }   // => "Man From The Boondocks"
+	{ "x-men: the last stand" | :titleize }    // => "X Men: The Last Stand"
+	{ "TheManWithoutAPast" | :titleize }       // => "The Man Without A Past"
+	{ "raiders_of_the_lost_ark" | :titleize }  // => "Raiders Of The Lost Ark"
+
 ## Mad Props
 
 If Walrus isn't quite your style, one of these other fine looks might suit you:
@@ -748,6 +761,7 @@ be half as helpful to developers as ActiveSupport has been, it'll be a great suc
 
 - [Eddie Leffler](https://github.com/hershmire)
 - [Curtis Steckel](https://github.com/steckel)
+- [Grant Klinsing](https://github.com/kagd)
 
 ## License
 

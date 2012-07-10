@@ -3,10 +3,11 @@
   "author": "Jeremy Ruppel",
   "contributors": [
     { "name": "Eddie Leffler" },
-    { "name": "Curtis Steckel" }
+    { "name": "Curtis Steckel" },
+    { "name": "Grant Klinsing" }
   ],
   "description": "A bolder kind of mustache.",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "repository": {
     "url": "https://github.com/jeremyruppel/walrus"
   },
