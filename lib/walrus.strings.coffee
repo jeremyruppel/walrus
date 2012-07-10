@@ -72,3 +72,24 @@ Walrus.addFilter 'truncate', ( string, length, separator=false, omission='...' )
   stop = if separator then string.lastIndexOf( separator, chars ) || chars else chars
 
   return if string.length > length then string.substr( 0, stop ) + omission else string
+
+###*
+ * *:titleize*
+ * Capitalizes all words within a string
+ *
+ * Parameters: none
+ *
+ * Usage:
+ *
+ *  "man from the boondocks".titleize   // => "Man From The Boondocks"
+ *  "x-men: the last stand".titleize    // => "X Men: The Last Stand"
+ *  "TheManWithoutAPast".titleize       // => "The Man Without A Past"
+ *  "raiders_of_the_lost_ark".titleize  // => "Raiders Of The Lost Ark"
+###
+Walrus.addFilter 'titleize', ( string ) ->
+  title = string.replace /[ \-_]+/g, ' '
+  words = Walrus.Utils.trim( title.replace /([A-Z])/g, " $&" ).split ' '
+
+  capitalize = ( word ) -> word.charAt( 0 ).toUpperCase( ) + word.slice( 1 )
+
+  ( capitalize word for word in words ).join ' '

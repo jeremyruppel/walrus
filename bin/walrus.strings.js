@@ -92,4 +92,36 @@
     }
   });
 
+  /**
+   * *:titleize*
+   * Capitalizes all words within a string
+   *
+   * Parameters: none
+   *
+   * Usage:
+   *
+   *  "man from the boondocks".titleize   // => "Man From The Boondocks"
+   *  "x-men: the last stand".titleize    // => "X Men: The Last Stand"
+   *  "TheManWithoutAPast".titleize       // => "The Man Without A Past"
+   *  "raiders_of_the_lost_ark".titleize  // => "Raiders Of The Lost Ark"
+  */
+
+  Walrus.addFilter('titleize', function(string) {
+    var capitalize, title, word, words;
+    title = string.replace(/[ \-_]+/g, ' ');
+    words = Walrus.Utils.trim(title.replace(/([A-Z])/g, " $&")).split(' ');
+    capitalize = function(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    };
+    return ((function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = words.length; _i < _len; _i++) {
+        word = words[_i];
+        _results.push(capitalize(word));
+      }
+      return _results;
+    })()).join(' ');
+  });
+
 }).call(this);
