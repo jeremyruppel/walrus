@@ -1,37 +1,36 @@
 {Walrus} = require '../bin/walrus'
-
-should = require 'should'
+{expect} = require 'chai'
 
 describe 'Walrus.Utils', ->
 
-  it 'should be defined', -> should.exist Walrus.Utils
+  it 'should be defined', -> expect( Walrus.Utils ).to.be.ok
 
   describe '#trim', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.trim
+    it 'should be defined', -> expect( Walrus.Utils.trim ).to.be.ok
 
     it 'should trim leading whitespace', ->
-      Walrus.Utils.trim( '   foo' ).should.equal 'foo'
+      expect( Walrus.Utils.trim( '   foo' ) ).to.equal 'foo'
 
     it 'should trim trailing whitespace', ->
-      Walrus.Utils.trim( 'foo   ' ).should.equal 'foo'
+      expect( Walrus.Utils.trim( 'foo   ' ) ).to.equal 'foo'
 
     it 'should trim leading and trailing whitespace', ->
-      Walrus.Utils.trim( '  foo  ' ).should.equal 'foo'
+      expect( Walrus.Utils.trim( '  foo  ' ) ).to.equal 'foo'
 
     it 'should leave internal whitespace alone', ->
-      Walrus.Utils.trim( 'foo   bar' ).should.equal 'foo   bar'
+      expect( Walrus.Utils.trim( 'foo   bar' ) ).to.equal 'foo   bar'
 
     it 'should trim newlines', ->
-      Walrus.Utils.trim( """
+      expect( Walrus.Utils.trim( """
 
       foo
 
-      """ ).should.equal 'foo'
+      """ ) ).to.equal 'foo'
 
   describe '#reduce', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.reduce
+    it 'should be defined', -> expect( Walrus.Utils.reduce ).to.be.ok
 
     it 'should reduce the list into a single value', ->
 
@@ -39,35 +38,35 @@ describe 'Walrus.Utils', ->
       memo   = 1
       method = ( memo, item ) -> memo + item
 
-      Walrus.Utils.reduce( array, memo, method ).should.equal 7
+      expect( Walrus.Utils.reduce( array, memo, method ) ).to.equal 7
 
   describe '#toString', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.toString
+    it 'should be defined', -> expect( Walrus.Utils.toString ).to.be.ok
 
     it 'should correctly identify an array', ->
 
-      Walrus.Utils.toString( [ ] ).should.equal '[object Array]'
+      expect( Walrus.Utils.toString( [ ] ) ).to.equal '[object Array]'
 
     it 'should correctly identify an object', ->
 
-      Walrus.Utils.toString( { } ).should.equal '[object Object]'
+      expect( Walrus.Utils.toString( { } ) ).to.equal '[object Object]'
 
   describe '#isArray', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.isArray
+    it 'should be defined', -> expect( Walrus.Utils.isArray ).to.be.ok
 
     it 'should return true for an array', ->
 
-      Walrus.Utils.isArray( [ ] ).should.be.true
+      expect( Walrus.Utils.isArray( [ ] ) ).to.be.true
 
     it 'should return false for an object', ->
 
-      Walrus.Utils.isArray( { } ).should.be.false
+      expect( Walrus.Utils.isArray( { } ) ).to.be.false
 
   describe '#extend', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.extend
+    it 'should be defined', -> expect( Walrus.Utils.extend ).to.be.ok
 
     it 'should apply all properties from one object to another', ->
 
@@ -76,50 +75,50 @@ describe 'Walrus.Utils', ->
 
       Walrus.Utils.extend foo, bar
 
-      foo.a.should.equal 456
-      foo.b.should.equal 'asdf'
-      foo.c.should.equal 'qwer'
+      expect( foo.a ).to.equal 456
+      expect( foo.b ).to.equal 'asdf'
+      expect( foo.c ).to.equal 'qwer'
 
   describe '#escape', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.escape
+    it 'should be defined', -> expect( Walrus.Utils.escape ).to.be.ok
 
-    it 'should escape ampersands',           -> Walrus.Utils.escape( '&' ).should.equal '&amp;'
-    it 'should escape single quotes',        -> Walrus.Utils.escape( "'" ).should.equal '&#x27;'
-    it 'should escape double quotes',        -> Walrus.Utils.escape( '"' ).should.equal '&quot;'
-    it 'should escape left angle brackets',  -> Walrus.Utils.escape( '<' ).should.equal '&lt;'
-    it 'should escape right angle brackets', -> Walrus.Utils.escape( '>' ).should.equal '&gt;'
+    it 'should escape ampersands',           -> expect( Walrus.Utils.escape( '&' ) ).to.equal '&amp;'
+    it 'should escape single quotes',        -> expect( Walrus.Utils.escape( "'" ) ).to.equal '&#x27;'
+    it 'should escape double quotes',        -> expect( Walrus.Utils.escape( '"' ) ).to.equal '&quot;'
+    it 'should escape left angle brackets',  -> expect( Walrus.Utils.escape( '<' ) ).to.equal '&lt;'
+    it 'should escape right angle brackets', -> expect( Walrus.Utils.escape( '>' ) ).to.equal '&gt;'
 
     it 'should simply pass back values that are not strings', ->
-      Walrus.Utils.escape( 123 ).should.equal 123
+      expect( Walrus.Utils.escape( 123 ) ).to.equal 123
 
     it 'should simply pass back `undefined`', ->
-      should.equal Walrus.Utils.escape( undefined ), undefined
+      expect( Walrus.Utils.escape( undefined ) ).to.equal undefined
 
     it 'should simply pass back `null`', ->
-      should.equal Walrus.Utils.escape( null ), null
+      expect( Walrus.Utils.escape( null ) ).to.equal null
 
   describe '#keypath', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.keypath
+    it 'should be defined', -> expect( Walrus.Utils.keypath ).to.be.ok
 
     it 'should retrieve the value of a deeply nested property', ->
 
       foo = { bar : { baz : 'woot' } }
 
-      Walrus.Utils.keypath( 'bar.baz', foo ).should.equal 'woot'
+      expect( Walrus.Utils.keypath( 'bar.baz', foo ) ).to.equal 'woot'
 
   describe '#interpolate', ->
 
-    it 'should be defined', -> should.exist Walrus.Utils.interpolate
+    it 'should be defined', -> expect( Walrus.Utils.interpolate ).to.be.ok
 
     before -> @context = foo : 'foo!', bar : 'bar!'
 
     it 'should fill in the named values', ->
-      Walrus.Utils.interpolate( 'sup %{foo}?', @context ).should.equal 'sup foo!?'
+      expect( Walrus.Utils.interpolate( 'sup %{foo}?', @context ) ).to.equal 'sup foo!?'
 
     it 'should fill in a value more than once', ->
-      Walrus.Utils.interpolate( '%{foo} %{foo}', @context ).should.equal 'foo! foo!'
+      expect( Walrus.Utils.interpolate( '%{foo} %{foo}', @context ) ).to.equal 'foo! foo!'
 
     it 'should ignore missing keys', ->
-      Walrus.Utils.interpolate( '%{foo} %{wut}', @context ).should.equal 'foo! %{wut}'
+      expect( Walrus.Utils.interpolate( '%{foo} %{wut}', @context ) ).to.equal 'foo! %{wut}'

@@ -1,13 +1,12 @@
 {Walrus} = require '../bin/walrus'
+{expect} = require 'chai'
+helper   = require './support/test_helpers'
 
 require '../bin/walrus.domain'
 
-should = require 'should'
-helper = require './support/test_helpers'
-
 describe 'Walrus.Domain', ->
 
-  it 'should be defined', -> should.exist Walrus.Domain
+  it 'should be defined', -> expect( Walrus.Domain ).to.be.ok
 
   # test domain helper methods
 

@@ -1,7 +1,6 @@
 {Walrus} = require '../bin/walrus'
-
-should = require 'should'
-helper = require './support/test_helpers'
+{expect} = require 'chai'
+helper   = require './support/test_helpers'
 
 describe 'Walrus.i18n', ->
   before ->
@@ -13,7 +12,7 @@ describe 'Walrus.i18n', ->
   helper.pass './test/examples/i18n'
 
   describe 'locale', ->
-    it 'should be defined', -> should.exist Walrus.i18n.locale
+    it 'should be defined', -> expect( Walrus.i18n.locale ).to.be.ok
 
   describe 't', ->
 
@@ -21,15 +20,15 @@ describe 'Walrus.i18n', ->
     before -> Walrus.i18n.en.whatever = { greeting : 'Sup %{name}!', array : [ 1, 2, 3 ] }
 
     it 'should look up the proper value in the current locale', ->
-      Walrus.i18n.t( 'whatever.greeting' ).should.equal( 'Sup %{name}!' )
+      expect( Walrus.i18n.t( 'whatever.greeting' ) ).to.equal( 'Sup %{name}!' )
 
     it 'should interpolate the context into the string if given', ->
-      Walrus.i18n.t( 'whatever.greeting', name : 'broseph' ).should.equal( 'Sup broseph!' )
+      expect( Walrus.i18n.t( 'whatever.greeting', name : 'broseph' ) ).to.equal( 'Sup broseph!' )
 
     it 'should return the value straight up if not a string', ->
-      Walrus.i18n.t( 'whatever.array' ).should.eql [ 1, 2, 3 ]
+      expect( Walrus.i18n.t( 'whatever.array' ) ).to.eql [ 1, 2, 3 ]
 
     it 'should throw an error on a missing keypath', ->
-      ( ->
+      expect( ->
         Walrus.i18n.t 'whatever.nothings.here'
-      ).should.throw( 'Missing translation: en.whatever.nothings.here' )
+      ).to.throw( 'Missing translation: en.whatever.nothings.here' )

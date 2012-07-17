@@ -1,8 +1,8 @@
 {Walrus} = require '../../bin/walrus'
 
-fs     = require 'fs'
-dir    = require 'path'
-should = require 'should'
+fs       = require 'fs'
+dir      = require 'path'
+{expect} = require 'chai'
 
 TestHelpers =
 
@@ -47,6 +47,6 @@ TestHelpers =
 
           comp = tmpl.compile( eval( "(#{spec.json})" ) )
 
-          comp.should.eql spec.html
+          expect( comp ).to.eql spec.html
 
 module.exports = TestHelpers

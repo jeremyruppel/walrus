@@ -1,8 +1,6 @@
 {Walrus} = require '../bin/walrus'
+helper   = require './support/test_helpers'
 
 require '../bin/walrus.strings'
-
-should = require 'should'
-helper = require './support/test_helpers'
 
 describe 'Walrus.Strings', -> helper.pass './test/examples/strings'
