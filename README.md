@@ -372,6 +372,22 @@ var numbers = [ 1, 2, 3, 4, 5 ];
 {{ numbers | :empty }} <!-- false -->
 ```
 
+### :in_groups_of
+
+Splits the given array into sub-arrays with at most `count` items apiece
+
+Parameters:
+
+  count - the number of items to be placed in each group
+
+Usage:
+
+``` html
+var numbers = [ 1, 2, 3, 4, 5 ];
+
+{{ :each numbers | :in_groups_of( 3 ) }}  <!-- [ [ 1, 2, 3 ], [ 4, 5 ] ] -->
+```
+
 ## Walrus.Currencies
 
 `walrus.currencies` contains helpers and filters that are useful when working with dolla bills.

@@ -1,0 +1,7 @@
+{{ :each numbers | :in_groups_of( 3 ) do }}
+<ul>
+{{ :each . do }}
+<li>{{ . }}</li>
+{{ end }}
+</ul>
+{{ end }}

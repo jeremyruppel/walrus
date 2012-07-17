@@ -150,3 +150,24 @@ Walrus.addFilter 'sort', ( array, field ) ->
   else
     array.sort( )
 
+###*
+ * *:in_groups_of*
+ * Splits the given array into sub-arrays with at most `count` items apiece
+ *
+ * Parameters:
+ *  count - the number of items to be placed in each group
+ *
+ * Usage:
+ *
+ *  var numbers = [ 1, 2, 3, 4, 5 ];
+ *
+ *  {{ :each numbers | :in_groups_of( 3 ) }} // => [ [ 1, 2, 3 ], [ 4, 5 ] ]
+###
+Walrus.addFilter 'in_groups_of', ( array, count ) ->
+  Walrus.Utils.reduce array, [ [ ] ], ( memo, item ) ->
+    group = memo[ memo.length - 1 ]
+    if group.length < count
+      group.push item
+    else
+      memo.push [ item ]
+    memo

@@ -187,4 +187,31 @@
     }
   });
 
+  /**
+   * *:in_groups_of*
+   * Splits the given array into sub-arrays with at most `count` items apiece
+   *
+   * Parameters:
+   *  count - the number of items to be placed in each group
+   *
+   * Usage:
+   *
+   *  var numbers = [ 1, 2, 3, 4, 5 ];
+   *
+   *  {{ :each numbers | :in_groups_of( 3 ) }} // => [ [ 1, 2, 3 ], [ 4, 5 ] ]
+  */
+
+  Walrus.addFilter('in_groups_of', function(array, count) {
+    return Walrus.Utils.reduce(array, [[]], function(memo, item) {
+      var group;
+      group = memo[memo.length - 1];
+      if (group.length < count) {
+        group.push(item);
+      } else {
+        memo.push([item]);
+      }
+      return memo;
+    });
+  });
+
 }).call(this);
