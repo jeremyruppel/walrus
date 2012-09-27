@@ -2,8 +2,6 @@
 {expect} = require 'chai'
 helper   = require './support/test_helpers'
 
-require '../bin/walrus.domain'
-
 describe 'Walrus.Domain', ->
 
   it 'should be defined', -> expect( Walrus.Domain ).to.be.ok

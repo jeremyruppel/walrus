@@ -1,6 +1,6 @@
 
 /**
- * walrus 0.9.1
+ * walrus 0.10.0
  * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
  * Released under the MIT license.
@@ -15,7 +15,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.9.1'
+    VERSION: '0.10.0'
     /**
      * This object will get mixed in to every object
      * passed to a compiled template. This is a good
@@ -1158,6 +1158,34 @@ if (typeof module !== 'undefined' && require.main === module) {
     }
     return this.Filters[name] = fn;
   };
+
+  /**
+   * Create a namespace for all of our domain methods
+  */
+
+  Walrus.Domain = {};
+
+  /**
+   * *:as*
+   * Decorates a view object or collection of view objects with
+   * custom domain methods.
+   *
+   * Parameters:
+   *  name - The key for the object on `Walrus.Domain` to decorate with
+  */
+
+  Walrus.addFilter('as', function(value, name) {
+    var item, _i, _len;
+    if (Walrus.Utils.isArray(value)) {
+      for (_i = 0, _len = value.length; _i < _len; _i++) {
+        item = value[_i];
+        Walrus.Utils.extend(item, Walrus.Domain[name]);
+      }
+    } else {
+      Walrus.Utils.extend(value, Walrus.Domain[name]);
+    }
+    return value;
+  });
 
   /**
    * *:equals*

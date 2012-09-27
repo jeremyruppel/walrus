@@ -7,7 +7,7 @@
     { "name": "Grant Klinsing" }
   ],
   "description": "A bolder kind of mustache.",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "repository": {
     "url": "https://github.com/jeremyruppel/walrus"
   },
