@@ -171,3 +171,12 @@ Walrus.addFilter 'in_groups_of', ( array, count ) ->
     else
       memo.push [ item ]
     memo
+
+###*
+ * *enumerable* domain methods
+ * TODO document these
+###
+Walrus.Domain.enumerable =
+  first : -> @[ '$index' ] is 0
+  last  : -> @[ '$index' ] is @[ '$length' ] - 1
+  middle : -> not ( @first( ) || @last( ) )

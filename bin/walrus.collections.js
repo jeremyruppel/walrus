@@ -214,4 +214,21 @@
     });
   });
 
+  /**
+   * *enumerable* domain methods
+   * TODO document these
+  */
+
+  Walrus.Domain.enumerable = {
+    first: function() {
+      return this['$index'] === 0;
+    },
+    last: function() {
+      return this['$index'] === this['$length'] - 1;
+    },
+    middle: function() {
+      return !(this.first() || this.last());
+    }
+  };
+
 }).call(this);

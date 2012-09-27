@@ -1,6 +1,6 @@
 
 /**
- * walrus 0.10.0
+ * walrus 0.10.1
  * A bolder kind of mustache.
  * (c) 2012 Jeremy Ruppel
  * Released under the MIT license.
@@ -15,7 +15,7 @@
     __slice = Array.prototype.slice;
 
   Walrus = {
-    VERSION: '0.10.0'
+    VERSION: '0.10.1'
     /**
      * This object will get mixed in to every object
      * passed to a compiled template. This is a good

@@ -1,0 +1,5 @@
+<ul>
+{{ :each players | :as( 'enumerable' ) do }}
+  <li class='{{ "first" | :if( first( ) ) }}{{ "last" | :if( last( ) ) }}{{ "middle" | :if( middle( ) ) }}'>{{ firstName }} {{ lastName }}</li>
+{{ end }}
+</ul>
