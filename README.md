@@ -785,6 +785,6 @@ Walrus is released under the MIT license.
 [liquid]: http://liquidmarkup.org/
 [jison]: http://zaach.github.com/jison/
 [coffeescript]: http://coffeescript.org/
-[mocha]: http://visionmedia.github.com/mocha/
+[mocha]: http://mochajs.org/
 [activesupport]: http://as.rubyonrails.org/
 [actionpack]: https://github.com/rails/rails/tree/master/actionpack
